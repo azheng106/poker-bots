@@ -16,12 +16,28 @@ public:
     string name;
     bool isIn;
     vector<Card> hand;
+    int currentBet;
 
+    Player(int index) {
+        this->index = index;
+        isIn = true;
+        currentBet = 0;
+    }
     void bet(int amount) {
-        this->money -= amount;
+        money -= amount;
+        currentBet += amount;
+        cout << "Player " << name << " bets $" << amount << endl;
     }
     void winPot(int amount) {
-        this ->money += amount;
+        money += amount;
+        cout << "Player " << name << " wins $" << amount << "!" << endl;
+    }
+    void fold() {
+        isIn = false;
+        cout << "Player " << name << " folds." << endl;
+    }
+    void check() {
+        cout << "Player " << name << " checks." << endl;
     }
 };
 
