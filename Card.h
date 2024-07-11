@@ -10,7 +10,7 @@ using namespace std;
 
 class Card {
 public:
-    char value;
+    int value;
     char suit;
 };
 

@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/azhen/CLionProjects/PokerBots/cmake-build-debug",
-		"source" : "C:/Users/azhen/CLionProjects/PokerBots"
+		"build" : "C:/CS Projects/poker-bots/cmake-build-debug",
+		"source" : "C:/CS Projects/poker-bots"
 	},
 	"version" : 
 	{
