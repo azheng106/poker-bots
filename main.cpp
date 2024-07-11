@@ -4,8 +4,11 @@
 
 #include "Card.h"
 #include "Player.h"
-
+// ♣♦♥♠
 using namespace std;
+
+void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
+              vector<Player> *players, vector<Card> *communityCards);
 
 int main() {
     // Create random number generator
@@ -23,13 +26,11 @@ int main() {
     vector<Card> deck;
     char suits[4] = {'c', 'd', 'h', 's'};
 
-    // 11=J 12=Q 13=K 14=A
-    for (int i=2; i<=14; i++) {
+    for (int i=2; i<=14; i++) { // 11=J 12=Q 13=K 14=A
         for (int j=0; j<=3; j++) {
             Card card;
             card.value = i;
             card.suit = suits[j];
-
             deck.push_back(card);
         }
     }
@@ -37,7 +38,7 @@ int main() {
     // Initialize players
     vector<Player> players;
 
-    for (int i=1; i<=numPlayers; i++) {
+    for (int i=0; i<numPlayers; i++) {
         string name;
         cout << "Enter name for player " << i << endl;
         cin >> name;
@@ -55,13 +56,54 @@ int main() {
     uniform_int_distribution<> dis(0, numPlayers - 1);
 
     int dealer = dis(gen);
-    int smallBlind = dealer + 1;
-    int bigBlind = smallBlind + 1;
+    int smallBlind = (dealer + 1) % numPlayers;
+    int bigBlind = (smallBlind + 1) % numPlayers;
 
     // Deal cards
+    for (int i=0; i<2; i++) {
+        for (Player player : players) {
+            uniform_int_distribution<> dis(0, deck.size()-1);
+            int drawnCardIndex = dis(gen);
+            Card drawnCard = deck[drawnCardIndex];
+            deck.erase(deck.begin() + drawnCardIndex);
 
-
+            player.hand.push_back(drawnCard);
+        }
+    }
+    vector<Card> communityCards;
+    playHand(&dealer, &smallBlind, &bigBlind, &pot, &players, &communityCards);
     return 0;
 }
 
-//void playHand(int& dealerPos, int& pot, )
+void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
+              vector<Player> *players, vector<Card> *communityCards) {
+    int currentMinBet;
+    /*
+      If first turn, force small blind and big blind to post bets
+      Ask each player to fold, call, or raise
+      If no one has bet players can also check or bet
+      Show community cards after everyone has placed an equal bet
+     */
+    if (communityCards->empty()) {
+        cout << "Input small blind bet";
+        cin >> currentMinBet;
+        (*players[*smallBlind]).bet()
+    }
+}
+
+
+void findBestHand(vector<Card> communityCards, Player player) {
+//    order of hands:
+//    straight flush      - 10♦, 9♦, 8♦niggesh, 7♦, 6♦
+//    four of a kind      - Q♣, Q♦, Q♥, Q♠, 4♣
+//    full house          - A♦, A♥, A♠, 2♣, 2♥
+//    flush               - K♣, J♣, 7♣, 5♣, 3♣
+//    straight            - 10♣, 9♦, 8♥, 7♠, 6♣
+//    three of a kind     - Q♣, Q♦, Q♥, 8♠, 2♠
+//    two pairs           - 9♣, 9♦, 5♥, 5♥, 4♠
+//    one pair            - A♣, A♦, J♥, 10♥, 6♥
+//    no pair (nothing)   - 9♣, 8♣, 6♦, 3♦, 2♥
+
+// check no pair
+
+}

@@ -15,10 +15,14 @@ public:
     int index;
     string name;
     bool isIn;
+    vector<Card> hand;
+
     void bet(int amount) {
         this->money -= amount;
     }
-
+    void winPot(int amount) {
+        this ->money += amount;
+    }
 };
 
 
