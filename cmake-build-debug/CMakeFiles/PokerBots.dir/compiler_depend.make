@@ -182,7 +182,8 @@ CMakeFiles/PokerBots.dir/main.cpp.obj: C:/CS\ Projects/poker-bots/main.cpp \
   C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
   C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/wchar.h \
   C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/wctype.h \
-  C:/CS\ Projects/poker-bots/Card.h
+  C:/CS\ Projects/poker-bots/Card.h \
+  C:/CS\ Projects/poker-bots/Player.h
 
 
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/opt_random.h:
@@ -548,3 +549,5 @@ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/wctype.h:
 
 C:/CS\ Projects/poker-bots/Card.h:
+
+C:/CS\ Projects/poker-bots/Player.h:

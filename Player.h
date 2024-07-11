@@ -13,8 +13,9 @@ class Player {
 public:
     int money;
     int index;
-    Status status;
-    void bet(int const amount) {
+    string name;
+    bool isIn;
+    void bet(int amount) {
         this->money -= amount;
     }
 
