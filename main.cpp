@@ -68,11 +68,10 @@ vector<Player> setupPlayers(int stash) {
 /**
  * Distributes 2 cards to each player
  */
-auto distributeCards(vector<Player> players) {
-    vector<Card> deck = reshuffle();
+void distributeCards(vector<Player>* players, vector<Card> deck) {
 
     for (int i=0; i<2; i++) {
-        for (Player player : players) {
+        for (Player& player : *players) {
             int drawnCardIndex = randomInt(0, deck.size()-1);
             Card drawnCard = deck[drawnCardIndex];
             deck.erase(deck.begin() + drawnCardIndex);
@@ -80,8 +79,6 @@ auto distributeCards(vector<Player> players) {
             player.hand.push_back(drawnCard);
         }
     }
-
-    return {players, deck};
 }
 
 /**
@@ -114,6 +111,8 @@ int main() {
     int bigBlind = blinds[2];
 
     vector<Card> communityCards;
+    vector<Card> deck = reshuffle();
+    distributeCards(&players, deck);
     playHand(&dealer, &smallBlind, &bigBlind, &pot, &players, &communityCards, &deck);
     return 0;
 }
@@ -223,6 +222,6 @@ int findBestHand(vector<Card> communityCards, Player player) {
      */
     vector<Card> allCards = communityCards;
     allCards.insert(allCards.end(), player.hand.begin(), player.hand.end());
-
+    return -1;
 
 }

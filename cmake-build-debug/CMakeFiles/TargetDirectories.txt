@@ -1,3 +1,0 @@
-C:/Users/azhen/CLionProjects/poker-bots/cmake-build-debug/CMakeFiles/PokerBots.dir
-C:/Users/azhen/CLionProjects/poker-bots/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/azhen/CLionProjects/poker-bots/cmake-build-debug/CMakeFiles/rebuild_cache.dir
