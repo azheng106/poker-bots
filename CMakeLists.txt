@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(PokerBots main.cpp
         Player.cpp
         Player.h
-        Card.cpp)
+        Card.cpp
+        Util.cpp
+        Util.h)

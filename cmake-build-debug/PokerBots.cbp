@@ -94,6 +94,12 @@
 		<Unit filename="C:/CS Projects/poker-bots/Player.h">
 			<Option target="PokerBots"/>
 		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/Util.cpp">
+			<Option target="PokerBots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/Util.h">
+			<Option target="PokerBots"/>
+		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/main.cpp">
 			<Option target="PokerBots"/>
 		</Unit>

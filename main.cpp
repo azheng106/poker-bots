@@ -44,7 +44,7 @@ vector<Player> setupPlayers(int stash) {
 
     int numPlayers;
     do {
-        cout << "Input number of players (2-10): ";
+        cout << "Input number of players (2-10):" << endl;
         cin >> numPlayers;
     } while (numPlayers < 2 || numPlayers > 10);
 
@@ -66,16 +66,32 @@ vector<Player> setupPlayers(int stash) {
 /**
  * Distributes 2 cards to each player
  */
-void distributeCards(vector<Player>* players, vector<Card> deck) {
-
+void distributeCards(vector<Card> *deck, vector<Player> *players) {
     for (int i=0; i<2; i++) {
         for (Player& player : *players) {
-            int drawnCardIndex = randomInt(0, deck.size()-1);
-            Card drawnCard = deck[drawnCardIndex];
-            deck.erase(deck.begin() + drawnCardIndex);
-
+            int drawnCardIndex = randomInt(0, deck->size()-1);
+            Card drawnCard = (*deck)[drawnCardIndex];
+            deck->erase(deck->begin() + drawnCardIndex);
+            // ITS TRUE. white check mark
             player.hand.push_back(drawnCard);
         }
+    }
+}
+
+/**
+ * Distributes community cards
+ */
+void distributeCommunity(vector<Card> *deck, vector<Card> *communityCards) {
+    if (communityCards->empty()) {
+        for (int i=0; i<3; i++) {
+            int drawnCardIndex = randomInt(0, deck->size()-1);
+            communityCards->push_back((*deck)[drawnCardIndex]);
+            deck->erase(deck->begin() + drawnCardIndex);
+        }
+    } else if (communityCards->size() < 5)  {
+        int drawnCardIndex = randomInt(0, deck->size()-1);
+        communityCards->push_back((*deck)[drawnCardIndex]);
+        deck->erase(deck->begin() + drawnCardIndex);
     }
 }
 
@@ -110,7 +126,16 @@ int main() {
 
     vector<Card> communityCards;
     vector<Card> deck = reshuffle();
-    distributeCards(&players, deck);
+    distributeCards(&deck, &players);
+
+    // Print out everyone's cards
+    for (Player player : players) {
+        Card first = player.hand[0];
+        Card second = player.hand[1];
+
+        cout << "[DEBUG] Player " << player.name << " has " << first.value << first.suit << " and " << second.value << second.suit << endl;
+    }
+
     playHand(&dealer, &smallBlind, &bigBlind, &pot, &players, &communityCards, &deck);
     return 0;
 }
@@ -191,12 +216,7 @@ void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
     cout << "Pre flop betting round" << endl;
     bettingRound();
 
-    for (int i=0; i<3; i++) { // Put first 3 cards in flop
-        uniform_int_distribution<> dis(0, (*deck).size()-1);
-        int drawnCardIndex = randomInt(0, (*deck).size()-1);
-        communityCards->push_back((*deck)[drawnCardIndex]);
-        deck->erase(deck->begin() + drawnCardIndex);
-    }
+    distributeCommunity(deck, communityCards);
 
     for (auto& card : *communityCards) {
         cout << "Community Card: " << card.value << " of " << card.suit << endl;
@@ -207,19 +227,33 @@ void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
 int findBestHand(vector<Card> communityCards, Player player) {
     /*
      order of hands:
-     royal flush         - A♦, K♦, Q♦, J♦, 10♦
-     straight flush      - 10♦, 9♦, 8♦, 7♦, 6♦
-     four of a kind      - Q♣, Q♦, Q♥, Q♠, 4♣
-     full house          - A♦, A♥, A♠, 2♣, 2♥
-     flush               - K♣, J♣, 7♣, 5♣, 3♣
-     straight            - 10♣, 9♦, 8♥, 7♠, 6♣
-     three of a kind     - Q♣, Q♦, Q♥, 8♠, 2♠
-     two pairs           - 9♣, 9♦, 5♥, 5♥, 4♠
-     one pair            - A♣, A♦, J♥, 10♥, 6♥
-     high kard           - K♣, 8♣, 6♦, 3♦, 2♥
+     10 - royal flush         - A♦, K♦, Q♦, J♦, 10♦
+     9 - straight flush      - 10♦, 9♦, 8♦, 7♦, 6♦
+     8 - four of a kind      - Q♣, Q♦, Q♥, Q♠, 4♣
+     7 - full house          - A♦, A♥, A♠, 2♣, 2♥
+     6 - flush               - K♣, J♣, 7♣, 5♣, 3♣
+     5 - straight            - 10♣, 9♦, 8♥, 7♠, 6♣
+     4 - three of a kind     - Q♣, Q♦, Q♥, 8♠, 2♠
+     3 - two pairs           - 9♣, 9♦, 5♥, 5♥, 4♠
+     2 - one pair            - A♣, A♦, J♥, 10♥, 6♥
+     1 - high kard           - K♣, 8♣, 6♦, 3♦, 2♥
      */
     vector<Card> allCards = communityCards;
     allCards.insert(allCards.end(), player.hand.begin(), player.hand.end());
-    return -1;
+    int score = 100;
 
+    vector<vector<Card>> combinations;
+    for (int i = 0; i < allCards.size(); i++) {
+        for (int j = i + 1; j < allCards.size(); j++) {
+            for (int k = j + 1; k < allCards.size(); k++) {
+                for (int l = k + 1; l < allCards.size(); l++) {
+                    for (int m = l + 1; m < allCards.size(); m++) {
+                        vector<Card> combo = {allCards[i], allCards[j], allCards[k], allCards[l], allCards[m]};
+                        combinations.push_back(combo);
+                    }
+                }
+            }
+        }
+    }
+    return score;
 }

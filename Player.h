@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <iostream>
+#include <string>
 #include <vector>
 
 #include "Card.h"
@@ -19,11 +19,12 @@ public:
     vector<Card> hand;
 
     Player (int index);
-    void bet(int amount);
-    void winPot(int amount);
-    void fold();
-    void check();
+
+    void bet(int betAmount);
+    void win(int potAmount);
     void call(int amount);
+    void check();
+    void fold();
 };
 
 #endif
