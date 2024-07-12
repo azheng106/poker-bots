@@ -13,7 +13,6 @@ using namespace std;
 int randomInt(int a, int b) {
     random_device random;
     mt19937 gen(random());
-
     uniform_int_distribution<> dis(a, b);
     return dis(gen);
 }
@@ -24,7 +23,6 @@ int randomInt(int a, int b) {
 vector<Card> reshuffle() {
     vector<Card> deck;
     char suits[4] = {'c', 'd', 'h', 's'};
-
     // 11=J, 12=Q, 13=K, 14=A
     for (int i=2; i<=14; i++) {
         for (int j=0; j<=3; j++) {
@@ -41,13 +39,11 @@ vector<Card> reshuffle() {
  */
 vector<Player> setupPlayers(int stash) {
     vector<Player> players;
-
     int numPlayers;
     do {
         cout << "Input number of players (2-10):" << endl;
         cin >> numPlayers;
     } while (numPlayers < 2 || numPlayers > 10);
-
     for (int i=0; i<numPlayers; i++) {
         string name;
         cout << "Enter name for player " << i + 1 << endl;
@@ -59,7 +55,6 @@ vector<Player> setupPlayers(int stash) {
 
         players.push_back(player);
     }
-
     return players;
 }
 
@@ -72,7 +67,6 @@ void distributeCards(vector<Card> *deck, vector<Player> *players) {
             int drawnCardIndex = randomInt(0, deck->size()-1);
             Card drawnCard = (*deck)[drawnCardIndex];
             deck->erase(deck->begin() + drawnCardIndex);
-            // ITS TRUE. white check mark
             player.hand.push_back(drawnCard);
         }
     }
@@ -99,14 +93,12 @@ void distributeCommunity(vector<Card> *deck, vector<Card> *communityCards) {
  * Setup small and big blinds
  */
 vector<int> setupBlinds(vector<Player> players, int initialDealer, int turn) {
-    int dealer = (initialDealer + turn) % players.size();
-    int smallBlind = (dealer + 1 + turn) % players.size();
-    int bigBlind = (smallBlind + 1 + turn) % players.size();
-
+    int dealer = (initialDealer + turn - 1) % players.size();
+    int smallBlind = (dealer + turn) % players.size();
+    int bigBlind = (smallBlind + turn) % players.size();
     cout << "Dealer is " << players[dealer].name << endl;
     cout << "Small blind is " << players[smallBlind].name << endl;
     cout << "Big blind is " << players[bigBlind].name << endl;
-
     return {dealer, smallBlind, bigBlind};
 }
 
@@ -115,7 +107,7 @@ void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
 
 int main() {
     int pot = 0;
-
+    int turn = 1;
     vector<Player> players = setupPlayers(100);
     int initialDealer = randomInt(0, players.size()-1);
 
@@ -127,7 +119,6 @@ int main() {
     vector<Card> communityCards;
     vector<Card> deck = reshuffle();
     distributeCards(&deck, &players);
-
     // Print out everyone's cards
     for (Player player : players) {
         Card first = player.hand[0];
@@ -135,7 +126,6 @@ int main() {
 
         cout << "[DEBUG] Player " << player.name << " has " << first.value << first.suit << " and " << second.value << second.suit << endl;
     }
-
     playHand(&dealer, &smallBlind, &bigBlind, &pot, &players, &communityCards, &deck);
     return 0;
 }

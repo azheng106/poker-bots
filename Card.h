@@ -1,5 +1,4 @@
-#ifndef CARD_H
-#define CARD_H
+#pragma once
 
 class Card {
 public:
@@ -8,5 +7,3 @@ public:
 
     Card(int value, char suit);
 };
-
-#endif

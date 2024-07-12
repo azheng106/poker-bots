@@ -1,5 +1,4 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -26,5 +25,3 @@ public:
     void check();
     void fold();
 };
-
-#endif

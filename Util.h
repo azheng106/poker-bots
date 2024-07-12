@@ -1,5 +1,4 @@
-#ifndef POKERBOTS_UTIL_H
-#define POKERBOTS_UTIL_H
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -20,5 +19,3 @@ public:
     vector<int> isOnePair(vector<Card> cards);
     vector<int> isHighCard(vector<Card> cards);
 };
-
-#endif
