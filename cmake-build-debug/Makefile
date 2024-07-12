@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\azhen\CLionProjects\poker-bots
+CMAKE_SOURCE_DIR = "C:\CS Projects\poker-bots"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\azhen\CLionProjects\poker-bots\cmake-build-debug
+CMAKE_BINARY_DIR = "C:\CS Projects\poker-bots\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\azhen\CLionProjects\poker-bots\cmake-build-debug\CMakeFiles C:\Users\azhen\CLionProjects\poker-bots\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\cmake-build-debug\CMakeFiles" "C:\CS Projects\poker-bots\cmake-build-debug\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\azhen\CLionProjects\poker-bots\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,54 @@ PokerBots/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PokerBots.dir\build.make CMakeFiles/PokerBots.dir/build
 .PHONY : PokerBots/fast
 
+Card.obj: Card.cpp.obj
+.PHONY : Card.obj
+
+# target to build an object file
+Card.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PokerBots.dir\build.make CMakeFiles/PokerBots.dir/Card.cpp.obj
+.PHONY : Card.cpp.obj
+
+Card.i: Card.cpp.i
+.PHONY : Card.i
+
+# target to preprocess a source file
+Card.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PokerBots.dir\build.make CMakeFiles/PokerBots.dir/Card.cpp.i
+.PHONY : Card.cpp.i
+
+Card.s: Card.cpp.s
+.PHONY : Card.s
+
+# target to generate assembly for a file
+Card.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PokerBots.dir\build.make CMakeFiles/PokerBots.dir/Card.cpp.s
+.PHONY : Card.cpp.s
+
+Player.obj: Player.cpp.obj
+.PHONY : Player.obj
+
+# target to build an object file
+Player.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PokerBots.dir\build.make CMakeFiles/PokerBots.dir/Player.cpp.obj
+.PHONY : Player.cpp.obj
+
+Player.i: Player.cpp.i
+.PHONY : Player.i
+
+# target to preprocess a source file
+Player.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PokerBots.dir\build.make CMakeFiles/PokerBots.dir/Player.cpp.i
+.PHONY : Player.cpp.i
+
+Player.s: Player.cpp.s
+.PHONY : Player.s
+
+# target to generate assembly for a file
+Player.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PokerBots.dir\build.make CMakeFiles/PokerBots.dir/Player.cpp.s
+.PHONY : Player.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -161,6 +209,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... PokerBots
+	@echo ... Card.obj
+	@echo ... Card.i
+	@echo ... Card.s
+	@echo ... Player.obj
+	@echo ... Player.i
+	@echo ... Player.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

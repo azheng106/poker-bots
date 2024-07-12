@@ -28,9 +28,7 @@ vector<Card> reshuffle() {
     // 11=J, 12=Q, 13=K, 14=A
     for (int i=2; i<=14; i++) {
         for (int j=0; j<=3; j++) {
-            Card card;
-            card.value = i;
-            card.suit = suits[j];
+            Card card(i, suits[j]);
             deck.push_back(card);
         }
     }

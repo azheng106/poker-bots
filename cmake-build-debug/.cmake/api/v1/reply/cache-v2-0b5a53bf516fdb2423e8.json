@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/azhen/CLionProjects/poker-bots/cmake-build-debug"
+			"value" : "c:/CS Projects/poker-bots/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -643,7 +643,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/azhen/CLionProjects/poker-bots/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/CS Projects/poker-bots/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -715,7 +715,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/azhen/CLionProjects/poker-bots"
+			"value" : "C:/CS Projects/poker-bots"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1351,7 +1351,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/azhen/CLionProjects/poker-bots/cmake-build-debug"
+			"value" : "C:/CS Projects/poker-bots/cmake-build-debug"
 		},
 		{
 			"name" : "PokerBots_IS_TOP_LEVEL",
@@ -1375,7 +1375,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/azhen/CLionProjects/poker-bots"
+			"value" : "C:/CS Projects/poker-bots"
 		},
 		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",
