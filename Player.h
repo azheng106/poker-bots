@@ -11,17 +11,19 @@ using namespace std;
 
 class Player {
 public:
+    string name;
     int money;
     int index;
-    string name;
     bool isIn;
-    vector<Card> hand;
+    bool hasChecked;
     int currentBet;
+    vector<Card> hand;
 
-    Player(int index) {
+    Player (int index) {
         this->index = index;
         isIn = true;
         currentBet = 0;
+        hasChecked = false;
     }
     void bet(int amount) {
         money -= amount;
@@ -38,6 +40,15 @@ public:
     }
     void check() {
         cout << "Player " << name << " checks." << endl;
+    }
+    void call(int amount) {
+        int callAmount = amount - currentBet;
+        if (callAmount > 0) {
+            bet(callAmount);
+        } else {
+            cout << "Current bet > minimum bet, checking." << endl;
+            check();
+        }
     }
 };
 
