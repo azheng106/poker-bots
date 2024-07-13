@@ -77,6 +77,20 @@ build CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: CXX_COMP
   OBJECT_DIR = CMakeFiles\poker_bots.dir
   OBJECT_FILE_DIR = CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots
 
+build CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj: CXX_COMPILER__poker_bots_unscanned_Debug C$:/CS$ Projects/poker-bots/classes/Game.cpp || cmake_object_order_depends_target_poker_bots
+  DEP_FILE = CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\Game.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -I"C:/CS Projects/poker-bots/misc/../classes"
+  OBJECT_DIR = CMakeFiles\poker_bots.dir
+  OBJECT_FILE_DIR = CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes
+
+build CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Round.cpp.obj: CXX_COMPILER__poker_bots_unscanned_Debug C$:/CS$ Projects/poker-bots/classes/Round.cpp || cmake_object_order_depends_target_poker_bots
+  DEP_FILE = CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\Round.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -I"C:/CS Projects/poker-bots/misc/../classes"
+  OBJECT_DIR = CMakeFiles\poker_bots.dir
+  OBJECT_FILE_DIR = CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target poker_bots
@@ -85,7 +99,7 @@ build CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: CXX_COMP
 #############################################
 # Link the executable poker_bots.exe
 
-build poker_bots.exe: CXX_EXECUTABLE_LINKER__poker_bots_Debug CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Card.cpp.obj CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.obj CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/hand.cpp.obj CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj
+build poker_bots.exe: CXX_EXECUTABLE_LINKER__poker_bots_Debug CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Card.cpp.obj CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.obj CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/hand.cpp.obj CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Round.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\poker_bots.dir

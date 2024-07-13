@@ -4,6 +4,8 @@
 
 #include "classes/Card.h"
 #include "classes/Player.h"
+#include "classes/Round.h"
+#include "classes/Game.h"
 
 using namespace std;
 
@@ -18,50 +20,9 @@ int randomInt(int a, int b) {
 }
 
 /**
- * Create a new deck of cards
- */
-vector<Card> reshuffle() {
-    vector<Card> deck;
-    char suits[4] = {'c', 'd', 'h', 's'};
-    // 11=J, 12=Q, 13=K, 14=A
-    for (int i=2; i<=14; i++) {
-        for (int j=0; j<=3; j++) {
-            Card card(i, suits[j]);
-            deck.push_back(card);
-        }
-    }
-    return deck;
-}
-
-/**
- * Initialize players at the start of the game
- * @param stash Amount of money each player starts with
- */
-vector<Player> setupPlayers(int stash) {
-    vector<Player> players;
-    int numPlayers;
-    do {
-        cout << "Input number of players (2-10):" << endl;
-        cin >> numPlayers;
-    } while (numPlayers < 2 || numPlayers > 10);
-    for (int i=0; i<numPlayers; i++) {
-        string name;
-        cout << "Enter name for player " << i + 1 << endl;
-        cin >> name;
-
-        Player player(i+1);
-        player.money = stash;
-        player.name = name;
-
-        players.push_back(player);
-    }
-    return players;
-}
-
-/**
  * Distributes 2 cards to each player
  */
-void distributeCards(vector<Card> *deck, vector<Player> *players) {
+void distributeHoleCards(vector<Card> *deck, vector<Player> *players) {
     for (int i=0; i<2; i++) {
         for (Player& player : *players) {
             int drawnCardIndex = randomInt(0, deck->size()-1);
@@ -75,7 +36,7 @@ void distributeCards(vector<Card> *deck, vector<Player> *players) {
 /**
  * Distributes community cards
  */
-void distributeCommunity(vector<Card> *deck, vector<Card> *communityCards) {
+void distributeCommunityCards(vector<Card> *deck, vector<Card> *communityCards) {
     if (communityCards->empty()) {
         for (int i=0; i<3; i++) {
             int drawnCardIndex = randomInt(0, deck->size()-1);
@@ -92,42 +53,44 @@ void distributeCommunity(vector<Card> *deck, vector<Card> *communityCards) {
 /**
  * Setup small and big blinds
  */
-vector<int> setupBlinds(vector<Player> players, int initialDealer, int turn) {
-    int dealer = (initialDealer + turn - 1) % players.size();
-    int smallBlind = (dealer + turn) % players.size();
-    int bigBlind = (smallBlind + turn) % players.size();
-    cout << "Dealer is " << players[dealer].name << endl;
-    cout << "Small blind is " << players[smallBlind].name << endl;
-    cout << "Big blind is " << players[bigBlind].name << endl;
-    return {dealer, smallBlind, bigBlind};
+vector<int> setupBlinds(vector<Player> players, int initialDealerIndex, int round) {
+    int dealerIndex = (initialDealerIndex + round - 1) % players.size();
+    int smallBlindIndex = (dealerIndex + round) % players.size();
+    int bigBlindIndex = (smallBlindIndex + round) % players.size();
+    cout << "Dealer is " << players[dealerIndex].name << endl;
+    cout << "Small blind is " << players[smallBlindIndex].name << endl;
+    cout << "Big blind is " << players[bigBlindIndex].name << endl;
+    return {dealerIndex, smallBlindIndex, bigBlindIndex};
 }
 
 void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
               vector<Player> *players, vector<Card> *communityCards, vector<Card> *deck);
 
 int main() {
-    int pot = 0;
-    int turn = 1;
-    vector<Player> players = setupPlayers(100);
-    int initialDealer = randomInt(0, players.size()-1);
-
-    vector<int> blinds = setupBlinds(players, initialDealer, 1);
-    int dealer = blinds[0];
-    int smallBlind = blinds[1];
-    int bigBlind = blinds[2];
-
-    vector<Card> communityCards;
-    vector<Card> deck = reshuffle();
-    distributeCards(&deck, &players);
-    // Print out everyone's cards
-    for (Player player : players) {
-        Card first = player.hand[0];
-        Card second = player.hand[1];
-
-        cout << "[DEBUG] Player " << player.name << " has " << first.value << first.suit << " and " << second.value << second.suit << endl;
-    }
-    playHand(&dealer, &smallBlind, &bigBlind, &pot, &players, &communityCards, &deck);
-    return 0;
+//    int pot = 0;
+//    int turn = 1;
+//    vector<Player> players = setupPlayers(100);
+//    int initialDealerIndex = randomInt(0, players.size() - 1);
+//
+//    vector<int> blinds = setupBlinds(players, initialDealerIndex, 1);
+//    int dealer = blinds[0];
+//    int smallBlind = blinds[1];
+//    int bigBlind = blinds[2];
+//
+//    Game game(players);
+//
+//    vector<Card> communityCards;
+//    vector<Card> deck = game.createDeck();
+//    distributeHoleCards(&deck, &players);
+//    // Print out everyone's cards
+//    for (Player player : players) {
+//        Card first = player.hand[0];
+//        Card second = player.hand[1];
+//
+//        cout << "[DEBUG] Player " << player.name << " has " << first.value << first.suit << " and " << second.value << second.suit << endl;
+//    }
+//    playHand(&dealer, &smallBlind, &bigBlind, &pot, &players, &communityCards, &deck);
+//    return 0;
 }
 
 void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
@@ -206,7 +169,7 @@ void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
     cout << "Pre flop betting round" << endl;
     bettingRound();
 
-    distributeCommunity(deck, communityCards);
+    distributeCommunityCards(deck, communityCards);
 
     for (auto& card : *communityCards) {
         cout << "Community Card: " << card.value << " of " << card.suit << endl;

@@ -12,4 +12,8 @@ add_executable(poker_bots
         ../classes/Player.h
         ../hand.cpp
         ../main.cpp
+        ../classes/Game.cpp
+        ../classes/Game.h
+        ../classes/Round.cpp
+        ../classes/Round.h
 )
