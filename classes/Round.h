@@ -12,6 +12,7 @@ public:
     Player bigBlind;
 
     void shuffleDeck();
+    void setupBlinds();
     void distributeHoleCards();
     void distributeCommunityCards();
 };

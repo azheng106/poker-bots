@@ -9,19 +9,6 @@
 
 using namespace std;
 
-/**
- * Setup small and big blinds
- */
-vector<int> setupBlinds(vector<Player> players, int initialDealerIndex, int round) {
-    int dealerIndex = (initialDealerIndex + round - 1) % players.size();
-    int smallBlindIndex = (dealerIndex + round) % players.size();
-    int bigBlindIndex = (smallBlindIndex + round) % players.size();
-    cout << "Dealer is " << players[dealerIndex].name << endl;
-    cout << "Small blind is " << players[smallBlindIndex].name << endl;
-    cout << "Big blind is " << players[bigBlindIndex].name << endl;
-    return {dealerIndex, smallBlindIndex, bigBlindIndex};
-}
-
 void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
               vector<Player> *players, vector<Card> *communityCards, vector<Card> *deck);
 

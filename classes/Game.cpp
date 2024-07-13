@@ -1,5 +1,12 @@
 #include "Game.h"
 
+Game::Game() {
+    initialDealerIndex = Game::randomInt(0, players.size() - 1);
+    cout << "Input minimum bet (also big blind bet):" << endl;
+    cin >> minimumBet;
+    round = 1;
+}
+
 /**
  * Generates a random number between a and b, inclusive; [a, b]
  */
