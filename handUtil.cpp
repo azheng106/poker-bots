@@ -1,17 +1,13 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include <map>
 
-#include "Util.h"
+#include "classes/Card.h"
 
 using namespace std;
 
-/**
- *
- * @param cards
- * @return
- */
-vector<int> Util::isStraightFlush(vector<Card> cards) {
+vector<int> isStraightFlush(vector<Card> cards) {
     vector<char> suits;
     vector<int> values;
     for (auto card : cards) {
@@ -32,7 +28,7 @@ vector<int> Util::isStraightFlush(vector<Card> cards) {
     return {9, values[4]};
 }
 
-vector<int> Util::isFourOfaKind(vector<Card> cards) {
+vector<int> isFourOfAKind(vector<Card> cards) {
     map<int, int> valueCount;
     for (auto card : cards) {
         valueCount[card.value]++;
@@ -45,7 +41,7 @@ vector<int> Util::isFourOfaKind(vector<Card> cards) {
     return {};
 }
 
-vector<int> Util::isFullHouse(vector<Card> cards) {
+vector<int> isFullHouse(vector<Card> cards) {
     map<int, int> valueCount;
     for (auto card : cards) {
         valueCount[card.value]++;
@@ -61,7 +57,7 @@ vector<int> Util::isFullHouse(vector<Card> cards) {
     return {};
 }
 
-vector<int> Util::isFlush(vector<Card> cards) {
+vector<int> isFlush(vector<Card> cards) {
     vector<char> suits;
     vector<int> values;
     for (auto card : cards) {
@@ -73,7 +69,7 @@ vector<int> Util::isFlush(vector<Card> cards) {
     return {6, values[4]};
 }
 
-vector<int> Util::isStraight(vector<Card> cards) {
+vector<int> isStraight(vector<Card> cards) {
     vector<int> values;
     for (auto card : cards) {
         values.push_back(card.value);
@@ -91,7 +87,7 @@ vector<int> Util::isStraight(vector<Card> cards) {
     return {5, values[4]};
 }
 
-vector<int> Util::isThreeOfAKind(vector<Card> cards) {
+vector<int> isThreeOfAKind(vector<Card> cards) {
     map<int, int> valueCount;
     for (auto card : cards) {
         valueCount[card.value]++;
@@ -106,7 +102,7 @@ vector<int> Util::isThreeOfAKind(vector<Card> cards) {
     return {};
 }
 
-vector<int> Util::isTwoPairs(vector<Card> cards) {
+vector<int> isTwoPairs(vector<Card> cards) {
     map<int, int> valueCount;
     for (auto card : cards) {
         valueCount[card.value]++;
@@ -126,7 +122,7 @@ vector<int> Util::isTwoPairs(vector<Card> cards) {
     return {};
 }
 
-vector<int> Util::isOnePair(vector<Card> cards) {
+vector<int> isOnePair(vector<Card> cards) {
     map<int, int> valueCount;
     for (auto card : cards) {
         valueCount[card.value]++;
@@ -143,7 +139,7 @@ vector<int> Util::isOnePair(vector<Card> cards) {
     return {};
 };
 
-vector<int> Util::isHighCard(vector<Card> cards) {
+vector<int> isHighCard(vector<Card> cards) {
     vector<int> values;
     for (auto card : cards) {
         values.push_back(card.value);

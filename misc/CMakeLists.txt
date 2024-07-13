@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.28)
-project(PokerBots)
+project(poker_bots)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
-add_executable(PokerBots ../main.cpp
+include_directories(../classes)
+
+add_executable(poker_bots
+        ../classes/Card.cpp
+        ../classes/Card.h
         ../classes/Player.cpp
         ../classes/Player.h
-        ../classes/Card.cpp
-        ../classes/Util.cpp
-        ../classes/Util.h)
+        ../handUtil.cpp
+        ../main.cpp)
