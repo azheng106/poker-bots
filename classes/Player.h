@@ -10,14 +10,14 @@ using namespace std;
 class Player {
 public:
     string name;
-    int money;
+    int money{};
     int index;
     bool isIn;
     bool hasChecked;
     int currentBet;
     vector<Card> hand;
 
-    Player (int index);
+    Player(int index);
 
     void bet(int betAmount);
     void win(int potAmount);

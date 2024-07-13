@@ -2,8 +2,6 @@
 
 Game::Game() {
     initialDealerIndex = Game::randomInt(0, players.size() - 1);
-    cout << "Input minimum bet (also big blind bet):" << endl;
-    cin >> minimumBet;
     round = 1;
 }
 
@@ -31,9 +29,12 @@ void Game::setupPlayers() {
     cout << "Input stash (amount of money each players starts with):" << endl;
     cin >> stash;
 
+    cout << "Input minimum bet (also big blind bet):" << endl;
+    cin >> minimumBet;
+
     for (int i=0; i<numPlayers; i++) {
         string name;
-        cout << "Enter name for player " << i + 1 << endl;
+        cout << "Enter name for player " << i + 1 << ":" << endl;
         cin >> name;
 
         Player player(i+1);

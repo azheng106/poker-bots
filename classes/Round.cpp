@@ -1,5 +1,14 @@
 #include "Round.h"
 
+Round::Round() {
+    if (players.empty()) {
+        cout << "[DEBUG] Cannot create a round without any players. Create a game object, and then use setupPlayers().";
+    }
+    pot = 0;
+    void shuffleDeck();
+    void setupBlinds();
+}
+
 /**
  * Create a new deck of cards
  */
@@ -18,16 +27,17 @@ void Round::shuffleDeck() {
  * Setup small and big blinds
  */
 void Round::setupBlinds() {
-    unsigned long long dealerIndex = (initialDealerIndex + round - 1) % players.size();
-    unsigned long long smallBlindIndex = (dealerIndex + round) % players.size();
-    unsigned long long bigBlindIndex = (dealerIndex + round + 1) % players.size();
+    int dealerIndex = (initialDealerIndex + round - 1) % players.size();
+    int smallBlindIndex = (dealerIndex + round) % players.size();
+    int bigBlindIndex = (dealerIndex + round + 1) % players.size();
+
     cout << "Dealer is " << players[dealerIndex].name << endl;
     cout << "Small blind is " << players[smallBlindIndex].name << endl;
     cout << "Big blind is " << players[bigBlindIndex].name << endl;
 
-    dealer = players[dealerIndex];
-    smallBlind = players[smallBlindIndex];
-    bigBlind = players[bigBlindIndex];
+    Player dealer = players[dealerIndex];
+    Player smallBlind = players[smallBlindIndex];
+    Player bigBlind = players[bigBlindIndex];
 }
 
 /**
