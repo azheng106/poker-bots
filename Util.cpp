@@ -6,6 +6,11 @@
 
 using namespace std;
 
+/**
+ *
+ * @param cards
+ * @return
+ */
 vector<int> Util::isStraightFlush(vector<Card> cards) {
     vector<char> suits;
     vector<int> values;
@@ -15,6 +20,12 @@ vector<int> Util::isStraightFlush(vector<Card> cards) {
     }
     if (!equal(suits.begin() + 1, suits.end(), suits.begin())) return {};
     sort(values.begin(), values.end());
+
+    // Ace can be used as a 1 in straights
+    if (values == vector<int>{2, 3, 4, 5, 14}) {
+        return {9, 5};
+    }
+
     for (int i = 1; i < values.size(); i++) {
         if (values[i] != values[i-1] + 1) return {};
     }
@@ -68,6 +79,12 @@ vector<int> Util::isStraight(vector<Card> cards) {
         values.push_back(card.value);
     }
     sort(values.begin(), values.end());
+
+    // Ace can be used as a 1 in straights
+    if (values == vector<int>{2, 3, 4, 5, 14}) {
+        return {5, 5};
+    }
+
     for (int i = 1; i < values.size(); i++) {
         if (values[i] != values[i-1] + 1) return {};
     }
@@ -109,6 +126,28 @@ vector<int> Util::isTwoPairs(vector<Card> cards) {
     return {};
 }
 
-vector<int> Util::isOnePair(vector<Card> cards) {};
+vector<int> Util::isOnePair(vector<Card> cards) {
+    map<int, int> valueCount;
+    for (auto card : cards) {
+        valueCount[card.value]++;
+    }
+    int pair = -1;
+    for (auto [value, count] : valueCount) {
+        if (count == 2) {
+            pair = value;
+        }
+    }
+    if (pair != -1) {
+        return {2, pair};
+    }
+    return {};
+};
 
-vector<int> Util::isHighCard(vector<Card> cards) {};
+vector<int> Util::isHighCard(vector<Card> cards) {
+    vector<int> values;
+    for (auto card : cards) {
+        values.push_back(card.value);
+    }
+    sort(values.begin(), values.end());
+    return {1, values[4]};
+};

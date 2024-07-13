@@ -111,7 +111,7 @@ int main() {
     vector<Player> players = setupPlayers(100);
     int initialDealer = randomInt(0, players.size()-1);
 
-    vector<int> blinds = setupBlinds(players, initialDealer, 0);
+    vector<int> blinds = setupBlinds(players, initialDealer, 1);
     int dealer = blinds[0];
     int smallBlind = blinds[1];
     int bigBlind = blinds[2];
