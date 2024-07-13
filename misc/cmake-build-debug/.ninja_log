@@ -2,9 +2,11 @@
 3	62	7426005795397453	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Card.cpp.obj	a8592d2d54547173
 8	295	7426005795452837	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.obj	478cf2a744d9e989
 13	567	7426005795504680	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/handUtil.cpp.obj	36766b6b052ea945
-15	664	7426007653947070	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj	936eb0b66e1d0799
-665	810	7426007660436534	poker_bots.exe	adb2a1af62cb0ebf
-1	255	7426014009085860	build.ninja	f51e71cfab75927c
-2	317	7426014009085860	build.ninja	f51e71cfab75927c
-16	561	7426014010089098	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/hand.cpp.obj	1acf3f9e981d8c30
-562	702	7426014015550703	poker_bots.exe	470bc3c2d9fd8a7f
+921	1108	7426062984640357	poker_bots.exe	470bc3c2d9fd8a7f
+18	921	7426062975615676	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj	936eb0b66e1d0799
+1	275	7426067165340757	build.ninja	f51e71cfab75927c
+4	725	7426067065700753	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/hand.cpp.obj	1acf3f9e981d8c30
+5	656	7426067499554678	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj	936eb0b66e1d0799
+657	811	7426067506072027	poker_bots.exe	470bc3c2d9fd8a7f
+4	748	7426068506433887	CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/hand.cpp.obj	1acf3f9e981d8c30
+749	999	7426068513885294	poker_bots.exe	470bc3c2d9fd8a7f

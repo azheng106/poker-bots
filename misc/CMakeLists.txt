@@ -11,4 +11,5 @@ add_executable(poker_bots
         ../classes/Player.cpp
         ../classes/Player.h
         ../hand.cpp
-        ../main.cpp)
+        ../main.cpp
+)

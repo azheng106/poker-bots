@@ -8,7 +8,7 @@
 using namespace std;
 
 /**
- * Generates a random number between a and b, inclusive. [a, b]
+ * Generates a random number between a and b, inclusive; [a, b]
  */
 int randomInt(int a, int b) {
     random_device random;
