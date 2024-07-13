@@ -1,5 +1,7 @@
 #pragma once
 
+#include <random>
+
 #include "Player.h"
 
 class Game {
@@ -10,4 +12,5 @@ public:
     vector<Player> players;
 
     void setupPlayers();
+    static int randomInt(int a, int b);
 };

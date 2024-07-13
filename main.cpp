@@ -10,47 +10,6 @@
 using namespace std;
 
 /**
- * Generates a random number between a and b, inclusive; [a, b]
- */
-int randomInt(int a, int b) {
-    random_device random;
-    mt19937 gen(random());
-    uniform_int_distribution<> dis(a, b);
-    return dis(gen);
-}
-
-/**
- * Distributes 2 cards to each player
- */
-void distributeHoleCards(vector<Card> *deck, vector<Player> *players) {
-    for (int i=0; i<2; i++) {
-        for (Player& player : *players) {
-            int drawnCardIndex = randomInt(0, deck->size()-1);
-            Card drawnCard = (*deck)[drawnCardIndex];
-            deck->erase(deck->begin() + drawnCardIndex);
-            player.hand.push_back(drawnCard);
-        }
-    }
-}
-
-/**
- * Distributes community cards
- */
-void distributeCommunityCards(vector<Card> *deck, vector<Card> *communityCards) {
-    if (communityCards->empty()) {
-        for (int i=0; i<3; i++) {
-            int drawnCardIndex = randomInt(0, deck->size()-1);
-            communityCards->push_back((*deck)[drawnCardIndex]);
-            deck->erase(deck->begin() + drawnCardIndex);
-        }
-    } else if (communityCards->size() < 5)  {
-        int drawnCardIndex = randomInt(0, deck->size()-1);
-        communityCards->push_back((*deck)[drawnCardIndex]);
-        deck->erase(deck->begin() + drawnCardIndex);
-    }
-}
-
-/**
  * Setup small and big blinds
  */
 vector<int> setupBlinds(vector<Player> players, int initialDealerIndex, int round) {
@@ -70,7 +29,7 @@ int main() {
 //    int pot = 0;
 //    int turn = 1;
 //    vector<Player> players = setupPlayers(100);
-//    int initialDealerIndex = randomInt(0, players.size() - 1);
+//    int initialDealerIndex = Game::randomInt(0, players.size() - 1);
 //
 //    vector<int> blinds = setupBlinds(players, initialDealerIndex, 1);
 //    int dealer = blinds[0];

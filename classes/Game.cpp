@@ -1,6 +1,16 @@
 #include "Game.h"
 
 /**
+ * Generates a random number between a and b, inclusive; [a, b]
+ */
+int Game::randomInt(int a, int b) {
+    random_device random;
+    mt19937 gen(random());
+    uniform_int_distribution<> dis(a, b);
+    return dis(gen);
+}
+
+/**
  * Initialize players at the start of the game
  */
 void Game::setupPlayers() {
