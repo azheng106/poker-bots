@@ -2,8 +2,8 @@
 #include <random>
 #include <vector>
 
-#include "Card.h"
-#include "Player.h"
+#include "classes/Card.h"
+#include "classes/Player.h"
 
 using namespace std;
 
