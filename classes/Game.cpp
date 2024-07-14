@@ -112,7 +112,7 @@ void Game::distributeCommunityCards() {
 void Game::playHand() {
     for (Player player: players) {
         player.isIn = true;
-        player.currentBet = 0;
+        player.recentBet = 0;
     }
 
     /*
@@ -144,26 +144,6 @@ void Game::playHand() {
                     case 2: {
                         player.raise(&minimumBet);
                         validAction = true;
-
-                        // Everyone that already checked must match bet
-                        for (auto p : players) {
-                            if (p.isIn && p.hasChecked) {
-                                int checkedAction;
-                                cout << "Player " << p.name << "checked. Now must [1] Call [2] Raise [3] Fold" << endl;
-                                cin >> checkedAction;
-                                switch (checkedAction) {
-                                    case 1:
-                                        p.call(minimumBet);
-                                        break;
-                                    case 2:
-                                        p.raise(&minimumBet);
-                                        break;
-                                    case 3:
-                                        p.fold();
-                                        break;
-                                }
-                            }
-                        }
                         break;
                     }
                     case 3:
@@ -171,7 +151,7 @@ void Game::playHand() {
                         validAction = true;
                         break;
                     case 4:
-                        if (player.currentBet < minimumBet) {
+                        if (player.recentBet < minimumBet) {
                             cout << "You cannot check, you need to call or raise.\n";
                         } else {
                             player.check();

@@ -13,8 +13,7 @@ public:
     string name;
     int money{};
     bool isIn;
-    bool hasChecked;
-    int currentBet;
+    int recentBet;
     vector<Card> hand;
 
     Player(int index, int stash, string name);
@@ -26,7 +25,5 @@ public:
     void fold();
     void win(int potAmount);
 
-    bool operator==(Player& other) const {
-        return this->name == other.name && this->index == other.index;
-    }
+    bool operator==(Player& other) const;
 };
