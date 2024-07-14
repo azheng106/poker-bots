@@ -80,6 +80,9 @@ void Game::setupBlinds() {
  * Distributes 2 cards to each player
  */
 void Game::distributeHoleCards() {
+    if (deck.empty()) {
+        shuffleDeck();
+    }
     for (Player player : players) {
         for (int i = 0; i < 2; i++) {
             int drawnCardIndex = randomInt(0, deck.size() - 1);
