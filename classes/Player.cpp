@@ -2,8 +2,7 @@
 
 using namespace std;
 
-Player::Player(int index) {
-    this->index = index;
+Player::Player() {
     isIn = true;
     currentBet = 0;
     hasChecked = false;
