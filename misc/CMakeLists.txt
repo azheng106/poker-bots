@@ -14,6 +14,4 @@ add_executable(poker_bots
         ../main.cpp
         ../classes/Game.cpp
         ../classes/Game.h
-        ../classes/Round.cpp
-        ../classes/Round.h
 )

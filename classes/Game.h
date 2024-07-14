@@ -11,8 +11,21 @@ public:
     int initialDealerIndex;
     vector<Player> players;
 
-    void setupPlayers();
+    vector<Card> deck;
+    vector<Card> communityCards;
+
+    Player dealer;
+    Player smallBlind;
+    Player bigBlind;
+
     static int randomInt(int a, int b);
+    void setupPlayers();
+    void shuffleDeck();
+    void setupBlinds();
+    void distributeHoleCards();
+    void distributeCommunityCards();
+    void playHand();
+    void showdown();
 
     Game();
 };
