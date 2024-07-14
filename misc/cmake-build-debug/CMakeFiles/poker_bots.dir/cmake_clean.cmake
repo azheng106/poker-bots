@@ -7,8 +7,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Game.cpp.obj.d"
   "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Player.cpp.obj"
   "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Player.cpp.obj.d"
-  "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj"
-  "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj.d"
   "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj"
   "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj.d"
   "libpoker_bots.dll.a"

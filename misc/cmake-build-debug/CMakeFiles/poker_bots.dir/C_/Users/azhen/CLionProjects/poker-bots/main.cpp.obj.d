@@ -167,5 +167,4 @@ CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj: 
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/locale_facets_nonio.tcc \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/locale_conv.h \
  C:\Users\azhen\CLionProjects\poker-bots\classes/Player.h \
- C:\Users\azhen\CLionProjects\poker-bots\classes/Round.h \
  C:\Users\azhen\CLionProjects\poker-bots\classes/Game.h

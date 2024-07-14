@@ -15,10 +15,9 @@ int main() {
     Game game;
     game.setupPlayers();
     game.setupBlinds();
-
     game.shuffleDeck();
     game.distributeHoleCards();
-    game.showdown();
+    game.playHand();
 }
 //    int pot = 0;
 //    int turn = 1;

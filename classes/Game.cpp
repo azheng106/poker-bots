@@ -37,10 +37,7 @@ void Game::setupPlayers() {
         cout << "Enter name for player " << i + 1 << ":" << endl;
         cin >> name;
 
-        Player player;
-        player.money = stash;
-        player.name = name;
-
+        Player player(i, stash, name);
         players.push_back(player);
     }
 }
@@ -83,6 +80,7 @@ void Game::distributeHoleCards() {
     if (deck.empty()) {
         shuffleDeck();
     }
+
     for (Player player : players) {
         for (int i = 0; i < 2; i++) {
             int drawnCardIndex = randomInt(0, deck.size() - 1);
@@ -112,86 +110,108 @@ void Game::distributeCommunityCards() {
 }
 
 void Game::playHand() {
-//    int currentMinBet = 0;
-//    for (auto& player: players) { // Reset players
-//        player.isIn = true;
-//        player.currentBet = 0;
-//    }
-//    /*
-//      If first turn, force small blind and big blind to post bets
-//      Ask each player to fold, call, or raise
-//      If no one has bet players can also check or bet
-//      Show community cards after everyone has placed an equal bet
-//     */
-//    if (communityCards.empty()) {
-//        players.bet(minimumBet / 2);
-//        *pot+=MIN_BET / 2;
-//        (*players)[*bigBlind].bet(minimumBet);
-//        *pot+=MIN_BET;
-//    }
-//
-//    auto bettingRound = [&]() {
-//        for (Player& player : *players) {
-//            if (!player.isIn) continue;
-//
-//            bool validAction = false;
-//            do {
-//                int action;
-//                cout << "Player " + player.name + "'s turn. [1] Call [2] Raise [3] Fold [4] Check" << endl;
-//                cin >> action;
-//                switch (action) {
-//                    case 1:
-//                        player.call(currentMinBet);
-//                        validAction = true;
-//                        break;
-//                    case 2: {
-//                        int raiseAmount;
-//                        cout << "Enter raise amount: ";
-//                        cin >> raiseAmount;
-//                        player.bet((currentMinBet - player.currentBet) + raiseAmount);
-//                        currentMinBet += raiseAmount;
-//                        validAction = true;
-//
-//                        // Everyone that already checked must match bet
-//                        for (auto& p : *players) {
-//                            if (p.isIn && p.hasChecked) {
-//                                p.call(currentMinBet);
-//                                p.hasChecked = false;
-//                            }
-//                        }
-//                        break;
-//                    }
-//                    case 3:
-//                        player.fold();
-//                        validAction = true;
-//                        break;
-//                    case 4:
-//                        if (player.currentBet < currentMinBet) {
-//                            cout << "You cannot check, you need to call or raise.\n";
-//                        } else {
-//                            player.check();
-//                            validAction = true;
-//                        }
-//                        break;
-//                    default:
-//                        cout << "Invalid action.\n";
-//                        break;
-//                }
-//            } while (!validAction);
-//
-//        }
-//    };
-//
-//    cout << "Pre flop betting round" << endl;
-//    bettingRound();
-//
-//    distributeCommunityCards();
-//
-//    for (auto& card : *communityCards) {
-//        cout << "Community Card: " << card.value << " of " << card.suit << endl;
-//    }
+    for (Player player: players) {
+        player.isIn = true;
+        player.currentBet = 0;
+    }
+
+    /*
+      If first turn, force small blind and big blind to post bets
+      Ask each player to fold, call, or raise
+      If no one has bet players can also check or bet
+      Show community cards after everyone has placed an equal bet
+     */
+    if (communityCards.empty()) {
+        smallBlind.bet(minimumBet / 2);
+        pot += minimumBet / 2;
+        bigBlind.bet(minimumBet);
+        pot += minimumBet;
+    }
+
+    auto bettingRound = [&]() {
+        for (Player& player : players) {
+            if (!player.isIn) continue;
+            bool validAction = false;
+            do {
+                int action;
+                cout << "Player " + player.name + "'s turn. [1] Call [2] Raise [3] Fold [4] Check" << endl;
+                cin >> action;
+                switch (action) {
+                    case 1:
+                        player.call(minimumBet);
+                        validAction = true;
+                        break;
+                    case 2: {
+                        player.raise(&minimumBet);
+                        validAction = true;
+
+                        // Everyone that already checked must match bet
+                        for (auto p : players) {
+                            if (p.isIn && p.hasChecked) {
+                                int checkedAction;
+                                cout << "Player " << p.name << "checked. Now must [1] Call [2] Raise [3] Fold" << endl;
+                                cin >> checkedAction;
+                                switch (checkedAction) {
+                                    case 1:
+                                        p.call(minimumBet);
+                                        break;
+                                    case 2:
+                                        p.raise(&minimumBet);
+                                        break;
+                                    case 3:
+                                        p.fold();
+                                        break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    case 3:
+                        player.fold();
+                        validAction = true;
+                        break;
+                    case 4:
+                        if (player.currentBet < minimumBet) {
+                            cout << "You cannot check, you need to call or raise.\n";
+                        } else {
+                            player.check();
+                            validAction = true;
+                        }
+                        break;
+                    default:
+                        cout << "Invalid action.\n";
+                        break;
+                }
+            } while (!validAction);
+        }
+    };
+
+    cout << "Pre flop betting round" << endl;
+    bettingRound();
+    distributeCommunityCards();
+    for (auto& card : communityCards) {
+        cout << "Community Card: " << card << endl;
+    }
+
+    cout << "Next betting round" << endl;
+    bettingRound();
+    distributeCommunityCards();
+    for (auto& card : communityCards) {
+        cout << "Community Card: " << card << endl;
+    }
+
+    cout << "Next betting round" << endl;
+    bettingRound();
+    distributeCommunityCards();
+    for (auto& card : communityCards) {
+        cout << "Community Card: " << card << endl;
+    }
+
+    showdown();
 }
 
 void Game::showdown() {
+    cout << "SHOWDOWN" << endl;
     round += 1;
+    pot = 0;
 }

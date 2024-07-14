@@ -105,12 +105,6 @@
 		<Unit filename="C:/Users/azhen/CLionProjects/poker-bots/classes/Player.h">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp">
-			<Option target="poker_bots"/>
-		</Unit>
-		<Unit filename="C:/Users/azhen/CLionProjects/poker-bots/classes/Round.h">
-			<Option target="poker_bots"/>
-		</Unit>
 		<Unit filename="C:/Users/azhen/CLionProjects/poker-bots/main.cpp">
 			<Option target="poker_bots"/>
 		</Unit>

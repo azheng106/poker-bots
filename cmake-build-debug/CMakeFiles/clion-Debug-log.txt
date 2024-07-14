@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\azhen\CLionProjects\poker-bots Select CMakeLists.txt

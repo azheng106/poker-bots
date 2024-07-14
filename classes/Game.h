@@ -7,6 +7,7 @@
 class Game {
 public:
     int round;
+    int pot = 0;
     int minimumBet;
     int initialDealerIndex;
     vector<Player> players;
@@ -14,9 +15,9 @@ public:
     vector<Card> deck;
     vector<Card> communityCards;
 
-    Player dealer;
-    Player smallBlind;
-    Player bigBlind;
+    Player dealer{-1, -1, "a"};
+    Player smallBlind{-1, -1, "a"};
+    Player bigBlind{-1, -1, "a"};
 
     static int randomInt(int a, int b);
     void setupPlayers();

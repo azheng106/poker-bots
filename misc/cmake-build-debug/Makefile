@@ -224,30 +224,6 @@ C_/Users/azhen/CLionProjects/poker-bots/classes/Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Player.cpp.s
 .PHONY : C_/Users/azhen/CLionProjects/poker-bots/classes/Player.cpp.s
 
-C_/Users/azhen/CLionProjects/poker-bots/classes/Round.obj: C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj
-.PHONY : C_/Users/azhen/CLionProjects/poker-bots/classes/Round.obj
-
-# target to build an object file
-C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj
-.PHONY : C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj
-
-C_/Users/azhen/CLionProjects/poker-bots/classes/Round.i: C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.i
-.PHONY : C_/Users/azhen/CLionProjects/poker-bots/classes/Round.i
-
-# target to preprocess a source file
-C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.i
-.PHONY : C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.i
-
-C_/Users/azhen/CLionProjects/poker-bots/classes/Round.s: C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.s
-.PHONY : C_/Users/azhen/CLionProjects/poker-bots/classes/Round.s
-
-# target to generate assembly for a file
-C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.s
-.PHONY : C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.s
-
 C_/Users/azhen/CLionProjects/poker-bots/main.obj: C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj
 .PHONY : C_/Users/azhen/CLionProjects/poker-bots/main.obj
 
@@ -293,9 +269,6 @@ help:
 	@echo ... C_/Users/azhen/CLionProjects/poker-bots/classes/Player.obj
 	@echo ... C_/Users/azhen/CLionProjects/poker-bots/classes/Player.i
 	@echo ... C_/Users/azhen/CLionProjects/poker-bots/classes/Player.s
-	@echo ... C_/Users/azhen/CLionProjects/poker-bots/classes/Round.obj
-	@echo ... C_/Users/azhen/CLionProjects/poker-bots/classes/Round.i
-	@echo ... C_/Users/azhen/CLionProjects/poker-bots/classes/Round.s
 	@echo ... C_/Users/azhen/CLionProjects/poker-bots/main.obj
 	@echo ... C_/Users/azhen/CLionProjects/poker-bots/main.i
 	@echo ... C_/Users/azhen/CLionProjects/poker-bots/main.s

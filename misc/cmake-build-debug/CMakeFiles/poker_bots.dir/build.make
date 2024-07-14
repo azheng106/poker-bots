@@ -143,29 +143,13 @@ CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Game.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Game.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\azhen\CLionProjects\poker-bots\classes\Game.cpp -o CMakeFiles\poker_bots.dir\C_\Users\azhen\CLionProjects\poker-bots\classes\Game.cpp.s
 
-CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
-CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
-CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj: C:/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp
-CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\Users\azhen\CLionProjects\poker-bots\classes\Round.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\Users\azhen\CLionProjects\poker-bots\classes\Round.cpp.obj -c C:\Users\azhen\CLionProjects\poker-bots\classes\Round.cpp
-
-CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\azhen\CLionProjects\poker-bots\classes\Round.cpp > CMakeFiles\poker_bots.dir\C_\Users\azhen\CLionProjects\poker-bots\classes\Round.cpp.i
-
-CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\azhen\CLionProjects\poker-bots\classes\Round.cpp -o CMakeFiles\poker_bots.dir\C_\Users\azhen\CLionProjects\poker-bots\classes\Round.cpp.s
-
 # Object files for target poker_bots
 poker_bots_OBJECTS = \
 "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Card.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Player.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/CardUtil.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj" \
-"CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Game.cpp.obj" \
-"CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj"
+"CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Game.cpp.obj"
 
 # External object files for target poker_bots
 poker_bots_EXTERNAL_OBJECTS =
@@ -175,12 +159,11 @@ poker_bots.exe: CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bot
 poker_bots.exe: CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/CardUtil.cpp.obj
 poker_bots.exe: CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj
 poker_bots.exe: CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Game.cpp.obj
-poker_bots.exe: CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/classes/Round.cpp.obj
 poker_bots.exe: CMakeFiles/poker_bots.dir/build.make
 poker_bots.exe: CMakeFiles/poker_bots.dir/linkLibs.rsp
 poker_bots.exe: CMakeFiles/poker_bots.dir/objects1.rsp
 poker_bots.exe: CMakeFiles/poker_bots.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable poker_bots.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable poker_bots.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\poker_bots.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
