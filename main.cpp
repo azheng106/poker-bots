@@ -16,7 +16,9 @@ int main() {
     Game game;
     game.setupPlayers();
 
-    Round round;
+    Round round(game);
+    round.distributeHoleCards();
+
 }
 //    int pot = 0;
 //    int turn = 1;

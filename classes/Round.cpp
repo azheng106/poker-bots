@@ -1,12 +1,13 @@
 #include "Round.h"
 
-Round::Round() {
-    if (players.empty()) {
+Round::Round(Game& game) : game(game){
+    if (game.players.empty()) {
         cout << "[DEBUG] Cannot create a round without any players. Create a game object, and then use setupPlayers().";
     }
+    this->players = game.players;
     pot = 0;
-    void shuffleDeck();
-    void setupBlinds();
+    shuffleDeck();
+    setupBlinds();
 }
 
 /**
@@ -44,18 +45,19 @@ void Round::setupBlinds() {
  * Distributes 2 cards to each player
  */
 void Round::distributeHoleCards() {
-    for (int i=0; i<2; i++) {
-        for (Player player : players) {
-            int drawnCardIndex = randomInt(0, deck.size()-1);
+    for (Player player : players) {
+        for (int i = 0; i < 2; i++) {
+            int drawnCardIndex = randomInt(0, deck.size() - 1);
             Card drawnCard = deck[drawnCardIndex];
             deck.erase(deck.begin() + drawnCardIndex);
             player.hand.push_back(drawnCard);
+            cout << "Player " << player.name << " hole #" << i + 1 << ": " << drawnCard << endl;
         }
     }
 }
 
 /**
- * Distributes community cards
+ * Distributes community cards to the flop
  */
 void Round::distributeCommunityCards() {
     if (communityCards.empty()) {

@@ -4,6 +4,7 @@
 
 class Round : public Game {
 public:
+    Game& game;
     int pot;
     vector<Card> deck;
     vector<Card> communityCards;
@@ -13,5 +14,5 @@ public:
     void distributeHoleCards();
     void distributeCommunityCards();
 
-    Round();
+    Round(Game& game);
 };
