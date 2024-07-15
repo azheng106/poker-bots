@@ -176,21 +176,21 @@ void Game::playHand() {
     cout << "\nPre flop betting round"  << "\n";
     bettingRound();
     distributeCommunityCards();
-    for (auto& card : communityCards) {
+    for (Card& card : communityCards) {
         cout << "Community Card: " << card << "\n";
     }
 
     cout << "\nNext betting round" << "\n";
     bettingRound();
     distributeCommunityCards();
-    for (auto& card : communityCards) {
+    for (Card& card : communityCards) {
         cout << "Community Card: " << card << "\n";
     }
 
     cout << "\nFinal betting round" << "\n";
     bettingRound();
     distributeCommunityCards();
-    for (auto& card : communityCards) {
+    for (Card& card : communityCards) {
         cout << "Community Card: " << card << "\n";
     }
 
