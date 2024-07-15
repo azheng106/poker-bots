@@ -8,9 +8,6 @@
 
 using namespace std;
 
-void playHand(int *dealerIndex, int *smallBlind, int *bigBlind, int *pot,
-              vector<Player> *players, vector<Card> *communityCards, vector<Card> *deck);
-
 int main() {
     Game game;
     game.setupPlayers();

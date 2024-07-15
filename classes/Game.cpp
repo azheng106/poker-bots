@@ -21,20 +21,20 @@ int Game::randomInt(int a, int b) {
 void Game::setupPlayers() {
     int numPlayers;
     do {
-        cout << "Input number of players (2-10):" << endl;
+        cout << "Input number of players (2-10):" << "\n";
         cin >> numPlayers;
     } while (numPlayers < 2 || numPlayers > 10);
 
     int stash;
-    cout << "Input stash (amount of money each players starts with):" << endl;
+    cout << "Input stash (amount of money each players starts with):" << "\n";
     cin >> stash;
 
-    cout << "Input minimum bet (also big blind bet):" << endl;
+    cout << "Input minimum bet (also big blind bet):" << "\n";
     cin >> minimumBet;
 
     for (int i=0; i<numPlayers; i++) {
         string name;
-        cout << "Enter name for player " << i + 1 << ":" << endl;
+        cout << "Enter name for player " << i + 1 << ":" << "\n";
         cin >> name;
 
         Player player(i, stash, name);
@@ -68,9 +68,9 @@ void Game::setupBlinds() {
     smallBlind = players[smallBlindIndex];
     bigBlind = players[bigBlindIndex];
 
-    cout << "Dealer is " << dealer.name << endl;
-    cout << "Small blind is " << smallBlind.name << endl;
-    cout << "Big blind is " << bigBlind.name << endl;
+    cout << "\n[SETUP] Dealer is " << dealer.name << "\n";
+    cout << "[SETUP] Small blind is " << smallBlind.name << "\n";
+    cout << "[SETUP] Big blind is " << bigBlind.name << "\n\n";
 }
 
 /**
@@ -81,14 +81,18 @@ void Game::distributeHoleCards() {
         shuffleDeck();
     }
 
-    for (Player player : players) {
+    for (Player& player : players) {
         for (int i = 0; i < 2; i++) {
             int drawnCardIndex = randomInt(0, deck.size() - 1);
             Card drawnCard = deck[drawnCardIndex];
             deck.erase(deck.begin() + drawnCardIndex);
             player.hand.push_back(drawnCard);
-            cout << "Player " << player.name << " hole #" << i + 1 << ": " << drawnCard << endl;
         }
+    }
+
+    // Debug usage
+    for (Player& player : players) {
+        cout << "Player " << player.name << " has hole cards: " << player.hand[0] << ", " << player.hand[1] << "\n";
     }
 }
 
@@ -110,7 +114,7 @@ void Game::distributeCommunityCards() {
 }
 
 void Game::playHand() {
-    for (Player player: players) {
+    for (Player& player: players) {
         player.isIn = true;
         player.recentBet = 0;
     }
@@ -123,18 +127,21 @@ void Game::playHand() {
      */
     if (communityCards.empty()) {
         smallBlind.bet(minimumBet / 2);
+        cout << "\n[TURN] Small blind " << smallBlind.name << " bets $" << smallBlind.recentBet << "\n";
         pot += minimumBet / 2;
         bigBlind.bet(minimumBet);
+        cout << "\n[TURN] Big blind " << bigBlind.name << " bets $" << bigBlind.recentBet << "\n";
         pot += minimumBet;
     }
 
     auto bettingRound = [&]() {
-        for (Player& player : players) {
+        for (int i=0; i<players.size(); i++) {
+            Player& player = players[i];
             if (!player.isIn) continue;
             bool validAction = false;
             do {
                 int action;
-                cout << "Player " + player.name + "'s turn. [1] Call [2] Raise [3] Fold [4] Check" << endl;
+                cout << "Player " + player.name + "'s turn. [1] Call [2] Raise [3] Fold [4] Check"  << "\n";
                 cin >> action;
                 switch (action) {
                     case 1:
@@ -166,32 +173,32 @@ void Game::playHand() {
         }
     };
 
-    cout << "Pre flop betting round" << endl;
+    cout << "\nPre flop betting round"  << "\n";
     bettingRound();
     distributeCommunityCards();
     for (auto& card : communityCards) {
-        cout << "Community Card: " << card << endl;
+        cout << "Community Card: " << card << "\n";
     }
 
-    cout << "Next betting round" << endl;
+    cout << "\nNext betting round" << "\n";
     bettingRound();
     distributeCommunityCards();
     for (auto& card : communityCards) {
-        cout << "Community Card: " << card << endl;
+        cout << "Community Card: " << card << "\n";
     }
 
-    cout << "Next betting round" << endl;
+    cout << "\nFinal betting round" << "\n";
     bettingRound();
     distributeCommunityCards();
     for (auto& card : communityCards) {
-        cout << "Community Card: " << card << endl;
+        cout << "Community Card: " << card << "\n";
     }
 
     showdown();
 }
 
 void Game::showdown() {
-    cout << "SHOWDOWN" << endl;
+    cout << "SHOWDOWN" << "\n";
     round += 1;
     pot = 0;
 }
