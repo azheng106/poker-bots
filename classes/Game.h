@@ -25,6 +25,7 @@ public:
     void setupBlinds();
     void distributeHoleCards();
     void distributeCommunityCards();
+    void calculatePot();
     void playHand();
     void showdown();
 

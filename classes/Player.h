@@ -13,7 +13,10 @@ public:
     string name;
     int money{};
     bool isIn;
-    int recentBet;
+
+    // Total amount of money the player has bet this betting round
+    int currentBet;
+
     vector<Card> hand;
 
     Player(int index, int stash, string name);

@@ -8,7 +8,7 @@ Player::Player(int index, int stash, string name) {
 
     isIn = true;
     money = stash;
-    recentBet = 0;
+    currentBet = 0;
 }
 
 bool Player::operator==(Player &other) const {
@@ -35,7 +35,7 @@ void Player::bet(int betAmount=0) {
             break;
         }
     }
-    recentBet = betAmount;
+    currentBet += betAmount;
     money -= betAmount;
 }
 
@@ -57,16 +57,16 @@ void Player::raise(int *currentMinBet) {
             continue;
         }
 
-        if (money < (raiseAmount + recentBet)) {
+        if (money < (raiseAmount + *currentMinBet)) {
             cout << "You don't have enough money to make that raise." << "\n";
             continue;
         }
 
         break;
     }
-    bet(raiseAmount + recentBet);
-    cout << "\n[TURN] Player " << name << " raises to $" << recentBet << "\n\n";
-    *currentMinBet = recentBet;
+    bet(raiseAmount + *currentMinBet - currentBet);
+    cout << "\n[TURN] Player " << name << " raises to $" << currentBet << "\n\n";
+    *currentMinBet = currentBet;
 }
 
 /*
@@ -80,9 +80,9 @@ void Player::check() {
  * Standard call. Will bet the current minimum bet.
  */
 void Player::call(int currentMinBet) {
-    int callAmount = currentMinBet - recentBet;
+    int callAmount = currentMinBet - currentBet;
     bet(callAmount);
-    cout << "\n[TURN] Player " << name << " calls." << "\n\n";
+    cout << "\n[TURN] Player " << name << " calls, now betting $" << currentBet << "\n\n";
 }
 
 /*

@@ -113,10 +113,18 @@ void Game::distributeCommunityCards() {
     }
 }
 
+void Game::calculatePot() {
+    for (Player& player : players) {
+        pot += player.currentBet;
+    }
+    cout << "\n[POT] The pot is now worth $" << pot << "\n";
+}
+
 void Game::playHand() {
+    pot = 0;
     for (Player& player: players) {
         player.isIn = true;
-        player.recentBet = 0;
+        player.currentBet = 0;
     }
 
     /*
@@ -127,11 +135,11 @@ void Game::playHand() {
      */
     if (communityCards.empty()) {
         smallBlind.bet(minimumBet / 2);
-        cout << "\n[TURN] Small blind " << smallBlind.name << " bets $" << smallBlind.recentBet << "\n";
-        pot += minimumBet / 2;
+        cout << "\n[TURN] Small blind " << smallBlind.name << " bets $" << smallBlind.currentBet << "\n";
+        calculatePot();
         bigBlind.bet(minimumBet);
-        cout << "\n[TURN] Big blind " << bigBlind.name << " bets $" << bigBlind.recentBet << "\n";
-        pot += minimumBet;
+        cout << "\n[TURN] Big blind " << bigBlind.name << " bets $" << bigBlind.currentBet << "\n";
+        calculatePot();
     }
 
     auto bettingRound = [&]() {
@@ -147,22 +155,26 @@ void Game::playHand() {
                     case 1:
                         player.call(minimumBet);
                         validAction = true;
+                        calculatePot();
                         break;
                     case 2: {
                         player.raise(&minimumBet);
                         validAction = true;
+                        calculatePot();
                         break;
                     }
                     case 3:
                         player.fold();
                         validAction = true;
+                        calculatePot();
                         break;
                     case 4:
-                        if (player.recentBet < minimumBet) {
+                        if (player.currentBet < minimumBet) {
                             cout << "You cannot check, you need to call or raise.\n";
                         } else {
                             player.check();
                             validAction = true;
+                            calculatePot();
                         }
                         break;
                     default:
