@@ -113,104 +113,124 @@ void Game::distributeCommunityCards() {
     }
 }
 
+/*
+ * Automatically calculates the pot, no need to reset
+ */
 void Game::calculatePot() {
     pot = 0;
     for (Player& player : players) {
         pot += player.currentBet;
     }
-    cout << "\n[POT] The pot is now worth $" << pot << "\n";
 }
 
+void Game::getAction(Player& player) {
+    bool validAction = false;
+    do {
+        int action;
+        if (pot == 0) {
+            cout << "Player " + player.name + "'s turn. [1] Bet [2] Check [3] Call [4] Raise [5] Fold" << "\n";
+            cin >> action;
+        } else {
+            cout << "Player " + player.name + "'s turn. [1] Call [2] Raise [3] Fold" << "\n";
+            cin >> action;
+            action += 2;
+        }
+
+        switch (action) {
+            case 1:
+                player.bet();
+                validAction = true;
+                break;
+            case 2:
+                player.check();
+                validAction = true;
+                break;
+            case 3:
+                player.call();
+                validAction = true;
+                break;
+            case 4:
+
+            case 5:
+
+            default:
+                cout << "Invalid action.\n";
+                break;
+        }
+    } while (!validAction);
+};
+
+// Rewrite
 void Game::playHand() {
-    pot = 0;
-    for (Player& player: players) {
+    // Reset players
+    for (Player& player : players) {
         player.isIn = true;
         player.currentBet = 0;
     }
 
-    /*
-      If first turn, force small blind and big blind to post bets
-      Ask each player to fold, call, or raise
-      If no one has bet players can also check or bet
-      Show community cards after everyone has placed an equal bet
-     */
-    if (communityCards.empty()) {
-        smallBlind->bet(minimumBet / 2);
-        cout << "\n[TURN] Small blind " << smallBlind->name << " bets $" << smallBlind->currentBet << "\n";
-        calculatePot();
-        bigBlind->bet(minimumBet);
-        cout << "\n[TURN] Big blind " << bigBlind->name << " bets $" << bigBlind->currentBet << "\n";
-        calculatePot();
-    }
-
-    auto bettingRound = [&]() {
-        for (auto & player : players) {
-            if (!player.isIn) continue;
-            bool validAction = false;
-            do {
-                int action;
-                cout << "Player " + player.name + "'s turn. [1] Call [2] Raise [3] Fold [4] Check"  << "\n";
-                cin >> action;
-                switch (action) {
-                    case 1:
-                        player.call(minimumBet);
-                        validAction = true;
-                        calculatePot();
-                        break;
-                    case 2: {
-                        player.raise(&minimumBet);
-                        validAction = true;
-                        calculatePot();
-                        break;
-                    }
-                    case 3:
-                        player.fold();
-                        validAction = true;
-                        calculatePot();
-                        break;
-                    case 4:
-                        if (player.currentBet < minimumBet) {
-                            cout << "You cannot check, you need to call or raise.\n";
-                        } else {
-                            player.check();
-                            validAction = true;
-                            calculatePot();
-                        }
-                        break;
-                    default:
-                        cout << "Invalid action.\n";
-                        break;
-                }
-            } while (!validAction);
+    // 3 betting rounds: pre-flop, turn, river
+    for (int turn=1; turn<=3; turn++) {
+        switch (turn) {
+            case 1:
+                cout << "[ROUND] Pre-flop";
+            case 2:
+                cout << "[ROUND] Next round";
+            case 3:
+                cout << "[ROUND] Final round";
         }
-    };
 
-    cout << "\nPre flop betting round"  << "\n";
-    bettingRound();
-    distributeCommunityCards();
-    for (Card& card : communityCards) {
-        cout << "Community Card: " << card << "\n";
+        for (Player& player: players) {
+            if (!player.isIn) continue;
+
+        }
     }
-
-    cout << "\nNext betting round" << "\n";
-    bettingRound();
-    distributeCommunityCards();
-    for (Card& card : communityCards) {
-        cout << "Community Card: " << card << "\n";
-    }
-
-    cout << "\nFinal betting round" << "\n";
-    bettingRound();
-    distributeCommunityCards();
-    for (Card& card : communityCards) {
-        cout << "Community Card: " << card << "\n";
-    }
-
-    showdown();
 }
 
+//void Game::playHand() {
+//    if (communityCards.empty()) {
+//        smallBlind->bet(minimumBet / 2);
+//        cout << "\n[TURN] Small blind " << smallBlind->name << " bets $" << smallBlind->currentBet << "\n";
+//        calculatePot();
+//        bigBlind->bet(minimumBet);
+//        cout << "[TURN] Big blind " << bigBlind->name << " bets $" << bigBlind->currentBet << "\n";
+//        calculatePot();
+//    }
+//
+//    auto bettingRound = [&]() {
+
+//
+//    cout << "Pre flop betting round"  << "\n";
+//    bettingRound();
+//    distributeCommunityCards();
+//    for (Card& card : communityCards) {
+//        cout << "[CARD] Community Card: " << card << "\n";
+//    }
+//
+//    cout << "\nNext betting round" << "\n";
+//    bettingRound();
+//    distributeCommunityCards();
+//    for (Card& card : communityCards) {
+//        cout << "[CARD] Community Card: " << card << "\n";
+//    }
+//
+//    cout << "\nFinal betting round" << "\n";
+//    bettingRound();
+//    distributeCommunityCards();
+//    for (Card& card : communityCards) {
+//        cout << "[CARD] Community Card: " << card << "\n";
+//    }
+//
+//    showdown();
+//}
+
 void Game::showdown() {
-    cout << "SHOWDOWN" << "\n";
+    cout << "\nSHOWDOWN TIME (SPONSORED BY THEBIGBLACKDARREN CORP)" << "\n\n";
+
+    for (Player& player : players) {
+        if (player.isIn) {
+            cout << "Player " << player.name << " has bet $" << player.currentBet << "\n";
+        }
+    }
     round += 1;
     pot = 0;
 }

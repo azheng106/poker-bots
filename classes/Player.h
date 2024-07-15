@@ -21,10 +21,10 @@ public:
 
     Player(int index, int stash, string name);
 
-    void bet(int betAmount);
-    void raise(int *currentMinBet);
+    void bet(int betAmount=0);
     void check();
     void call(int amount);
+    void raise(int *currentMinBet);
     void fold();
     void win(int potAmount);
 
