@@ -64,13 +64,13 @@ void Game::setupBlinds() {
     int smallBlindIndex = (dealerIndex + round) % players.size();
     int bigBlindIndex = (dealerIndex + round + 1) % players.size();
 
-    dealer = players[dealerIndex];
-    smallBlind = players[smallBlindIndex];
-    bigBlind = players[bigBlindIndex];
+    dealer = &players[dealerIndex];
+    smallBlind = &players[smallBlindIndex];
+    bigBlind = &players[bigBlindIndex];
 
-    cout << "\n[SETUP] Dealer is " << dealer.name << "\n";
-    cout << "[SETUP] Small blind is " << smallBlind.name << "\n";
-    cout << "[SETUP] Big blind is " << bigBlind.name << "\n\n";
+    cout << "\n[SETUP] Dealer is " << dealer->name << "\n";
+    cout << "[SETUP] Small blind is " << smallBlind->name << "\n";
+    cout << "[SETUP] Big blind is " << bigBlind->name << "\n\n";
 }
 
 /**
@@ -114,6 +114,7 @@ void Game::distributeCommunityCards() {
 }
 
 void Game::calculatePot() {
+    pot = 0;
     for (Player& player : players) {
         pot += player.currentBet;
     }
@@ -134,17 +135,16 @@ void Game::playHand() {
       Show community cards after everyone has placed an equal bet
      */
     if (communityCards.empty()) {
-        smallBlind.bet(minimumBet / 2);
-        cout << "\n[TURN] Small blind " << smallBlind.name << " bets $" << smallBlind.currentBet << "\n";
+        smallBlind->bet(minimumBet / 2);
+        cout << "\n[TURN] Small blind " << smallBlind->name << " bets $" << smallBlind->currentBet << "\n";
         calculatePot();
-        bigBlind.bet(minimumBet);
-        cout << "\n[TURN] Big blind " << bigBlind.name << " bets $" << bigBlind.currentBet << "\n";
+        bigBlind->bet(minimumBet);
+        cout << "\n[TURN] Big blind " << bigBlind->name << " bets $" << bigBlind->currentBet << "\n";
         calculatePot();
     }
 
     auto bettingRound = [&]() {
-        for (int i=0; i<players.size(); i++) {
-            Player& player = players[i];
+        for (auto & player : players) {
             if (!player.isIn) continue;
             bool validAction = false;
             do {

@@ -19,8 +19,8 @@ bool Player::operator==(Player &other) const {
  * Standard opening for rounds. If no betAmount is provided, gets bet amount from input.
  * Checks if the player has enough money to make the bet, except if betAmount is passed in as a parameter.
  */
-void Player::bet(int betAmount=0) {
-    if (betAmount == 0) {
+void Player::bet(int betAmount=-1) {
+    if (betAmount == -1) {
         while (true) {
             cout << "\nCurrent stash: $" << money << "\n";
 

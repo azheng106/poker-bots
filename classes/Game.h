@@ -15,9 +15,9 @@ public:
     vector<Card> deck;
     vector<Card> communityCards;
 
-    Player dealer{-1, -1, "a"};
-    Player smallBlind{-1, -1, "a"};
-    Player bigBlind{-1, -1, "a"};
+    Player *dealer;
+    Player *smallBlind;
+    Player *bigBlind;
 
     static int randomInt(int a, int b);
     void setupPlayers();
