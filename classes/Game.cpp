@@ -190,11 +190,13 @@ void Game::getAction(Player& player) {
 bool Game::isTurnOver() {
     vector<int> currentBets;
     for (Player& player : players) {
-        if (!player.isAllIn && player.currentBet != 0) {
+        if (!player.isAllIn) {
+            cout << "[DEBUG] Player " << player.name << " has total bet $" << player.currentBet << "\n";
             currentBets.push_back(player.currentBet);
         }
     }
     sort(currentBets.begin(), currentBets.end());
+    if (accumulate(currentBets.begin(), currentBets.end(), 0) == 0) return false;
     bool isTurnOver = adjacent_find(currentBets.begin(), currentBets.end()) != currentBets.end();
     return isTurnOver;
 }
@@ -229,12 +231,12 @@ void Game::playHand() {
                 break;
         }
 
-        for (int i=0; !isTurnOver(); (i+1)%players.size()) {
+        for (int i=0; isTurnOver(); i=(i+1) % players.size()) {
             Player& player = players[i];
             if (!player.isIn) continue;
-            //if (!player.isAllIn) continue;
+            if (player.isAllIn) continue;
             // Skip small and big blind if it's turn 1
-            if (turn==1 && (&player==smallBlind || &player==bigBlind)) continue;
+            if (turn==1 && (player.currentBet>=currentMinBet) && (&player==smallBlind || &player==bigBlind)) continue;
             getAction(player);
         }
         calculatePot();
