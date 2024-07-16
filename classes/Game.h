@@ -8,7 +8,9 @@ class Game {
 public:
     int round;
     int pot = 0;
-    int minimumBet;
+    bool hasOpened;
+    int bigBlindBet;
+    int currentMinBet;
     int initialDealerIndex;
     vector<Player> players;
 
@@ -25,7 +27,9 @@ public:
     void setupBlinds();
     void distributeHoleCards();
     void distributeCommunityCards();
+    void displayPot();
     void calculatePot();
+    void doBlindBets();
     void getAction(Player& player);
     void playHand();
     void showdown();

@@ -13,6 +13,8 @@ public:
     string name;
     int money{};
     bool isIn;
+    bool isAllIn;
+    bool hasRaised;
 
     // Total amount of money the player has bet this betting round
     int currentBet;
@@ -21,10 +23,10 @@ public:
 
     Player(int index, int stash, string name);
 
-    void bet(int betAmount=0);
+    void bet(int *currentMinBet, int betAmount, bool fromInput=false);
     void check();
-    void call(int amount);
     void raise(int *currentMinBet);
+    void call(int currentMinBet);
     void fold();
     void win(int potAmount);
 

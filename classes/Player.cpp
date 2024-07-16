@@ -19,10 +19,10 @@ bool Player::operator==(Player &other) const {
  * Standard opening for rounds. If betAmount=0, gets bet amount from input.
  * Checks if the player has enough money to make the bet, except if betAmount is passed in as a parameter.
  */
-void Player::bet(int betAmount) {
-    if (betAmount == 0) {
+void Player::bet(int *currentMinBet, int betAmount, bool fromInput) {
+    if (fromInput) {
         while (true) {
-            cout << "\nCurrent stash: $" << money << "\n";
+            cout << "Current stash: $" << money << "\n";
 
             cout << "Amount to bet: $";
             cin >> betAmount;
@@ -31,28 +31,24 @@ void Player::bet(int betAmount) {
                 cout << "You don't have enough money to make that bet." << "\n";
                 continue;
             }
-            cout << "\n[TURN] Player " << name << " bets $" << betAmount << "\n";
+
+            if (betAmount < *currentMinBet) {
+                cout << "You must bet at least the minimum bet (the big blind) of $" << *currentMinBet << "\n";
+                continue;
+            }
             break;
         }
     }
     currentBet += betAmount;
     money -= betAmount;
+    cout << "[TURN] Player " << name << " bets $" << currentBet << "\n";
 }
 
 /*
  * Skips turn
  */
 void Player::check() {
-    cout << "\n[TURN] Player " << name << " checks." << "\n";
-}
-
-/*
- * Standard call. Will bet the current minimum bet.
- */
-void Player::call(int currentMinBet) {
-    int callAmount = currentMinBet - currentBet;
-    bet(callAmount);
-    cout << "\n[TURN] Player " << name << " calls, now betting $" << currentBet << "\n";
+    cout << "[TURN] Player " << name << " checks." << "\n";
 }
 
 /*
@@ -61,28 +57,39 @@ void Player::call(int currentMinBet) {
  * Checks if the player has enough money to make the raise
  */
 void Player::raise(int *currentMinBet) {
-    int raiseAmount;
+    int desiredBet;
     while (true) {
         cout << "\nCurrent stash: $" << money << "\n";
         cout << "Current minimum bet: $" << *currentMinBet << "\n";
-        cout << "Enter raise amount: $";
-        cin >> raiseAmount;
+        cout << "Current minimum bet to raise: $" << 2*(*currentMinBet) << "\n";
+        cout << "Raise to: $";
+        cin >> desiredBet;
 
-        if (raiseAmount < *currentMinBet) {
+        if (desiredBet < 2*(*currentMinBet)) {
             cout << "You have to raise by at least the minimum bet." << "\n";
             continue;
         }
 
-        if (money < (raiseAmount + *currentMinBet)) {
+        if (money < desiredBet - currentBet) {
             cout << "You don't have enough money to make that raise." << "\n";
             continue;
         }
 
         break;
     }
-    bet(raiseAmount + *currentMinBet - currentBet);
-    cout << "\n[TURN] Player " << name << " raises to $" << currentBet << "\n";
+    cout << "[TURN] Player " << name << " raises to $" << desiredBet << "\n";
+    bet(currentMinBet, desiredBet - currentBet);
     *currentMinBet = currentBet;
+    hasRaised = true;
+}
+
+/*
+ * Standard call. Will bet the current minimum bet.
+ */
+void Player::call(int currentMinBet) {
+    int callAmount = currentMinBet - currentBet;
+    cout << "[TURN] Player " << name << " calls." << "\n";
+    bet(&currentMinBet, callAmount);
 }
 
 /*
@@ -90,10 +97,10 @@ void Player::raise(int *currentMinBet) {
  */
 void Player::fold() {
     isIn = false;
-    cout << "\n[TURN] Player " << name << " folds." << "\n";
+    cout << "[TURN] Player " << name << " folds." << "\n";
 }
 
 void Player::win(int potAmount) {
     money += potAmount;
-    cout << "\n[END] Player " << name << " wins the pot of $" << potAmount << "!" << "\n";
+    cout << "[END] Player " << name << " wins the pot of $" << potAmount << "!" << "\n";
 }
