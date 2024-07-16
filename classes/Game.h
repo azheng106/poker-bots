@@ -1,6 +1,7 @@
 #pragma once
 
 #include <random>
+#include <algorithm>
 
 #include "Player.h"
 
@@ -31,6 +32,7 @@ public:
     void calculatePot();
     void doBlindBets();
     void getAction(Player& player);
+    bool isTurnOver();
     void playHand();
     void showdown();
 

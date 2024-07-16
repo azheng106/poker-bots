@@ -187,12 +187,25 @@ void Game::getAction(Player& player) {
     }
 };
 
+bool Game::isTurnOver() {
+    vector<int> currentBets;
+    for (Player& player : players) {
+        if (!player.isAllIn && player.currentBet != 0) {
+            currentBets.push_back(player.currentBet);
+        }
+    }
+    sort(currentBets.begin(), currentBets.end());
+    bool isTurnOver = adjacent_find(currentBets.begin(), currentBets.end()) != currentBets.end();
+    return isTurnOver;
+}
+
 // Rewrite
 void Game::playHand() {
     pot = 0;
     // Reset players
     for (Player& player : players) {
         player.isIn = true;
+        player.isAllIn = false;
     }
 
     // 3 betting rounds: pre-flop, turn, river
@@ -200,6 +213,7 @@ void Game::playHand() {
         hasOpened = false;
         for (Player& player : players) {
             player.currentBet = 0;
+            player.hasRaised = false;
         }
         currentMinBet = bigBlindBet;
         switch (turn) {
@@ -215,8 +229,10 @@ void Game::playHand() {
                 break;
         }
 
-        for (Player& player: players) {
+        for (int i=0; !isTurnOver(); (i+1)%players.size()) {
+            Player& player = players[i];
             if (!player.isIn) continue;
+            //if (!player.isAllIn) continue;
             // Skip small and big blind if it's turn 1
             if (turn==1 && (&player==smallBlind || &player==bigBlind)) continue;
             getAction(player);
