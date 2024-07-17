@@ -21,21 +21,21 @@ int Game::randomInt(int a, int b) {
 void Game::setupPlayers() {
     int numPlayers;
     do {
-        cout << "Input number of players (2-10):" << "\n";
+        cout << "Input number of players (2-10):\n";
         cin >> numPlayers;
     } while (numPlayers < 2 || numPlayers > 10);
 
     int stash;
-    cout << "Input stash (amount of money each players starts with):" << "\n";
+    cout << "Input stash (amount of money each players starts with):\n";
     cin >> stash;
 
-    cout << "Input minimum bet (also big blind bet):" << "\n";
+    cout << "Input minimum bet (also big blind bet):\n";
     cin >> bigBlindBet;
     currentMinBet = bigBlindBet;
 
     for (int i=0; i<numPlayers; i++) {
         string name;
-        cout << "Enter name for player " << i + 1 << ":" << "\n";
+        cout << "Enter name for player " << i + 1 << ":\n";
         cin >> name;
 
         Player player(i, stash, name);
@@ -148,42 +148,37 @@ void Game::doBlindBets() {
     bigBlind->currentBet += bigBlindBet;
     bigBlind->money -= bigBlindBet;
     cout << "[BLIND] Big blind " << bigBlind->name << " bets $" << bigBlindBet << "\n";
-    displayPot();
     hasOpened = true;
 }
 
 void Game::getAction(Player& player) {
     string action;
-
-    while (true) {
-        cout << "\nPlayer " + player.name + "'s turn. You have $" << player.money << ". Type one option: ";
+    bool validAction = false;
+    while (!validAction) {
+        cout << "\nPlayer " + player.name + "'s turn. You have $" << player.money << ". Your current bet is $"
+        << player.currentBet << ". Type one option: ";
 
         // No bet has been made yet
         if (!hasOpened) {
-            cout << "[Bet] [Check] [Fold]" << "\n";
+            cout << "[Bet] [Check] [Fold]\n";
         } else if (!player.hasRaised) {
-            cout << "[Raise] [Call] [Fold]" << "\n";
+            cout << "[Raise] [Call] [Fold]\n";
         } else {
-            cout << "[Call] [Fold]" << "\n";
+            cout << "[Call] [Fold]\n";
         }
         cin >> action;
 
         if (!hasOpened && action=="bet") {
-            player.bet(&currentMinBet);
+            validAction = player.bet(&currentMinBet);
             hasOpened = true;
-            break;
         } else if (!hasOpened && action=="check") {
-            player.check();
-            break;
+            validAction = player.check();
         } else if (hasOpened && !player.hasRaised && action=="raise") {
-            player.raise(&currentMinBet);
-            break;
+            validAction = player.raise(&currentMinBet);
         } else if (hasOpened && action=="call") {
-            player.call(&currentMinBet);
-            break;
+            validAction = player.call(&currentMinBet);
         } else if (action=="fold") {
-            player.fold();
-            break;
+            validAction = player.fold();
         } else {
             cout << "Invalid option.\n";
             continue;
@@ -205,12 +200,12 @@ bool Game::isTurnOver() {
     }
 
     // Debug usage only
-    cout << "\n";
-    for (Player& player : players) {
-        if (player.isIn) {
-            cout << "[DEBUG] Player " << player.name << " has bet $" << player.currentBet << " this round.\n";
-        }
-    }
+//    cout << "\n";
+//    for (Player& player : players) {
+//        if (player.isIn) {
+//            cout << "[DEBUG] Player " << player.name << " has bet $" << player.currentBet << " this round.\n";
+//        }
+//    }
     if (checkedAround) return true;
     return isTurnOver;
 }
@@ -259,15 +254,16 @@ void Game::playHand() {
             if (turn==1 && (player.currentBet>=currentMinBet) && (&player==smallBlind || &player==bigBlind)) continue;
             getAction(player);
         }
-        calculatePot();
         displayPot();
+        calculatePot();
         distributeCommunityCards();
     }
     showdown();
 }
 
 void Game::showdown() {
-    cout << "\nSHOWDOWN TIME (SPONSORED BY THEBIGBLACKDARREN CORP)" << "\n\n";
+    cout << "\nSHOWDOWN TIME (SPONSORED BY THEBIGBLACKDARREN CORP)\n\n";
+    cout << "[POT] The pot is worth a beefy $" << pot << "\n\n";
 
     for (Player& player : players) {
         if (player.isIn) {

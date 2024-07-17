@@ -27,11 +27,11 @@ public:
 
     Player(int index, int stash, string name);
 
-    void bet(int *currentMinBet);
-    void check();
-    void raise(int *currentMinBet);
-    void call(int *currentMinBet);
-    void fold();
+    bool bet(int *currentMinBet);
+    bool check();
+    bool raise(int *currentMinBet);
+    bool call(int *currentMinBet);
+    bool fold();
     void win(int potAmount);
 
     bool operator==(Player& other) const;
