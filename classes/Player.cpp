@@ -15,10 +15,6 @@ bool Player::operator==(Player &other) const {
     return this->name == other.name && this->index == other.index;
 }
 
-/*
- * Standard opening for rounds. If betAmount=0, gets bet amount from input.
- * Checks if the player has enough money to make the bet, except if betAmount is passed in as a parameter.
- */
 void Player::bet(int *currentMinBet) {
     int betAmount;
     while (true) {
@@ -59,18 +55,11 @@ void Player::bet(int *currentMinBet) {
     if (!isAllIn) cout << "[TURN] Player " << name << " bets $" << currentBet << "\n";
 }
 
-/*
- * Skips turn
- */
 void Player::check() {
     cout << "[TURN] Player " << name << " checks." << "\n";
+    hasChecked = true;
 }
 
-/*
- * Standard raise after bet(s) have been made.
- * Asks the user for the raise amount, and then displays the total bet
- * Checks if the player has enough money to make the raise
- */
 void Player::raise(int *currentMinBet) {
     int desiredBet;
     int raiseAmount;
@@ -106,6 +95,7 @@ void Player::raise(int *currentMinBet) {
     if (raiseAmount == money) isAllIn = true;
     if (isAllIn) {
         raiseAmount = money;
+        desiredBet = money + currentBet;
         cout << "[ALL IN] " << name << " is going all in." << "\n";
     }
     if (desiredBet > *currentMinBet) *currentMinBet = desiredBet;
@@ -117,15 +107,9 @@ void Player::raise(int *currentMinBet) {
     }
 }
 
-/*
- * Standard call. Will bet the current minimum bet.
- */
 void Player::call(int *currentMinBet) {
     int callAmount = *currentMinBet - currentBet;
-    if (callAmount > money) {
-        isAllIn = true;
-    }
-    if (callAmount == money) isAllIn = true;
+    if (callAmount >= money) isAllIn = true;
     if (isAllIn) {
         callAmount = money;
         cout << "[ALL IN] " << name << " is going all in." << "\n";
@@ -136,9 +120,6 @@ void Player::call(int *currentMinBet) {
     money -= callAmount;
 }
 
-/*
- * Surrenders hand.
- */
 void Player::fold() {
     isIn = false;
     cout << "[TURN] Player " << name << " folds." << "\n";

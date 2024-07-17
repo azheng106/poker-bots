@@ -8,6 +8,7 @@
 class Game {
 public:
     int round;
+    int turn;
     int pot = 0;
     bool hasOpened;
     int bigBlindBet;

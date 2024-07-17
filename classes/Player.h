@@ -15,6 +15,7 @@ public:
     bool isIn;
     bool isAllIn;
     bool hasRaised;
+    bool hasChecked;
 
     // Total amount of money the player has bet this betting round
     int currentBet;

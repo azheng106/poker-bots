@@ -93,7 +93,7 @@ void Game::distributeHoleCards() {
 
     // Debug usage
     for (Player& player : players) {
-        cout << "Player " << player.name << " has hole cards: " << player.hand[0] << ", " << player.hand[1] << "\n";
+        cout << "[DEBUG] Player " << player.name << " has hole cards: " << player.hand[0] << ", " << player.hand[1] << "\n";
     }
 }
 
@@ -162,9 +162,9 @@ void Game::getAction(Player& player) {
         if (!hasOpened) {
             cout << "[Bet] [Check] [Fold]" << "\n";
         } else if (!player.hasRaised) {
-            cout << "[Raise] [Call ($" << currentMinBet << ")] [Fold]" << "\n";
+            cout << "[Raise] [Call] [Fold]" << "\n";
         } else {
-            cout << "[Call $" << currentMinBet << "[Fold]" << "\n";
+            cout << "[Call] [Fold]" << "\n";
         }
         cin >> action;
 
@@ -193,19 +193,25 @@ void Game::getAction(Player& player) {
 
 bool Game::isTurnOver() {
     bool isTurnOver = true;
+    bool checkedAround = true;
 
     for (Player& player : players) {
-        if (player.isIn) {
-            if (!player.isAllIn) {
-                if (player.currentBet != currentMinBet) {
-                    isTurnOver = false;
-                    break;
-                }
+        if (player.isIn && !player.isAllIn) {
+            if (player.currentBet != currentMinBet) {
+                isTurnOver = false;
             }
+            if (!player.hasChecked) checkedAround = false;
         }
-
     }
-    if (currentMinBet == 0) return false;
+
+    // Debug usage only
+    cout << "\n";
+    for (Player& player : players) {
+        if (player.isIn) {
+            cout << "[DEBUG] Player " << player.name << " has $" << player.currentBet << " in the pot.\n";
+        }
+    }
+    if (checkedAround) return true;
     return isTurnOver;
 }
 
@@ -220,11 +226,12 @@ void Game::playHand() {
     }
 
     // 3 betting rounds: pre-flop, turn, river
-    for (int turn=1; turn<=3; turn++) {
+    for (turn=1; turn<=3; turn++) {
         hasOpened = false;
         for (Player& player : players) {
             player.currentBet = 0;
             player.hasRaised = false;
+            player.hasChecked = false;
         }
         currentMinBet = bigBlindBet;
         switch (turn) {
