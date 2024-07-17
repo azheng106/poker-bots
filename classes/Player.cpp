@@ -65,7 +65,8 @@ void Player::raise(int *currentMinBet) {
     int raiseAmount;
     while (true) {
         // Go all in if the player can't make the minimum bet
-        if (*currentMinBet > money) {
+        if (2*(*currentMinBet) > money) {
+            cout << "You cannot make the minimum raise. Going all in.\n";
             isAllIn = true;
             break;
         }
@@ -78,7 +79,7 @@ void Player::raise(int *currentMinBet) {
 
         if (raiseAmount > money) {
             string confirm;
-            cout << "You don't have enough money to make that bet. Did you mean to go all in? [y/n]" << "\n";
+            cout << "You don't have enough money to make that bet. Did you mean to go all in? [y/n]\n";
             cin >> confirm;
 
             if (confirm == "y") {

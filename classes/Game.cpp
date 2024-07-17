@@ -208,7 +208,7 @@ bool Game::isTurnOver() {
     cout << "\n";
     for (Player& player : players) {
         if (player.isIn) {
-            cout << "[DEBUG] Player " << player.name << " has $" << player.currentBet << " in the pot.\n";
+            cout << "[DEBUG] Player " << player.name << " has bet $" << player.currentBet << " this round.\n";
         }
     }
     if (checkedAround) return true;
@@ -227,13 +227,13 @@ void Game::playHand() {
 
     // 3 betting rounds: pre-flop, turn, river
     for (turn=1; turn<=3; turn++) {
+        currentMinBet = bigBlindBet;
         hasOpened = false;
         for (Player& player : players) {
             player.currentBet = 0;
             player.hasRaised = false;
             player.hasChecked = false;
         }
-        currentMinBet = bigBlindBet;
         switch (turn) {
             case 1:
                 cout << "\n[ROUND] Pre-flop\n\n";
@@ -260,6 +260,7 @@ void Game::playHand() {
             getAction(player);
         }
         calculatePot();
+        displayPot();
         distributeCommunityCards();
     }
     showdown();
