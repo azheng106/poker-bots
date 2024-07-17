@@ -19,39 +19,36 @@ bool Player::operator==(Player &other) const {
  * Standard opening for rounds. If betAmount=0, gets bet amount from input.
  * Checks if the player has enough money to make the bet, except if betAmount is passed in as a parameter.
  */
-void Player::bet(int *currentMinBet, int betAmount, bool fromInput) {
-    if (fromInput) {
-        while (true) {
-            // Go all in if the player can't make the minimum bet
-            if (*currentMinBet > money) {
-                isAllIn = true;
-                break;
-            }
-
-            cout << "Current stash: $" << money << "\n";
-            cout << "Amount to bet: $";
-            cin >> betAmount;
-
-            // Ask to go all in if the player tries to bet more than their stash
-            if (betAmount > money) {
-                string confirm;
-                cout << "You don't have enough money to make this bet. Would you like to go all in? [y/n]\n";
-                cin >> confirm;
-
-                if (confirm == "y") {
-                    isAllIn = true;
-                    break;
-                } else continue;
-            }
-
-            if (betAmount < *currentMinBet) {
-                cout << "You must bet at least the minimum bet (the big blind) of $" << *currentMinBet << "\n";
-                continue;
-            }
+void Player::bet(int *currentMinBet) {
+    int betAmount;
+    while (true) {
+        // Go all in if the player can't make the minimum bet
+        if (*currentMinBet > money) {
+            isAllIn = true;
             break;
         }
+        cout << "Amount to bet: $";
+        cin >> betAmount;
+
+        // Ask to go all in if the player tries to bet more than their stash
+        if (betAmount > money) {
+            string confirm;
+            cout << "You don't have enough money to make this bet. Would you like to go all in? [y/n]\n";
+            cin >> confirm;
+
+            if (confirm == "y") {
+                isAllIn = true;
+                break;
+            } else continue;
+        }
+
+        if (betAmount < *currentMinBet) {
+            cout << "You must bet at least the minimum bet (the big blind) of $" << *currentMinBet << "\n";
+            continue;
+        }
+        break;
     }
-    if (betAmount >= money) isAllIn = true;
+    if (betAmount == money) isAllIn = true;
     if (isAllIn) {
         betAmount = money;
         cout << "[ALL IN] " << name << " is going all in." << "\n";
@@ -76,20 +73,21 @@ void Player::check() {
  */
 void Player::raise(int *currentMinBet) {
     int desiredBet;
+    int raiseAmount;
     while (true) {
         // Go all in if the player can't make the minimum bet
         if (*currentMinBet > money) {
             isAllIn = true;
             break;
         }
-
-        cout << "\nCurrent stash: $" << money << "\n";
         cout << "Current minimum bet: $" << *currentMinBet << "\n";
         cout << "Current minimum bet to raise: $" << 2*(*currentMinBet) << "\n";
         cout << "Raise to: $";
         cin >> desiredBet;
 
-        if (desiredBet - currentBet > money) {
+        raiseAmount = desiredBet - currentBet;
+
+        if (raiseAmount > money) {
             string confirm;
             cout << "You don't have enough money to make that bet. Did you mean to go all in? [y/n]" << "\n";
             cin >> confirm;
@@ -105,20 +103,37 @@ void Player::raise(int *currentMinBet) {
         }
         break;
     }
+    if (raiseAmount == money) isAllIn = true;
+    if (isAllIn) {
+        raiseAmount = money;
+        cout << "[ALL IN] " << name << " is going all in." << "\n";
+    }
+    if (desiredBet > *currentMinBet) *currentMinBet = desiredBet;
+    currentBet += raiseAmount;
+    money -= raiseAmount;
     if (!isAllIn) {
         cout << "[TURN] Player " << name << " raises to $" << desiredBet << "\n";
         hasRaised = true;
     }
-    bet(currentMinBet, desiredBet - currentBet);
 }
 
 /*
  * Standard call. Will bet the current minimum bet.
  */
-void Player::call(int currentMinBet) {
-    int callAmount = currentMinBet - currentBet;
-    cout << "[TURN] Player " << name << " calls." << "\n";
-    bet(&currentMinBet, callAmount);
+void Player::call(int *currentMinBet) {
+    int callAmount = *currentMinBet - currentBet;
+    if (callAmount > money) {
+        isAllIn = true;
+    }
+    if (callAmount == money) isAllIn = true;
+    if (isAllIn) {
+        callAmount = money;
+        cout << "[ALL IN] " << name << " is going all in." << "\n";
+    } else {
+        cout << "[TURN] Player " << name << " calls." << "\n";
+    }
+    currentBet += callAmount;
+    money -= callAmount;
 }
 
 /*

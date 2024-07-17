@@ -38,7 +38,7 @@ void Game::setupPlayers() {
         cout << "Enter name for player " << i + 1 << ":" << "\n";
         cin >> name;
 
-        Player player(i+1, stash, name);
+        Player player(i, stash, name);
         players.push_back(player);
     }
 }
@@ -136,14 +136,18 @@ void Game::displayPot() {
 void Game::calculatePot() {
     for (Player& player : players) {
         pot += player.currentBet;
+        player.totalBet += player.currentBet;
         player.currentBet = 0;
     }
 }
 
 void Game::doBlindBets() {
-    smallBlind->bet(&currentMinBet, currentMinBet / 2);
-    displayPot();
-    bigBlind->bet(&currentMinBet, currentMinBet);
+    smallBlind->currentBet += bigBlindBet / 2;
+    smallBlind->money -= bigBlindBet / 2;
+    cout << "[BLIND] Small blind " << smallBlind->name << " bets $" << bigBlindBet / 2 << "\n";
+    bigBlind->currentBet += bigBlindBet;
+    bigBlind->money -= bigBlindBet;
+    cout << "[BLIND] Big blind " << bigBlind->name << " bets $" << bigBlindBet << "\n";
     displayPot();
     hasOpened = true;
 }
@@ -152,20 +156,20 @@ void Game::getAction(Player& player) {
     string action;
 
     while (true) {
-        cout << "\nPlayer " + player.name + "'s turn. Type one option: ";
+        cout << "\nPlayer " + player.name + "'s turn. You have $" << player.money << ". Type one option: ";
 
         // No bet has been made yet
         if (!hasOpened) {
             cout << "[Bet] [Check] [Fold]" << "\n";
         } else if (!player.hasRaised) {
-            cout << "[Raise] [Call] [Fold]" << "\n";
+            cout << "[Raise] [Call ($" << currentMinBet << ")] [Fold]" << "\n";
         } else {
-            cout << "[Call] [Fold]" << "\n";
+            cout << "[Call $" << currentMinBet << "[Fold]" << "\n";
         }
         cin >> action;
 
         if (!hasOpened && action=="bet") {
-            player.bet(&currentMinBet, 0, true);
+            player.bet(&currentMinBet);
             hasOpened = true;
             break;
         } else if (!hasOpened && action=="check") {
@@ -175,7 +179,7 @@ void Game::getAction(Player& player) {
             player.raise(&currentMinBet);
             break;
         } else if (hasOpened && action=="call") {
-            player.call(currentMinBet);
+            player.call(&currentMinBet);
             break;
         } else if (action=="fold") {
             player.fold();
@@ -188,16 +192,20 @@ void Game::getAction(Player& player) {
 };
 
 bool Game::isTurnOver() {
-    vector<int> currentBets;
+    bool isTurnOver = true;
+
     for (Player& player : players) {
-        if (!player.isAllIn) {
-            cout << "[DEBUG] Player " << player.name << " has total bet $" << player.currentBet << "\n";
-            currentBets.push_back(player.currentBet);
+        if (player.isIn) {
+            if (!player.isAllIn) {
+                if (player.currentBet != currentMinBet) {
+                    isTurnOver = false;
+                    break;
+                }
+            }
         }
+
     }
-    sort(currentBets.begin(), currentBets.end());
-    if (accumulate(currentBets.begin(), currentBets.end(), 0) == 0) return false;
-    bool isTurnOver = adjacent_find(currentBets.begin(), currentBets.end()) != currentBets.end();
+    if (currentMinBet == 0) return false;
     return isTurnOver;
 }
 
@@ -208,6 +216,7 @@ void Game::playHand() {
     for (Player& player : players) {
         player.isIn = true;
         player.isAllIn = false;
+        player.totalBet = 0;
     }
 
     // 3 betting rounds: pre-flop, turn, river
@@ -231,7 +240,11 @@ void Game::playHand() {
                 break;
         }
 
-        for (int i=0; isTurnOver(); i=(i+1) % players.size()) {
+        int startingIndex;
+        if (turn == 1) startingIndex = (bigBlind->index + 1) % players.size();
+        else startingIndex = smallBlind->index % players.size();
+
+        for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
             Player& player = players[i];
             if (!player.isIn) continue;
             if (player.isAllIn) continue;
@@ -250,7 +263,7 @@ void Game::showdown() {
 
     for (Player& player : players) {
         if (player.isIn) {
-            cout << "Player " << player.name << " has bet $" << player.currentBet << "\n";
+            cout << "Player " << player.name << " has bet $" << player.totalBet << "\n";
         }
     }
     round += 1;
