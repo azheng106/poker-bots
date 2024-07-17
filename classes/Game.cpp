@@ -47,6 +47,7 @@ void Game::setupPlayers() {
  * Create a new deck of cards
  */
 void Game::shuffleDeck() {
+    deck.clear();
     char suits[4] = {'c', 'd', 'h', 's'};
     // 11=J, 12=Q, 13=K, 14=A
     for (int i=2; i<=14; i++) {
@@ -141,6 +142,9 @@ void Game::calculatePot() {
     }
 }
 
+/*
+ * Does small and big blind bets on turn 1
+ */
 void Game::doBlindBets() {
     smallBlind->currentBet += bigBlindBet / 2;
     smallBlind->money -= bigBlindBet / 2;
@@ -151,6 +155,9 @@ void Game::doBlindBets() {
     hasOpened = true;
 }
 
+/*
+ * Asks the player for what they will do
+ */
 void Game::getAction(Player& player) {
     string action;
     bool validAction = false;
@@ -162,9 +169,9 @@ void Game::getAction(Player& player) {
         if (!hasOpened) {
             cout << "[Bet] [Check] [Fold]\n";
         } else if (!player.hasRaised) {
-            cout << "[Raise] [Call] [Fold]\n";
+            cout << "[Raise] [Call ($" << currentMinBet << ")] [Fold]\n";
         } else {
-            cout << "[Call] [Fold]\n";
+            cout << "[Call ($" << currentMinBet << ")] [Fold]\n";
         }
         cin >> action;
 
@@ -186,6 +193,9 @@ void Game::getAction(Player& player) {
     }
 };
 
+/*
+ * Returns true if all bets match, or if everyone checks
+ */
 bool Game::isTurnOver() {
     bool isTurnOver = true;
     bool checkedAround = true;
@@ -210,7 +220,9 @@ bool Game::isTurnOver() {
     return isTurnOver;
 }
 
-// Rewrite
+/*
+ * Rewrite; plays a hand
+ */
 void Game::playHand() {
     pot = 0;
     // Reset players
@@ -224,6 +236,7 @@ void Game::playHand() {
     for (turn=1; turn<=3; turn++) {
         currentMinBet = bigBlindBet;
         hasOpened = false;
+        // Reset players
         for (Player& player : players) {
             player.currentBet = 0;
             player.hasRaised = false;

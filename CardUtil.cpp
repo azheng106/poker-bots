@@ -238,9 +238,7 @@ vector<int> scoreHighCard(vector<Card> cards) {
 };
 
 /*
- *
- * Finally, combine all functions to score a hand.
- *
+ * Combine all functions to score a hand.
  */
 vector<int> scoreHand(vector<Card> cards) {
     vector<int> score;
@@ -257,3 +255,14 @@ vector<int> scoreHand(vector<Card> cards) {
 
     return score;
 }
+
+/*
+ * Get the best hand given 5 community cards and two hole cards
+ */
+vector<int> findBestHand(vector<Card> communityCards, vector<Card> holeCards) {
+    vector<Card> allCards = communityCards;
+    allCards.insert(allCards.end(), holeCards.begin(), holeCards.end());
+    // 7C5 -> 21 possible hands
+    // 1 2 3 4 5 6 7
+}
+

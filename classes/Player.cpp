@@ -24,7 +24,7 @@ bool Player::bet(int *currentMinBet) {
             isAllIn = true;
             break;
         }
-        cout << "Amount to bet (-1 to cancel): $";
+        cout << "Amount to bet (type -1 to cancel): $";
         cin >> betAmount;
 
         if (betAmount == -1) {
@@ -91,7 +91,7 @@ bool Player::raise(int *currentMinBet) {
 
         cout << "Current minimum bet: $" << *currentMinBet << "\n";
         cout << "Current minimum bet to raise: $" << 2*(*currentMinBet) << "\n";
-        cout << "Raise to (-1 to cancel): $";
+        cout << "Raise to (type -1 to cancel): $";
         cin >> desiredBet;
 
         if (desiredBet == -1) {
