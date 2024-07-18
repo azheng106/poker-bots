@@ -1,2 +1,1 @@
-**texas holdem poker bot simulation via console**
-only basic game finished
+**texas holdem poker bot simulation via console**\nonly basic game finished
