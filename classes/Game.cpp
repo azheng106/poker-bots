@@ -171,7 +171,7 @@ void Game::getAction(Player& player) {
         // No bet has been made yet
         if (!hasOpened) {
             cout << "[Bet] [Check] [Fold]\n";
-        } else if (!player.hasRaised) {
+        } else if (!player.hasRaised || isHeadsUp) {
             cout << "[Raise] [Call ($" << currentMinBet << ")] [Fold]\n";
         } else {
             cout << "[Call ($" << currentMinBet << ")] [Fold]\n";
@@ -231,6 +231,7 @@ bool Game::isTurnOver() {
  */
 void Game::playHand() {
     pot = 0;
+    isHeadsUp = false;
     // Reset players
     for (Player& player : players) {
         player.isIn = true;
@@ -266,6 +267,7 @@ void Game::playHand() {
         else startingIndex = smallBlind->index % players.size();
 
         for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
+            if (players.size() == 2) isHeadsUp = true;
             Player& player = players[i];
             if (!player.isIn) continue;
             if (player.isAllIn) continue;
@@ -338,4 +340,9 @@ void Game::showdown() {
         }
     }
     round += 1;
+    for (int i=0; i<players.size(); i++) {
+        if (players[i].money == 0) {
+            players.erase(players.begin()+i);
+        }
+    }
 }

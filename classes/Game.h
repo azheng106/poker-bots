@@ -20,6 +20,8 @@ public:
     vector<Card> deck;
     vector<Card> communityCards;
 
+    bool isHeadsUp;
+
     Player *dealer;
     Player *smallBlind;
     Player *bigBlind;
