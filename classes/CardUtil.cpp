@@ -267,9 +267,30 @@ vector<int> CardUtil::scoreHand(vector<Card> cards) {
 }
 
 /*
+ * Gets the best score given a vector full of them
+ */
+vector<int> CardUtil::findBestScore(vector<vector<int>> scores) {
+    vector<int> bestScore = {0};
+
+    for (vector<int> score : scores) {
+        if (score[0] > bestScore[0]) {
+            bestScore = score;
+        } else if (score[0] == bestScore[0]) {
+            for (int i=1; i<score.size(); i++) {
+                if (score[i] > bestScore[0]) {
+                    bestScore = score;
+                }
+                break;
+            }
+        }
+    }
+    return bestScore;
+}
+
+/*
  * Get the best hand given 5 community cards and two hole cards
  */
-vector<int> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> holeCards) {
+vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> holeCards) {
     vector<Card> allCards = communityCards;
     allCards.insert(allCards.end(), holeCards.begin(), holeCards.end());
 
@@ -288,16 +309,14 @@ vector<int> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> hol
     vector<vector<int>> allScores;
 
     for (vector<Card> hand : allHands) {
-        vector<int> score = scoreHand(hand);
-        cout << "\n" << score[0] << "\n";
-        for (Card card : hand) {
-            cout << card << "\n";
+        allScores.push_back(scoreHand(hand));
+    }
+
+    vector<int> bestScore = findBestScore(allScores);
+
+    for (vector<Card> hand : allHands) {
+        if (scoreHand(hand) == bestScore) {
+            return hand;
         }
-        allScores.push_back(score);
     }
-
-    for (vector<int> score : allScores) {
-    }
-
-    return scoreHand(hand);
 }
