@@ -289,8 +289,9 @@ void Game::showdown() {
         if (player.isIn) {
             cout << "Player " << player.name << " has bet $" << player.totalBet << "\n";
             player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
+            cout << "[DEBUG] Score: {";
             for (int i : player.bestScore) {
-                cout << "[DEBUG] Score: {" << i << ",";
+                cout << i << ",";
             }
             cout << "}\n";
             player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
