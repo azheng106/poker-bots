@@ -20,10 +20,13 @@ public:
     // Total amount of money the player has bet this betting round
     int currentBet;
 
-    // Total amount of money the player has bet this hand
+    // Total amount of money the player has bet this holeCards
     int totalBet;
 
-    vector<Card> hand;
+    vector<Card> holeCards;
+
+    vector<int> bestScore;
+    vector<Card> bestHand;
 
     Player(int index, int stash, string name);
 

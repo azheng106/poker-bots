@@ -19,6 +19,6 @@ public:
     static vector<int> scoreFourOfAKind(vector<Card> cards);
     static vector<int> scoreStraightFlush(vector<Card> cards);
     static vector<int> scoreHand(vector<Card> cards);
-    static vector<int> findBestScore(vector<vector<int>> scores);
+    static vector<int> findBestScore(vector<Card> communityCards, vector<Card> holeCards);
     static vector<Card> findBestHand(vector<Card> communityCards, vector<Card> holeCards);
 };

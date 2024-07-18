@@ -3,8 +3,8 @@
 using namespace std;
 
 /*
- * Each of the functions below return a vector used to score a poker hand
- * Index 0 represents the type of the poker hand (1-9) with 9 being the strongest hand: a straight flush
+ * Each of the functions below return a vector used to score a poker holeCards
+ * Index 0 represents the type of the poker holeCards (1-9) with 9 being the strongest holeCards: a straight flush
  * The remaining indices are card values necessary to tiebreak between equal type hands
  */
 
@@ -233,7 +233,7 @@ vector<int> CardUtil::scoreHighCard(vector<Card> cards) {
 };
 
 /*
- * Combine all functions to score a hand.
+ * Combine all functions to score a holeCards.
  */
 vector<int> CardUtil::scoreHand(vector<Card> cards) {
     vector<int> score;
@@ -267,9 +267,30 @@ vector<int> CardUtil::scoreHand(vector<Card> cards) {
 }
 
 /*
- * Gets the best score given a vector full of them
+ * Gets the best score given 5 community cards and two hole cards
  */
-vector<int> CardUtil::findBestScore(vector<vector<int>> scores) {
+vector<int> CardUtil::findBestScore(vector<Card> communityCards, vector<Card> holeCards) {
+    vector<Card> allCards = communityCards;
+    allCards.insert(allCards.end(), holeCards.begin(), holeCards.end());
+
+    vector<vector<Card>> allHands;
+    vector<Card> hand;
+
+    for (int i=0; i<allCards.size()-1; i++) {
+        for (int j=i+1; j<allCards.size(); j++) {
+            hand = allCards;
+            hand.erase(hand.begin()+i);
+            hand.erase(hand.begin()+j-1);
+            allHands.push_back(hand);
+        }
+    }
+
+    vector<vector<int>> scores;
+
+    for (vector<Card> hand : allHands) {
+        scores.push_back(scoreHand(hand));
+    }
+
     vector<int> bestScore = {0};
 
     for (vector<int> score : scores) {
@@ -288,7 +309,7 @@ vector<int> CardUtil::findBestScore(vector<vector<int>> scores) {
 }
 
 /*
- * Get the best hand given 5 community cards and two hole cards
+ * Get the best holeCards given 5 community cards and two hole cards
  */
 vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> holeCards) {
     vector<Card> allCards = communityCards;
@@ -312,7 +333,7 @@ vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> ho
         allScores.push_back(scoreHand(hand));
     }
 
-    vector<int> bestScore = findBestScore(allScores);
+    vector<int> bestScore = findBestScore(communityCards, holeCards);
 
     for (vector<Card> hand : allHands) {
         if (scoreHand(hand) == bestScore) {

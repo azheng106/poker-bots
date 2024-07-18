@@ -4,6 +4,7 @@
 #include <algorithm>
 
 #include "Player.h"
+#include "CardUtil.h"
 
 class Game {
 public:

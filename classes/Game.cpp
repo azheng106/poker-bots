@@ -1,6 +1,5 @@
 #include "Game.h"
 
-
 Game::Game() {
     initialDealerIndex = Game::randomInt(0, players.size() - 1);
     round = 1;
@@ -89,13 +88,13 @@ void Game::distributeHoleCards() {
             int drawnCardIndex = randomInt(0, deck.size() - 1);
             Card drawnCard = deck[drawnCardIndex];
             deck.erase(deck.begin() + drawnCardIndex);
-            player.hand.push_back(drawnCard);
+            player.holeCards.push_back(drawnCard);
         }
     }
 
     // Debug usage
     for (Player& player : players) {
-        cout << "[DEBUG] Player " << player.name << " has hole cards: " << player.hand[0] << ", " << player.hand[1] << "\n";
+        cout << "[DEBUG] Player " << player.name << " has hole cards: " << player.holeCards[0] << ", " << player.holeCards[1] << "\n";
     }
 }
 
@@ -225,7 +224,7 @@ bool Game::isTurnOver() {
 }
 
 /*
- * Rewrite; plays a hand
+ * Rewrite; plays a holeCards
  */
 void Game::playHand() {
     pot = 0;
@@ -282,10 +281,44 @@ void Game::showdown() {
     cout << "\nSHOWDOWN TIME (SPONSORED BY THEBIGBLACKDARREN CORP)\n\n";
     cout << "[POT] The pot is worth a beefy $" << pot << "\n\n";
 
+    vector<int> bestScore = {0};
+    vector<Card> bestHand;
+    Player *leading;
+
     for (Player& player : players) {
         if (player.isIn) {
-            cout << "Player " << player.name << " has bet $" << player.totalBet << "\n";
+            cout << "Player " << player.name << " has bet $" << player.totalBet << "";
+            player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
+            for (int i : player.bestScore) {
+                cout << " " << i << ",";
+            }
+            cout << "\n";
+            player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
+
+            if (player.bestScore[0] > bestScore[0]) {
+                bestScore = player.bestScore;
+                leading = &player;
+            } else if (player.bestScore[0] == bestScore[0]) {
+                for (int i=1; i<player.bestScore.size(); i++) {
+                    if (player.bestScore[i] > bestScore[0]) {
+                        bestScore = player.bestScore;
+                        leading = &player;
+                    }
+                    break;
+                }
+            }
         }
     }
+    for (Player& player : players) {
+        if (player.isIn) {
+            cout << "\n";
+            cout << "[SHOWDOWN] Player " << player.name << "'s best hand is:" << "\n";
+            for (Card card: player.bestHand) {
+                cout << card << "\n";
+            }
+        }
+    }
+    cout << "\n";
+    leading->win(pot);
     round += 1;
 }
