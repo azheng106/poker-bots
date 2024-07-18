@@ -200,6 +200,7 @@ void Game::getAction(Player& player) {
 bool Game::isTurnOver() {
     bool isTurnOver = true;
     bool checkedAround = true;
+    int numberOfFolded = 0;
 
     for (Player& player : players) {
         if (player.isIn && !player.isAllIn) {
@@ -208,6 +209,7 @@ bool Game::isTurnOver() {
             }
             if (!player.hasChecked) checkedAround = false;
         }
+        if (!player.isIn) numberOfFolded += 1;
     }
 
     // Debug usage only
@@ -218,6 +220,7 @@ bool Game::isTurnOver() {
 //        }
 //    }
     if (checkedAround) return true;
+    if (numberOfFolded == players.size()-1) return true;
     return isTurnOver;
 }
 
