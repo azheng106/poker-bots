@@ -318,6 +318,7 @@ vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> ho
     vector<vector<Card>> allHands;
     vector<Card> hand;
 
+    // Get all 5 hand permutations out of the 7 cards
     for (int i=0; i<allCards.size()-1; i++) {
         for (int j=i+1; j<allCards.size(); j++) {
             hand = allCards;
@@ -339,5 +340,28 @@ vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> ho
         if (scoreHand(hand) == bestScore) {
             return hand;
         }
+    }
+}
+
+string CardUtil::deduceHandType(vector<int> score) {
+    switch (score[0]) {
+        case 1:
+            return "high card";
+        case 2:
+            return "one pair";
+        case 3:
+            return "two pair";
+        case 4:
+            return "three of a kind";
+        case 5:
+            return "straight";
+        case 6:
+            return "flush";
+        case 7:
+            return "full house";
+        case 8:
+            return "four of a kind";
+        case 9:
+            return "straight flush";
     }
 }

@@ -21,4 +21,5 @@ public:
     static vector<int> scoreHand(vector<Card> cards);
     static vector<int> findBestScore(vector<Card> communityCards, vector<Card> holeCards);
     static vector<Card> findBestHand(vector<Card> communityCards, vector<Card> holeCards);
+    static string deduceHandType(vector<int> score);
 };

@@ -156,5 +156,5 @@ bool Player::fold() {
 
 void Player::win(int potAmount) {
     money += potAmount;
-    cout << "[END] Player " << name << " wins the pot of $" << potAmount << "!\n";
+    cout << "[END] Player " << name << " wins $" << potAmount << "!\n";
 }

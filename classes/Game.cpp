@@ -283,26 +283,30 @@ void Game::showdown() {
 
     vector<int> bestScore = {0};
     vector<Card> bestHand;
-    Player *leading;
+    vector<Player*> leading;
 
     for (Player& player : players) {
         if (player.isIn) {
-            cout << "Player " << player.name << " has bet $" << player.totalBet << "";
+            cout << "Player " << player.name << " has bet $" << player.totalBet << "\n";
             player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
             for (int i : player.bestScore) {
-                cout << " " << i << ",";
+                cout << "[DEBUG] Score: {" << i << ",";
             }
-            cout << "\n";
+            cout << "}\n";
             player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
 
-            if (player.bestScore[0] > bestScore[0]) {
+            if (player.bestScore == bestScore) {
+                leading.push_back(&player);
+            } else if (player.bestScore[0] > bestScore[0]) {
                 bestScore = player.bestScore;
-                leading = &player;
+                leading.clear();
+                leading.push_back(&player);
             } else if (player.bestScore[0] == bestScore[0]) {
                 for (int i=1; i<player.bestScore.size(); i++) {
                     if (player.bestScore[i] > bestScore[0]) {
                         bestScore = player.bestScore;
-                        leading = &player;
+                        leading.clear();
+                        leading.push_back(&player);
                     }
                     break;
                 }
@@ -312,13 +316,22 @@ void Game::showdown() {
     for (Player& player : players) {
         if (player.isIn) {
             cout << "\n";
-            cout << "[SHOWDOWN] Player " << player.name << "'s best hand is:" << "\n";
+            cout << "[SHOWDOWN] Player " << player.name << "'s best hand is a " <<
+            CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
             for (Card card: player.bestHand) {
                 cout << card << "\n";
             }
         }
     }
     cout << "\n";
-    leading->win(pot);
+    if (leading.size()== 1) {
+        cout << "[END] We have one winner" << "\n";
+        leading[0]->win(pot);
+    } else {
+        cout << "[END] The pot must be split" << "\n";
+        for (Player* winner : leading) {
+            winner->win(pot/(leading.size()));
+        }
+    }
     round += 1;
 }
