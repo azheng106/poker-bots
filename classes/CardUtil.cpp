@@ -273,7 +273,7 @@ vector<int> CardUtil::findBestScore(vector<Card> communityCards, vector<Card> ho
     vector<Card> allCards = communityCards;
     allCards.insert(allCards.end(), holeCards.begin(), holeCards.end());
 
-    vector<vector<Card>> allHands;
+    vector<vector<int>> scores;
     vector<Card> hand;
 
     for (int i=0; i<allCards.size()-1; i++) {
@@ -281,14 +281,8 @@ vector<int> CardUtil::findBestScore(vector<Card> communityCards, vector<Card> ho
             hand = allCards;
             hand.erase(hand.begin()+i);
             hand.erase(hand.begin()+j-1);
-            allHands.push_back(hand);
+            scores.push_back(scoreHand(hand));
         }
-    }
-
-    vector<vector<int>> scores;
-
-    for (vector<Card> hand : allHands) {
-        scores.push_back(scoreHand(hand));
     }
 
     vector<int> bestScore = {0};
@@ -298,10 +292,13 @@ vector<int> CardUtil::findBestScore(vector<Card> communityCards, vector<Card> ho
             bestScore = score;
         } else if (score[0] == bestScore[0]) {
             for (int i=1; i<score.size(); i++) {
-                if (score[i] > bestScore[0]) {
+                if (score[i] > bestScore[i]) {
                     bestScore = score;
+                    break;
+                } else if (score[i] < bestScore[i]) {
+                    break;
                 }
-                break;
+
             }
         }
     }
@@ -326,12 +323,6 @@ vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> ho
             hand.erase(hand.begin()+j-1);
             allHands.push_back(hand);
         }
-    }
-
-    vector<vector<int>> allScores;
-
-    for (vector<Card> hand : allHands) {
-        allScores.push_back(scoreHand(hand));
     }
 
     vector<int> bestScore = findBestScore(communityCards, holeCards);

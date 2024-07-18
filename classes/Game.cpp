@@ -102,6 +102,9 @@ void Game::distributeHoleCards() {
  * Distributes community cards to the flop
  */
 void Game::distributeCommunityCards() {
+    int burnCard = Game::randomInt(0, deck.size()-1);
+    deck.erase(deck.begin() + burnCard);
+    cout << "\nBurn card discarded\n";
     if (communityCards.empty()) {
         for (int i=0; i<3; i++) {
             int drawnCardIndex = Game::randomInt(0, deck.size()-1);
