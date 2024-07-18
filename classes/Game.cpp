@@ -1,5 +1,6 @@
 #include "Game.h"
 
+
 Game::Game() {
     initialDealerIndex = Game::randomInt(0, players.size() - 1);
     round = 1;

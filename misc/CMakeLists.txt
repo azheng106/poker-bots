@@ -10,8 +10,9 @@ add_executable(poker_bots
         ../classes/Card.h
         ../classes/Player.cpp
         ../classes/Player.h
-        ../CardUtil.cpp
         ../main.cpp
         ../classes/Game.cpp
         ../classes/Game.h
+        ../classes/CardUtil.cpp
+        ../classes/CardUtil.h
 )

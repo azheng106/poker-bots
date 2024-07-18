@@ -98,26 +98,11 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.s: cmake_
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\classes\Player.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\Player.cpp.s
 
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj: C:/CS\ Projects/poker-bots/CardUtil.cpp
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\CardUtil.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\CardUtil.cpp.obj -c "C:\CS Projects\poker-bots\CardUtil.cpp"
-
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\CS Projects\poker-bots\CardUtil.cpp" > CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\CardUtil.cpp.i
-
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\CardUtil.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\CardUtil.cpp.s
-
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: C:/CS\ Projects/poker-bots/main.cpp
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\main.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\main.cpp.obj -c "C:\CS Projects\poker-bots\main.cpp"
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.i: cmake_force
@@ -132,7 +117,7 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj: CMakeF
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj: C:/CS\ Projects/poker-bots/classes/Game.cpp
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\Game.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\Game.cpp.obj -c "C:\CS Projects\poker-bots\classes\Game.cpp"
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.i: cmake_force
@@ -143,22 +128,37 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.s: cmake_fo
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\classes\Game.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\Game.cpp.s
 
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj: C:/CS\ Projects/poker-bots/classes/CardUtil.cpp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\CardUtil.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\CardUtil.cpp.obj -c "C:\CS Projects\poker-bots\classes\CardUtil.cpp"
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\CS Projects\poker-bots\classes\CardUtil.cpp" > CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\CardUtil.cpp.i
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\classes\CardUtil.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\classes\CardUtil.cpp.s
+
 # Object files for target poker_bots
 poker_bots_OBJECTS = \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Card.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.obj" \
-"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj" \
-"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj"
+"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj" \
+"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj"
 
 # External object files for target poker_bots
 poker_bots_EXTERNAL_OBJECTS =
 
 poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Card.cpp.obj
 poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.obj
-poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj
 poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj
 poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Game.cpp.obj
+poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj
 poker_bots.exe: CMakeFiles/poker_bots.dir/build.make
 poker_bots.exe: CMakeFiles/poker_bots.dir/linkLibs.rsp
 poker_bots.exe: CMakeFiles/poker_bots.dir/objects1.rsp

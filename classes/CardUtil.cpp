@@ -1,9 +1,4 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <map>
-
-#include "classes/Card.h"
+#include "CardUtil.h"
 
 using namespace std;
 
@@ -18,7 +13,7 @@ using namespace std;
  * Example: 10♦, 9♦, 8♦, 7♦, 6♦
  * Tiebreaker: highest card value
  */
-vector<int> scoreStraightFlush(vector<Card> cards) {
+vector<int> CardUtil::scoreStraightFlush(vector<Card> cards) {
     vector<char> suits;
     vector<int> values;
     for (auto card : cards) {
@@ -46,7 +41,7 @@ vector<int> scoreStraightFlush(vector<Card> cards) {
  * Example: Q♣, Q♦, Q♥, Q♠, 4♣
  * Tiebreaker: highest value of quads
  */
-vector<int> scoreFourOfAKind(vector<Card> cards) {
+vector<int> CardUtil::scoreFourOfAKind(vector<Card> cards) {
     map<int, int> valueCount;
     for (auto card : cards) {
         valueCount[card.value]++;
@@ -65,7 +60,7 @@ vector<int> scoreFourOfAKind(vector<Card> cards) {
  * Example: A♦, A♥, A♠, 2♣, 2♥
  * Tiebreaker: highest value of trips, then pairs
  */
-vector<int> scoreFullHouse(vector<Card> cards) {
+vector<int> CardUtil::scoreFullHouse(vector<Card> cards) {
     map<int, int> valueCount;
     for (auto card : cards) {
         valueCount[card.value]++;
@@ -88,7 +83,7 @@ vector<int> scoreFullHouse(vector<Card> cards) {
  * Example: K♣, J♣, 7♣, 5♣, 3♣
  * Tiebreaker: highest card value, then second-highest, and so on
  */
-vector<int> scoreFlush(vector<Card> cards) {
+vector<int> CardUtil::scoreFlush(vector<Card> cards) {
     vector<char> suits;
     vector<int> values;
     for (auto card : cards) {
@@ -108,7 +103,7 @@ vector<int> scoreFlush(vector<Card> cards) {
  * Example: 10♣, 9♦, 8♥, 7♠, 6♣
  * Tiebreaker: highest card value
  */
-vector<int> scoreStraight(vector<Card> cards) {
+vector<int> CardUtil::scoreStraight(vector<Card> cards) {
     vector<int> values;
     for (auto card : cards) {
         values.push_back(card.value);
@@ -131,7 +126,7 @@ vector<int> scoreStraight(vector<Card> cards) {
  * Example: Q♣, Q♦, Q♥, 8♠, 2♠
  * Tiebreaker: highest value of trips, then highest value card of last 2, then highest last card
  */
-vector<int> scoreThreeOfAKind(vector<Card> cards) {
+vector<int> CardUtil::scoreThreeOfAKind(vector<Card> cards) {
     vector<int> values;
     map<int, int> valueCount;
     for (auto card : cards) {
@@ -163,7 +158,7 @@ vector<int> scoreThreeOfAKind(vector<Card> cards) {
  * Example: 9♣, 9♦, 5♥, 5♥, 4♠
  * Tiebreaker: highest value of pairs, then highest value of last pair, then highest last card
  */
-vector<int> scoreTwoPairs(vector<Card> cards) {
+vector<int> CardUtil::scoreTwoPairs(vector<Card> cards) {
     map<int, int> valueCount;
     for (auto card : cards) {
         valueCount[card.value]++;
@@ -193,7 +188,7 @@ vector<int> scoreTwoPairs(vector<Card> cards) {
  * Example: A♣, A♦, J♥, 10♥, 6♥
  * Tiebreaker: highest value of pair, then highest card of last 3, then second-highest of last 3, and so on
  */
-vector<int> scoreOnePair(vector<Card> cards) {
+vector<int> CardUtil::scoreOnePair(vector<Card> cards) {
     vector<int> values;
     map<int, int> valueCount;
     for (auto card : cards) {
@@ -226,7 +221,7 @@ vector<int> scoreOnePair(vector<Card> cards) {
  * High Card "Nothing" (1)
  * Example: 9♣, 8♣, 6♦, 3♦, 2♥
  */
-vector<int> scoreHighCard(vector<Card> cards) {
+vector<int> CardUtil::scoreHighCard(vector<Card> cards) {
     vector<int> values;
     for (auto card : cards) {
         values.push_back(card.value);
@@ -240,7 +235,7 @@ vector<int> scoreHighCard(vector<Card> cards) {
 /*
  * Combine all functions to score a hand.
  */
-vector<int> scoreHand(vector<Card> cards) {
+vector<int> CardUtil::scoreHand(vector<Card> cards) {
     vector<int> score;
 
     score = scoreHighCard(cards);
@@ -259,10 +254,24 @@ vector<int> scoreHand(vector<Card> cards) {
 /*
  * Get the best hand given 5 community cards and two hole cards
  */
-vector<int> findBestHand(vector<Card> communityCards, vector<Card> holeCards) {
+vector<int> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> holeCards) {
     vector<Card> allCards = communityCards;
     allCards.insert(allCards.end(), holeCards.begin(), holeCards.end());
-    // 7C5 -> 21 possible hands
-    // 1 2 3 4 5 6 7
-}
 
+    vector<vector<Card>> allHands;
+    vector<Card> hand;
+
+    for (int i=0; i<allCards.size()-1; i++) {
+        cout << "ATENCION" << "\n\n";
+        hand = allCards;
+        for (int j=i+1; j<allCards.size(); j++) {
+            hand.erase(hand.begin()+i);
+            hand.erase(hand.begin()+j);
+            for (Card card : hand) {
+                cout << card << "\n";
+            }
+            allHands.push_back(hand);
+        }
+    }
+    return scoreHand(hand);
+}

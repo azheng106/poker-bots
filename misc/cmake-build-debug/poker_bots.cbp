@@ -84,13 +84,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/CS Projects/poker-bots/CardUtil.cpp">
-			<Option target="poker_bots"/>
-		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/classes/Card.cpp">
 			<Option target="poker_bots"/>
 		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/classes/Card.h">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/classes/CardUtil.cpp">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/classes/CardUtil.h">
 			<Option target="poker_bots"/>
 		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/classes/Game.cpp">

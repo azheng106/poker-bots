@@ -128,30 +128,6 @@ poker_bots/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/build
 .PHONY : poker_bots/fast
 
-C_/CS_Projects/poker-bots/CardUtil.obj: C_/CS_Projects/poker-bots/CardUtil.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/CardUtil.obj
-
-# target to build an object file
-C_/CS_Projects/poker-bots/CardUtil.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/CardUtil.cpp.obj
-
-C_/CS_Projects/poker-bots/CardUtil.i: C_/CS_Projects/poker-bots/CardUtil.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/CardUtil.i
-
-# target to preprocess a source file
-C_/CS_Projects/poker-bots/CardUtil.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/CardUtil.cpp.i
-
-C_/CS_Projects/poker-bots/CardUtil.s: C_/CS_Projects/poker-bots/CardUtil.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/CardUtil.s
-
-# target to generate assembly for a file
-C_/CS_Projects/poker-bots/CardUtil.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/CardUtil.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/CardUtil.cpp.s
-
 C_/CS_Projects/poker-bots/classes/Card.obj: C_/CS_Projects/poker-bots/classes/Card.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/classes/Card.obj
 
@@ -175,6 +151,30 @@ C_/CS_Projects/poker-bots/classes/Card.s: C_/CS_Projects/poker-bots/classes/Card
 C_/CS_Projects/poker-bots/classes/Card.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Card.cpp.s
 .PHONY : C_/CS_Projects/poker-bots/classes/Card.cpp.s
+
+C_/CS_Projects/poker-bots/classes/CardUtil.obj: C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/classes/CardUtil.obj
+
+# target to build an object file
+C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/classes/CardUtil.cpp.obj
+
+C_/CS_Projects/poker-bots/classes/CardUtil.i: C_/CS_Projects/poker-bots/classes/CardUtil.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/classes/CardUtil.i
+
+# target to preprocess a source file
+C_/CS_Projects/poker-bots/classes/CardUtil.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/classes/CardUtil.cpp.i
+
+C_/CS_Projects/poker-bots/classes/CardUtil.s: C_/CS_Projects/poker-bots/classes/CardUtil.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/classes/CardUtil.s
+
+# target to generate assembly for a file
+C_/CS_Projects/poker-bots/classes/CardUtil.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/CardUtil.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/classes/CardUtil.cpp.s
 
 C_/CS_Projects/poker-bots/classes/Game.obj: C_/CS_Projects/poker-bots/classes/Game.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/classes/Game.obj
@@ -257,12 +257,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... poker_bots
-	@echo ... C_/CS_Projects/poker-bots/CardUtil.obj
-	@echo ... C_/CS_Projects/poker-bots/CardUtil.i
-	@echo ... C_/CS_Projects/poker-bots/CardUtil.s
 	@echo ... C_/CS_Projects/poker-bots/classes/Card.obj
 	@echo ... C_/CS_Projects/poker-bots/classes/Card.i
 	@echo ... C_/CS_Projects/poker-bots/classes/Card.s
+	@echo ... C_/CS_Projects/poker-bots/classes/CardUtil.obj
+	@echo ... C_/CS_Projects/poker-bots/classes/CardUtil.i
+	@echo ... C_/CS_Projects/poker-bots/classes/CardUtil.s
 	@echo ... C_/CS_Projects/poker-bots/classes/Game.obj
 	@echo ... C_/CS_Projects/poker-bots/classes/Game.i
 	@echo ... C_/CS_Projects/poker-bots/classes/Game.s
