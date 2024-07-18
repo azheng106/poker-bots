@@ -238,16 +238,31 @@ vector<int> CardUtil::scoreHighCard(vector<Card> cards) {
 vector<int> CardUtil::scoreHand(vector<Card> cards) {
     vector<int> score;
 
-    score = scoreHighCard(cards);
-    score = scoreOnePair(cards);
-    score = scoreTwoPairs(cards);
-    score = scoreThreeOfAKind(cards);
-    score = scoreStraight(cards);
-    score = scoreFlush(cards);
-    score = scoreFullHouse(cards);
-    score = scoreFourOfAKind(cards);
     score = scoreStraightFlush(cards);
+    if (!score.empty()) return score;
 
+    score = scoreFourOfAKind(cards);
+    if (!score.empty()) return score;
+
+    score = scoreFullHouse(cards);
+    if (!score.empty()) return score;
+
+    score = scoreFlush(cards);
+    if (!score.empty()) return score;
+
+    score = scoreStraight(cards);
+    if (!score.empty()) return score;
+
+    score = scoreThreeOfAKind(cards);
+    if (!score.empty()) return score;
+
+    score = scoreTwoPairs(cards);
+    if (!score.empty()) return score;
+
+    score = scoreOnePair(cards);
+    if (!score.empty()) return score;
+
+    score = scoreHighCard(cards);
     return score;
 }
 
@@ -262,16 +277,27 @@ vector<int> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> hol
     vector<Card> hand;
 
     for (int i=0; i<allCards.size()-1; i++) {
-        cout << "ATENCION" << "\n\n";
-        hand = allCards;
         for (int j=i+1; j<allCards.size(); j++) {
+            hand = allCards;
             hand.erase(hand.begin()+i);
-            hand.erase(hand.begin()+j);
-            for (Card card : hand) {
-                cout << card << "\n";
-            }
+            hand.erase(hand.begin()+j-1);
             allHands.push_back(hand);
         }
     }
+
+    vector<vector<int>> allScores;
+
+    for (vector<Card> hand : allHands) {
+        vector<int> score = scoreHand(hand);
+        cout << "\n" << score[0] << "\n";
+        for (Card card : hand) {
+            cout << card << "\n";
+        }
+        allScores.push_back(score);
+    }
+
+    for (vector<int> score : allScores) {
+    }
+
     return scoreHand(hand);
 }
