@@ -39,6 +39,7 @@ public:
     bool isTurnOver();
     void playHand();
     void showdown();
+    void reset();
 
     Game();
 };

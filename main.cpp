@@ -20,8 +20,8 @@ int main() {
      */
     Game game;
     game.setupPlayers();
-    game.setupBlinds();
-    game.shuffleDeck();
-    game.distributeHoleCards();
-    game.playHand();
+    while (true) {
+        game.reset();
+        game.playHand();
+    }
 }

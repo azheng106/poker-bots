@@ -2,7 +2,6 @@
 
 Game::Game() {
     initialDealerIndex = Game::randomInt(0, players.size() - 1);
-    round = 1;
 }
 
 /**
@@ -84,6 +83,7 @@ void Game::distributeHoleCards() {
     }
 
     for (Player& player : players) {
+        player.holeCards.clear();
         for (int i = 0; i < 2; i++) {
             int drawnCardIndex = randomInt(0, deck.size() - 1);
             Card drawnCard = deck[drawnCardIndex];
@@ -349,10 +349,21 @@ void Game::showdown() {
             winner->win(pot/(leading.size()));
         }
     }
-    round += 1;
     for (int i=0; i<players.size(); i++) {
         if (players[i].money == 0) {
             players.erase(players.begin()+i);
         }
     }
+}
+
+
+/*
+ * Prepare for a hand
+ */
+void Game::reset() {
+    round += 1;
+    communityCards.clear();
+    setupBlinds();
+    shuffleDeck();
+    distributeHoleCards();
 }

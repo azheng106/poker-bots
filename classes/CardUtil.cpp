@@ -93,9 +93,8 @@ vector<int> CardUtil::scoreFlush(vector<Card> cards) {
 
     if (!equal(suits.begin() + 1, suits.end(), suits.begin())) return {};
     sort(values.begin(), values.end());
-    values.insert(values.begin(), 6);
 
-    return values;
+    return {6, values[4], values[3], values[2], values[1], values[0]};
 }
 
 /*
@@ -228,8 +227,7 @@ vector<int> CardUtil::scoreHighCard(vector<Card> cards) {
     }
     sort(values.begin(), values.end());
 
-    values.insert(values.begin(), 1);
-    return values;
+    return {1, values[4], values[3], values[2], values[1], values[0]};
 };
 
 /*
@@ -306,7 +304,7 @@ vector<int> CardUtil::findBestScore(vector<Card> communityCards, vector<Card> ho
 }
 
 /*
- * Get the best holeCards given 5 community cards and two hole cards
+ * Get the best hand given 5 community cards and two hole cards
  */
 vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> holeCards) {
     vector<Card> allCards = communityCards;
@@ -334,6 +332,9 @@ vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> ho
     }
 }
 
+/*
+ * Translates numerical value of hand (1-9) to the actual name of the hand
+ */
 string CardUtil::deduceHandType(vector<int> score) {
     switch (score[0]) {
         case 1:
