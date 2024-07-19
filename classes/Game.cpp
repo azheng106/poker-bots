@@ -183,7 +183,7 @@ void Game::getAction(Player& player) {
             hasOpened = true;
         } else if (!hasOpened && action=="check") {
             validAction = player.check();
-        } else if (hasOpened && !player.hasRaised && action=="raise") {
+        } else if (hasOpened && (!player.hasRaised || isHeadsUp) && action=="raise") {
             validAction = player.raise(&currentMinBet);
         } else if (hasOpened && action=="call") {
             validAction = player.call(&currentMinBet);
@@ -267,10 +267,20 @@ void Game::playHand() {
         else startingIndex = smallBlind->index % players.size();
 
         for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
-            if (players.size() == 2) isHeadsUp = true;
             Player& player = players[i];
             if (!player.isIn) continue;
             if (player.isAllIn) continue;
+            // Heads up implementation
+            int playersIn = 0;
+            for (Player player : players) {
+                if (player.isIn) {
+                    playersIn += 1;
+                }
+            }
+            if (playersIn == 2) {
+                isHeadsUp = true;
+                cout << "Heads up" << "\n";
+            }
             // Skip small and big blind if it's turn 1
             if (turn==1 && (player.currentBet>=currentMinBet) && (&player==smallBlind || &player==bigBlind)) continue;
             getAction(player);
