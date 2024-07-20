@@ -1,7 +1,8 @@
 #include "Game.h"
 
 Game::Game() {
-    initialDealerIndex = Game::randomInt(0, players.size() - 1);
+    isFinished = false;
+    round = 0;
 }
 
 /**
@@ -40,6 +41,7 @@ void Game::setupPlayers() {
         Player player(i, stash, name);
         players.push_back(player);
     }
+    initialDealerIndex = Game::randomInt(0, players.size() - 1);
 }
 
 /**
@@ -62,16 +64,16 @@ void Game::shuffleDeck() {
  */
 void Game::setupBlinds() {
     int dealerIndex = (initialDealerIndex + round - 1) % players.size();
-    int smallBlindIndex = (dealerIndex + round) % players.size();
-    int bigBlindIndex = (dealerIndex + round + 1) % players.size();
+    int smallBlindIndex = (dealerIndex + 1) % players.size();
+    int bigBlindIndex = (smallBlindIndex + 1) % players.size();
 
     dealer = &players[dealerIndex];
     smallBlind = &players[smallBlindIndex];
     bigBlind = &players[bigBlindIndex];
 
-    cout << "\n[SETUP] Dealer is " << dealer->name << "\n";
-    cout << "[SETUP] Small blind is " << smallBlind->name << "\n";
-    cout << "[SETUP] Big blind is " << bigBlind->name << "\n\n";
+    cout << "\nDealer is " << dealer->name << "\n";
+    cout << "Small blind is " << smallBlind->name << "\n";
+    cout << "Big blind is " << bigBlind->name << "\n\n";
 }
 
 /**
@@ -94,7 +96,7 @@ void Game::distributeHoleCards() {
 
     // Debug usage
     for (Player& player : players) {
-        cout << "[DEBUG] Player " << player.name << " has hole cards: " << player.holeCards[0] << ", " << player.holeCards[1] << "\n";
+        cout << "Player " << player.name << " has hole cards: " << player.holeCards[0] << ", " << player.holeCards[1] << "\n";
     }
 }
 
@@ -119,7 +121,7 @@ void Game::distributeCommunityCards() {
 
     cout << "\n";
     for (Card& card : communityCards) {
-        cout << "[CARD] Community Card: " << card << "\n";
+        cout << "Community Card: " << card << "\n";
     }
 }
 
@@ -131,7 +133,8 @@ void Game::displayPot() {
     for (Player& player : players) {
         tempPot += player.currentBet;
     }
-    cout << "[POT] Pot is now worth $" << tempPot << "\n";
+    if (tempPot > pot) cout << "Pot is now worth $" << tempPot << "\n";
+    else cout << "Pot is now worth $" << pot << "\n";
 }
 
 /*
@@ -149,12 +152,29 @@ void Game::calculatePot() {
  * Does small and big blind bets on turn 1
  */
 void Game::doBlindBets() {
-    smallBlind->currentBet += bigBlindBet / 2;
-    smallBlind->money -= bigBlindBet / 2;
-    cout << "[BLIND] Small blind " << smallBlind->name << " bets $" << bigBlindBet / 2 << "\n";
-    bigBlind->currentBet += bigBlindBet;
-    bigBlind->money -= bigBlindBet;
-    cout << "[BLIND] Big blind " << bigBlind->name << " bets $" << bigBlindBet << "\n";
+    int smallBlindBet = bigBlindBet / 2;
+    int tempBigBlindBet = bigBlindBet;
+
+    if (smallBlind->money <= smallBlindBet) {
+        smallBlind->isAllIn = true;
+        smallBlindBet = smallBlind->money;
+        cout << smallBlind->name << " is going all in to bet the small blind.\n";
+    }
+
+    cout << "Small blind " << smallBlind->name << " bets $" << smallBlindBet << "\n\n";
+    smallBlind->currentBet += smallBlindBet;
+    smallBlind->money -= smallBlindBet;
+
+    if (bigBlind->money <= tempBigBlindBet) {
+        bigBlind->isAllIn = true;
+        tempBigBlindBet = bigBlind->money;
+        cout << bigBlind->name << " is going all in to bet the big blind.\n";
+    }
+
+    cout << "Big blind " << bigBlind->name << " bets $" << tempBigBlindBet << "\n";
+    bigBlind->currentBet += tempBigBlindBet;
+    bigBlind->money -= tempBigBlindBet;
+
     hasOpened = true;
 }
 
@@ -162,8 +182,15 @@ void Game::doBlindBets() {
  * Asks the player for what they will do
  */
 void Game::getAction(Player& player) {
+    // Heads up implementation
+    if (playersBetting == 2) {
+        isHeadsUp = true;
+        cout << "Heads up" << "\n";
+    }
+
     string action;
     bool validAction = false;
+
     while (!validAction) {
         cout << "\nPlayer " + player.name + "'s turn. You have $" << player.money << ". Your current bet is $"
         << player.currentBet << ". Type one option: ";
@@ -176,53 +203,65 @@ void Game::getAction(Player& player) {
         } else {
             cout << "[Call ($" << currentMinBet << ")] [Fold]\n";
         }
+
         cin >> action;
 
-        if (!hasOpened && action=="bet") {
-            validAction = player.bet(&currentMinBet);
-            hasOpened = true;
-        } else if (!hasOpened && action=="check") {
-            validAction = player.check();
-        } else if (hasOpened && (!player.hasRaised || isHeadsUp) && action=="raise") {
-            validAction = player.raise(&currentMinBet);
-        } else if (hasOpened && action=="call") {
-            validAction = player.call(&currentMinBet);
-        } else if (action=="fold") {
-            validAction = player.fold();
+        if (!hasOpened) {
+            if (action == "bet") {
+                validAction = player.bet(&currentMinBet);
+                hasOpened = true;
+            } else if (action == "check") {
+                validAction = player.check();
+            }
         } else {
+            if (!player.hasRaised || isHeadsUp) {
+                if (action == "raise") {
+                    validAction = player.raise(&currentMinBet);
+                } else if (action == "call") {
+                    validAction = player.call(&currentMinBet);
+                }
+            } else {
+                if (action == "call") {
+                    validAction = player.call(&currentMinBet);
+                }
+            }
+        }
+
+        if (action == "fold") {
+            validAction = player.fold();
+        }
+
+        if (!validAction) {
             cout << "Invalid option.\n";
-            continue;
         }
     }
-};
+}
 
 /*
- * Returns true if all bets match, or if everyone checks
+ * Returns true if le turn is over
  */
 bool Game::isTurnOver() {
     bool isTurnOver = true;
     bool checkedAround = true;
-    int numberOfFolded = 0;
 
     for (Player& player : players) {
         if (player.isIn && !player.isAllIn) {
+            if (playersBetting == 1 && player.currentBet == currentMinBet) {
+                skipToEnd = true;
+            }
             if (player.currentBet != currentMinBet) {
                 isTurnOver = false;
             }
-            if (!player.hasChecked) checkedAround = false;
+            if (!player.hasChecked) {
+                checkedAround = false;
+            }
         }
-        if (!player.isIn) numberOfFolded += 1;
     }
 
-    // Debug usage only
-//    cout << "\n";
-//    for (Player& player : players) {
-//        if (player.isIn) {
-//            cout << "[DEBUG] Player " << player.name << " has bet $" << player.currentBet << " this round.\n";
-//        }
-//    }
-    if (checkedAround) return true;
-    if (numberOfFolded == players.size()-1) return true;
+    if (checkedAround || skipToEnd) {
+        return true;
+    }
+
     return isTurnOver;
 }
 
@@ -230,35 +269,31 @@ bool Game::isTurnOver() {
  * Rewrite; plays a holeCards
  */
 void Game::playHand() {
-    pot = 0;
-    isHeadsUp = false;
-    // Reset players
-    for (Player& player : players) {
-        player.isIn = true;
-        player.isAllIn = false;
-        player.totalBet = 0;
-    }
+    reset();
+    if (isFinished) return;
 
     // 3 betting rounds: pre-flop, turn, river
     for (turn=1; turn<=3; turn++) {
         currentMinBet = bigBlindBet;
         hasOpened = false;
+
         // Reset players
         for (Player& player : players) {
             player.currentBet = 0;
             player.hasRaised = false;
             player.hasChecked = false;
         }
+
         switch (turn) {
             case 1:
-                cout << "\n[ROUND] Pre-flop\n\n";
+                cout << "\nPre-flop\n\n";
                 doBlindBets();
                 break;
             case 2:
-                cout << "\n[ROUND] Next round\n";
+                cout << "\nNext round\n";
                 break;
             case 3:
-                cout << "\n[ROUND] Final round\n";
+                cout << "\nFinal round\n";
                 break;
         }
 
@@ -268,19 +303,20 @@ void Game::playHand() {
 
         for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
             Player& player = players[i];
-            if (!player.isIn) continue;
-            if (player.isAllIn) continue;
-            // Heads up implementation
-            int playersIn = 0;
-            for (Player player : players) {
-                if (player.isIn) {
-                    playersIn += 1;
+            if (!player.isIn || player.isAllIn) continue;
+
+            playersFolded = 0;
+            playersBetting = 0;
+
+            for (Player& player : players) {
+                if (player.isIn && !player.isAllIn) {
+                    playersBetting += 1;
+                }
+                if (!player.isIn) {
+                    playersFolded += 1;
                 }
             }
-            if (playersIn == 2) {
-                isHeadsUp = true;
-                cout << "Heads up" << "\n";
-            }
+
             // Skip small and big blind if it's turn 1
             if (turn==1 && (player.currentBet>=currentMinBet) && (&player==smallBlind || &player==bigBlind)) continue;
             getAction(player);
@@ -293,77 +329,92 @@ void Game::playHand() {
 }
 
 void Game::showdown() {
-    cout << "\nSHOWDOWN TIME (SPONSORED BY THEBIGBLACKDARREN CORP)\n\n";
-    cout << "[POT] The pot is worth a beefy $" << pot << "\n\n";
+    cout << "\nShowdown\n\n";
+    cout << "The pot is worth a beefy $" << pot << "\n\n";
 
     vector<int> bestScore = {0};
     vector<Card> bestHand;
-    vector<Player*> leading;
+    vector<Player*> leadingPlayers;
 
     for (Player& player : players) {
         if (player.isIn) {
             cout << "Player " << player.name << " has bet $" << player.totalBet << "\n";
+
             player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
-            cout << "[DEBUG] Score: {";
-            for (int i : player.bestScore) {
+            player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
+
+            // Debug usage
+            cout << "Score: {";
+            for (int i: player.bestScore) {
                 cout << i << ",";
             }
             cout << "}\n";
-            player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
 
-            if (player.bestScore == bestScore) {
-                leading.push_back(&player);
-            } else if (player.bestScore[0] > bestScore[0]) {
+            if (CardUtil::compareScores(player.bestScore, bestScore)) {
                 bestScore = player.bestScore;
-                leading.clear();
-                leading.push_back(&player);
-            } else if (player.bestScore[0] == bestScore[0]) {
-                for (int i=1; i<player.bestScore.size(); i++) {
-                    if (player.bestScore[i] > bestScore[0]) {
-                        bestScore = player.bestScore;
-                        leading.clear();
-                        leading.push_back(&player);
-                    }
-                    break;
-                }
+                leadingPlayers.clear();
+                leadingPlayers.push_back(&player);
+            } else if (player.bestScore == bestScore) {
+                leadingPlayers.push_back(&player);
             }
         }
     }
+
     for (Player& player : players) {
         if (player.isIn) {
             cout << "\n";
-            cout << "[SHOWDOWN] Player " << player.name << "'s best hand is a " <<
+            cout << "Player " << player.name << "'s best hand is a " <<
             CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
             for (Card card: player.bestHand) {
                 cout << card << "\n";
             }
         }
     }
+
     cout << "\n";
-    if (leading.size()== 1) {
-        cout << "[END] We have one winner" << "\n";
-        leading[0]->win(pot);
+
+    if (leadingPlayers.size() == 1) {
+        cout << "We have one winner" << "\n";
+        leadingPlayers[0]->win(pot);
     } else {
-        cout << "[END] The pot must be split" << "\n";
-        for (Player* winner : leading) {
-            winner->win(pot/(leading.size()));
+        cout << "The pot must be split" << "\n";
+        for (Player* winner : leadingPlayers) {
+            winner->win(pot/(leadingPlayers.size()));
         }
     }
+
     for (int i=0; i<players.size(); i++) {
         if (players[i].money == 0) {
+            cout << "\nPlayer " << players[i].name << " has gone bankrupt.\n";
             players.erase(players.begin()+i);
+            i--;
         }
     }
 }
-
 
 /*
  * Prepare for a hand
  */
 void Game::reset() {
-    round += 1;
-    communityCards.clear();
-    setupBlinds();
-    shuffleDeck();
-    distributeHoleCards();
+    if (players.size() == 1) {
+        cout << "\nPlayer " << players[0].name << " wins the game!\n";
+        isFinished = true;
+    } else {
+        pot = 0;
+        isHeadsUp = false;
+        // Reset players
+        for (Player& player : players) {
+            player.isIn = true;
+            player.isAllIn = false;
+            player.totalBet = 0;
+        }
+        round += 1;
+        communityCards.clear();
+
+        cout << "\nSetup complete\n";
+
+        shuffleDeck();
+        setupBlinds();
+        distributeHoleCards();
+    }
 }

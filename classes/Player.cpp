@@ -54,17 +54,17 @@ bool Player::bet(int *currentMinBet) {
     if (betAmount == money) isAllIn = true;
     if (isAllIn) {
         betAmount = money;
-        cout << "[ALL IN] " << name << " is going all in.\n";
+        cout << name << " is going all in.\n";
     }
     if (betAmount > *currentMinBet) *currentMinBet = betAmount;
     currentBet += betAmount;
     money -= betAmount;
-    if (!isAllIn) cout << "[TURN] Player " << name << " bets $" << currentBet << "\n";
+    if (!isAllIn) cout << "Player " << name << " bets $" << currentBet << "\n";
     return validAction;
 }
 
 bool Player::check() {
-    cout << "[TURN] Player " << name << " checks.\n";
+    cout << "Player " << name << " checks.\n";
     hasChecked = true;
     return true;
 }
@@ -122,13 +122,13 @@ bool Player::raise(int *currentMinBet) {
     if (isAllIn) {
         raiseAmount = money;
         desiredBet = money + currentBet;
-        cout << "[ALL IN] " << name << " is going all in.\n";
+        cout << name << " is going all in.\n";
     }
     if (desiredBet > *currentMinBet) *currentMinBet = desiredBet;
     currentBet += raiseAmount;
     money -= raiseAmount;
     if (!isAllIn) {
-        cout << "[TURN] Player " << name << " raises to $" << desiredBet << "\n";
+        cout << "Player " << name << " raises to $" << desiredBet << "\n";
         hasRaised = true;
     }
     return validAction;
@@ -139,9 +139,9 @@ bool Player::call(int *currentMinBet) {
     if (callAmount >= money) isAllIn = true;
     if (isAllIn) {
         callAmount = money;
-        cout << "[ALL IN] " << name << " is going all in.\n";
+        cout << name << " is going all in.\n";
     } else {
-        cout << "[TURN] Player " << name << " calls, betting $" << currentBet + callAmount << "\n";
+        cout << "Player " << name << " calls, betting $" << currentBet + callAmount << "\n";
     }
     currentBet += callAmount;
     money -= callAmount;
@@ -150,11 +150,11 @@ bool Player::call(int *currentMinBet) {
 
 bool Player::fold() {
     isIn = false;
-    cout << "[TURN] Player " << name << " folds.\n";
+    cout << "Player " << name << " folds.\n";
     return true;
 }
 
 void Player::win(int potAmount) {
     money += potAmount;
-    cout << "[END] Player " << name << " wins $" << potAmount << "!\n";
+    cout << "Player " << name << " wins $" << potAmount << "!\n";
 }

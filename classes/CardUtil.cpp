@@ -264,6 +264,17 @@ vector<int> CardUtil::scoreHand(vector<Card> cards) {
     return score;
 }
 
+bool CardUtil::compareScores(vector<int> score1, vector<int> score2) {
+    for (int i=0; i<score1.size(); i++) {
+        if (score1[i] > score2[i]) {
+            return true;
+        } else if (score1[i] < score2[i]) {
+            return false;
+        }
+    }
+    return false;
+}
+
 /*
  * Gets the best score given 5 community cards and two hole cards
  */
@@ -286,18 +297,8 @@ vector<int> CardUtil::findBestScore(vector<Card> communityCards, vector<Card> ho
     vector<int> bestScore = {0};
 
     for (vector<int> score : scores) {
-        if (score[0] > bestScore[0]) {
+        if (compareScores(score, bestScore)) {
             bestScore = score;
-        } else if (score[0] == bestScore[0]) {
-            for (int i=1; i<score.size(); i++) {
-                if (score[i] > bestScore[i]) {
-                    bestScore = score;
-                    break;
-                } else if (score[i] < bestScore[i]) {
-                    break;
-                }
-
-            }
         }
     }
     return bestScore;

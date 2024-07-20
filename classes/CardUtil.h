@@ -19,6 +19,7 @@ public:
     static vector<int> scoreFourOfAKind(vector<Card> cards);
     static vector<int> scoreStraightFlush(vector<Card> cards);
     static vector<int> scoreHand(vector<Card> cards);
+    static bool compareScores(vector<int> score1, vector<int> score2);
     static vector<int> findBestScore(vector<Card> communityCards, vector<Card> holeCards);
     static vector<Card> findBestHand(vector<Card> communityCards, vector<Card> holeCards);
     static string deduceHandType(vector<int> score);
