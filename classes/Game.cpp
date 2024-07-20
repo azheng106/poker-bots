@@ -133,8 +133,7 @@ void Game::displayPot() {
     for (Player& player : players) {
         tempPot += player.currentBet;
     }
-    if (tempPot > pot) cout << "Pot is now worth $" << tempPot << "\n";
-    else cout << "Pot is now worth $" << pot << "\n";
+    cout << "Pot is now worth $" << max(tempPot, pot) << "\n";
 }
 
 /*
@@ -153,27 +152,24 @@ void Game::calculatePot() {
  */
 void Game::doBlindBets() {
     int smallBlindBet = bigBlindBet / 2;
-    int tempBigBlindBet = bigBlindBet;
 
     if (smallBlind->money <= smallBlindBet) {
         smallBlind->isAllIn = true;
-        smallBlindBet = smallBlind->money;
         cout << smallBlind->name << " is going all in to bet the small blind.\n";
     }
 
     cout << "Small blind " << smallBlind->name << " bets $" << smallBlindBet << "\n\n";
-    smallBlind->currentBet += smallBlindBet;
-    smallBlind->money -= smallBlindBet;
+    smallBlind->currentBet += min(smallBlindBet, smallBlind->money);
+    smallBlind->money -= min(smallBlindBet, smallBlind->money);
 
-    if (bigBlind->money <= tempBigBlindBet) {
+    if (bigBlind->money <= bigBlindBet) {
         bigBlind->isAllIn = true;
-        tempBigBlindBet = bigBlind->money;
         cout << bigBlind->name << " is going all in to bet the big blind.\n";
     }
 
-    cout << "Big blind " << bigBlind->name << " bets $" << tempBigBlindBet << "\n";
-    bigBlind->currentBet += tempBigBlindBet;
-    bigBlind->money -= tempBigBlindBet;
+    cout << "Big blind " << bigBlind->name << " bets $" << bigBlindBet << "\n";
+    bigBlind->currentBet += min(bigBlindBet, bigBlind->money);
+    bigBlind->money -= min(bigBlindBet, bigBlind->money);
 
     hasOpened = true;
 }

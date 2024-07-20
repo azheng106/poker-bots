@@ -214,7 +214,7 @@ vector<int> CardUtil::scoreOnePair(vector<Card> cards) {
         return {2, pair, values[2], values[1], values[0]};
     }
     return {};
-};
+}
 
 /*
  * High Card "Nothing" (1)
@@ -228,7 +228,7 @@ vector<int> CardUtil::scoreHighCard(vector<Card> cards) {
     sort(values.begin(), values.end());
 
     return {1, values[4], values[3], values[2], values[1], values[0]};
-};
+}
 
 /*
  * Combine all functions to score a holeCards.
