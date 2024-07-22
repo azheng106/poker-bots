@@ -16,6 +16,7 @@ public:
     int money;
     bool isIn;
     bool isAllIn;
+    bool hasMadeAction;
     bool hasRaised;
     bool hasChecked;
     int currentBet;

@@ -231,6 +231,7 @@ void Game::getAction(Player& player) {
             cout << "Invalid option.\n";
         }
     }
+    player.hasMadeAction = true;
 }
 
 /*
@@ -246,6 +247,9 @@ bool Game::isTurnOver() {
                 skipToEnd = true;
             }
             if (player.currentBet != currentMinBet) {
+                isTurnOver = false;
+            }
+            if (!player.hasMadeAction) {
                 isTurnOver = false;
             }
             if (!player.hasChecked) {
@@ -276,6 +280,7 @@ void Game::playHand() {
         // Reset players
         for (Player& player : players) {
             player.currentBet = 0;
+            player.hasMadeAction = false;
             player.hasRaised = false;
             player.hasChecked = false;
         }
@@ -312,9 +317,6 @@ void Game::playHand() {
                     playersFolded += 1;
                 }
             }
-
-            // Skip small and big blind if it's turn 1
-            if (turn==1 && (player.currentBet>=currentMinBet) && (&player==smallBlind || &player==bigBlind)) continue;
             getAction(player);
         }
         displayPot();
