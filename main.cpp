@@ -21,4 +21,6 @@ int main() {
     while (!game.isFinished) {
         game.playHand();
     }
+
+    return 0;
 }

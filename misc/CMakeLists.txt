@@ -1,15 +1,15 @@
-cmake_minimum_required(VERSION 3.28)
-project(poker_bots)
+cmake_minimum_required(VERSION 3.16)
+project(CMakeSFMLProject LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
-include_directories("../classes")
-include_directories("C:/SFML/lib/cmake/SFML")
-include_directories("C:/SFML/include")
-link_directories("C:/SFML/lib")
+include(FetchContent)
+FetchContent_Declare(SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 2.6.x)
+FetchContent_MakeAvailable(SFML)
 
-set(SFML_DIR "C:/SFML/lib/cmake/SFML")
-find_package(SFML 2.6 COMPONENTS system window graphics network audio REQUIRED)
 add_executable(poker_bots
         ../classes/Card.cpp
         ../classes/Card.h
@@ -21,12 +21,13 @@ add_executable(poker_bots
         ../classes/CardUtil.cpp
         ../classes/CardUtil.h
 )
+target_link_libraries(poker_bots PRIVATE sfml-graphics)
+target_compile_features(poker_bots PRIVATE cxx_std_17)
 
-target_link_libraries(poker_bots sfml-graphics sfml-window sfml-system sfml-network sfml-audio)
-target_link_libraries(poker_bots
-        "C:/SFML/lib/libsfml-graphics.a"
-        "C:/SFML/lib/libsfml-window.a"
-        "C:/SFML/lib/libsfml-system.a"
-        "C:/SFML/lib/libsfml-network.a"
-        "C:/SFML/lib/libsfml-audio.a"
-)
+if(WIN32)
+    add_custom_command(
+            TARGET poker_bots
+            COMMENT "Copy OpenAL DLL"
+            PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:poker_bots>
+            VERBATIM)
+endif()
