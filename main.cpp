@@ -6,6 +6,9 @@
 
 using namespace std;
 
+// Used to access poker-bots resources from the .exe path
+const string BASE_PATH = "../../../";
+
 void CLI() {
     Game game;
     game.setupPlayers();
@@ -22,6 +25,21 @@ int main() {
     button.setPosition(300, 275);
     button.setFillColor(sf::Color::Blue);
 
+    // Create font
+    sf::Font font;
+    if (!font.loadFromFile(BASE_PATH + "fonts/RobotoMono-Regular.ttf")) {
+        cout << "Error loading font\n";
+        return -1;
+    }
+
+    // Create text
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Click the button");
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(10, 10);
+
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
@@ -30,7 +48,6 @@ int main() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-
 
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
@@ -41,7 +58,11 @@ int main() {
             }
         }
         window.clear();
+
+        // Drawables
         window.draw(button);
+        window.draw(text);
+
         window.display();
     }
     return 0;
