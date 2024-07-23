@@ -1,5 +1,6 @@
 #include "classes/Game.h"
-#include "util.cpp"
+#include "util/creation.cpp"
+#include "util/event.cpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -9,36 +10,22 @@ using namespace std;
 // Used to access poker-bots resources from the .exe path
 const string BASE_PATH = "../../../";
 
-void CLI() {
-    Game game;
-    game.setupPlayers();
-    while (!game.isFinished) {
-        game.playHand();
-    }
-}
-
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Poker Bots");
 
     // Create button
-    sf::RectangleShape button(sf::Vector2f(200, 50));
-    button.setPosition(300, 275);
-    button.setFillColor(sf::Color::Blue);
+    sf::RectangleShape button = createButton(sf::Vector2f(200, 50), sf::Vector2f(300, 275),
+                                             sf::Color::Green);
 
     // Create font
     sf::Font font;
-    if (!font.loadFromFile(BASE_PATH + "fonts/RobotoMono-Regular.ttf")) {
-        cout << "Error loading font\n";
-        return -1;
-    }
+    font.loadFromFile(BASE_PATH+"fonts/RobotoMono-Regular.ttf");
 
     // Create text
-    sf::Text text;
-    text.setFont(font);
-    text.setString("Click the button");
-    text.setCharacterSize(24);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(10, 10);
+    sf::Text text = createText("Click the button", font, 24, sf::Vector2f(10, 10),
+                               sf::Color::White);
+    sf::Text altText = createText("bro is about to win a gazillion dollars", font, 24,
+                                  sf::Vector2f(10, 40), sf::Color::White);
 
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -62,6 +49,7 @@ int main() {
         // Drawables
         window.draw(button);
         window.draw(text);
+        window.draw(altText);
 
         window.display();
     }
