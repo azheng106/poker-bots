@@ -16,11 +16,11 @@ int main() {
         }
     }
 
-    Game game;
-    game.setupPlayers();
-    while (!game.isFinished) {
-        game.playHand();
-    }
+//    Game game;
+//    game.setupPlayers();
+//    while (!game.isFinished) {
+//        game.playHand();
+//    }
 
     return 0;
 }
