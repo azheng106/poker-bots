@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\poker_bots.dir/objects.a
+C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\ar.exe qc CMakeFiles\poker_bots.dir/objects.a @CMakeFiles\poker_bots.dir\objects1.rsp
+C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\poker_bots.dir/objects.a -Wl,--no-whole-archive -o bin\poker_bots.exe -Wl,--out-implib,libpoker_bots.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\poker_bots.dir\linkLibs.rsp
