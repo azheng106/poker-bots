@@ -8,8 +8,8 @@ using namespace std;
  * @param position sf::Vector2f
  * @param color sf::Color
  */
-sf::RectangleShape createButton(sf::Vector2f size, sf::Vector2f position, sf::Color fillColor,
-                                sf::Color outlineColor = sf::Color::Transparent, float borderThickness = 0.0f) {
+sf::RectangleShape createRectangularButton(sf::Vector2f size, sf::Vector2f position, sf::Color fillColor,
+                                           sf::Color outlineColor = sf::Color::Transparent, float borderThickness = 0.0f) {
     sf::RectangleShape button(size);
     button.setPosition(position);
     button.setFillColor(fillColor);
@@ -22,7 +22,6 @@ sf::RectangleShape createButton(sf::Vector2f size, sf::Vector2f position, sf::Co
     return button;
 }
 
-
 /**
  * Creates text, wow!
  * @param content the actual text
@@ -31,32 +30,23 @@ sf::RectangleShape createButton(sf::Vector2f size, sf::Vector2f position, sf::Co
  * @param position position on window
  * @param color text color
  * @param style bold, italic, etc
- * @param outlineColor sf::Color
- * @param letterSpacing
- * @param lineSpacing
  */
-sf::Text createText(
-        const std::string& content,
-        sf::Font& font,
-        int characterSize,
-        sf::Vector2f position,
-        sf::Color color,
-        sf::Uint32 style = sf::Text::Regular,
-        sf::Color outlineColor = sf::Color::Transparent,
-        float outlineThickness = 0.0f,
-        float letterSpacing = 1.0f,
-        float lineSpacing = 1.0f
-) {
+sf::Text createText(string content, sf::Font& font, int characterSize, sf::Vector2f position, sf::Color color,
+                    sf::Uint32 style = sf::Text::Regular) {
     sf::Text text;
-    text.setFont(font);
     text.setString(content);
+    text.setFont(font);
     text.setCharacterSize(characterSize);
-    text.setFillColor(color);
     text.setPosition(position);
+    text.setFillColor(color);
     text.setStyle(style);
-    text.setOutlineColor(outlineColor);
-    text.setOutlineThickness(outlineThickness);
-    text.setLetterSpacing(letterSpacing);
-    text.setLineSpacing(lineSpacing);
     return text;
+}
+
+sf::Color adjustColorBrightness(const sf::Color& color, int delta) {
+    int red = max(0, color.r + delta);
+    int green = max(0, color.g + delta);
+    int blue = max(0, color.b + delta);
+
+    return sf::Color(red, green, blue);
 }

@@ -13,3 +13,33 @@ bool isMouseOverButton(sf::RectangleShape& button, sf::RenderWindow& window) {
     sf::FloatRect buttonBounds = button.getGlobalBounds();
     return buttonBounds.contains(coords);
 }
+
+/**
+ * Handles button events
+ */
+bool buttonClicked(sf::RectangleShape& button, sf::RenderWindow& window, sf::Event& event) {
+    static bool isButtonPressed = false;
+    static sf::Color originalColor = button.getFillColor();
+
+    sf::Color clickedColor = adjustColorBrightness(originalColor, -100);
+
+    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+        if (isMouseOverButton(button, window)) {
+            // Change button color to a slightly darker shade
+            button.setFillColor(clickedColor);
+            isButtonPressed = true;
+        }
+    }
+
+    if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+        if (isButtonPressed) {
+            isButtonPressed = false;
+            button.setFillColor(originalColor);
+
+            if (isMouseOverButton(button, window)) {
+                return true;  // Button clicked
+            }
+        }
+    }
+    return false;
+}

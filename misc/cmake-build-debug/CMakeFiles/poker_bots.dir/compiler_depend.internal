@@ -697,12 +697,6 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.obj
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj
  C:/CS Projects/poker-bots/main.cpp
- C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Audio/AlResource.hpp
- C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Audio/Export.hpp
- C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Audio/InputSoundFile.hpp
- C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Audio/Music.hpp
- C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundSource.hpp
- C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Audio/SoundStream.hpp
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Config.hpp
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Graphics.hpp
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Graphics/BlendMode.hpp
@@ -986,6 +980,6 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj
  C:/CS Projects/poker-bots/classes/CardUtil.h
  C:/CS Projects/poker-bots/classes/Game.h
  C:/CS Projects/poker-bots/classes/Player.h
- C:/CS Projects/poker-bots/util/creation.cpp
  C:/CS Projects/poker-bots/util/event.cpp
+ C:/CS Projects/poker-bots/util/obj.cpp
 
