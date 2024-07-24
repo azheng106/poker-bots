@@ -6,11 +6,11 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, Text t
         button.setPosition(position);
         button.setFillColor(color);
 
-        // Center the text in the button
-        buttonText = text.text;
+        // Center the content in the button
+        buttonText = text.content;
         sf::FloatRect textBounds = buttonText.getLocalBounds();
 
-        // Set origin to the center of the text bounds
+        // Set origin to the center of the content bounds
         buttonText.setOrigin(textBounds.width / 2.f, textBounds.height / 2.f);
 
         // Calculate position

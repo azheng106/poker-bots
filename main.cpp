@@ -22,9 +22,11 @@ int main() {
     Button button(sf::Vector2f(300, 275), sf::Vector2f(200, 50), sf::Color::Blue, buttonText);
 
     int counter = 0;
+    Text text(to_string(counter), robotoMono, 24, sf::Vector2f(300,100), sf::Color::White);
 
     while (window.isOpen()) {
-        Text text(to_string(counter), robotoMono, 24, sf::Vector2f(300,100), sf::Color::White);
+        cout << counter << "\n";
+        text.content.setString(to_string(counter));
 
         sf::Event event{};
         while (window.pollEvent(event)) {

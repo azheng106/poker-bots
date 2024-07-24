@@ -6,10 +6,10 @@ using namespace std;
 
 class Text {
 public:
-    Text(string content, sf::Font& font, int characterSize, sf::Vector2f position, sf::Color color,
+    Text(string text, sf::Font& font, int characterSize, sf::Vector2f position, sf::Color color,
          sf::Uint32 style = sf::Text::Regular);
 
-    sf::Text text;
+    sf::Text content;
 
     void draw(sf::RenderWindow& window);
 };
