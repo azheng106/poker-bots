@@ -21,7 +21,11 @@ int main() {
     Text buttonText("Don't Click", robotoMono, 26, sf::Vector2f(10, 10), sf::Color::White);
     Button button(sf::Vector2f(300, 275), sf::Vector2f(200, 50), sf::Color::Blue, buttonText);
 
+    int counter = 0;
+
     while (window.isOpen()) {
+        Text text(to_string(counter), robotoMono, 24, sf::Vector2f(300,100), sf::Color::White);
+
         sf::Event event{};
         while (window.pollEvent(event)) {
             // Window is being closed
@@ -30,14 +34,18 @@ int main() {
             }
 
             // Button was clicked
-            if (button.buttonClicked(button.button, window, event)) {
+            if (Button::buttonClicked(button.button, window, event)) {
                 cout << "Button pressed\n";
             }
         }
-        window.clear();
+
+        window.clear(sf::Color(0, 0, 30));
 
         // Drawables
         button.draw(window);
+        text.draw(window);
+
+        counter += 1;
 
         window.display();
     }
