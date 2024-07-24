@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(CMakeSFMLProject LANGUAGES CXX)
+project(poker_bots LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
@@ -20,6 +20,14 @@ add_executable(poker_bots
         ../game/Game.h
         ../game/CardUtil.cpp
         ../game/CardUtil.h
+        ../gui/Button.cpp
+        ../gui/Button.h
+        ../gui/Default.cpp
+        ../gui/Default.h
+        ../gui/Misc.cpp
+        ../gui/Misc.h
+        ../gui/Text.cpp
+        ../gui/Text.h
 )
 target_link_libraries(poker_bots PRIVATE sfml-graphics)
 target_compile_features(poker_bots PRIVATE cxx_std_17)

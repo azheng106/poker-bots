@@ -220,7 +220,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=CMakeSFMLProject
+CMAKE_PROJECT_NAME:STATIC=poker_bots
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=C:/Program Files/JetBrains/CLion 2024.1.4/bin/mingw/bin/ranlib.exe
@@ -457,6 +457,15 @@ VORBIS_LIBRARY:FILEPATH=C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/s
 
 //Treat compiler warnings as errors
 WARNINGS_AS_ERRORS:BOOL=OFF
+
+//Value Computed by CMake
+poker_bots_BINARY_DIR:STATIC=C:/CS Projects/poker-bots/misc/cmake-build-debug
+
+//Value Computed by CMake
+poker_bots_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+poker_bots_SOURCE_DIR:STATIC=C:/CS Projects/poker-bots/misc
 
 //Dependencies for the target
 sfml-audio_LIB_DEPENDS:STATIC=general;sfml-system;

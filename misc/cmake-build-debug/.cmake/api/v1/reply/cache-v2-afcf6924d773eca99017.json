@@ -1203,7 +1203,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "CMakeSFMLProject"
+			"value" : "poker_bots"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -2428,6 +2428,42 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "C:/Program Files (x86)/CMakeSFMLProject"
+		},
+		{
+			"name" : "poker_bots_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/CS Projects/poker-bots/misc/cmake-build-debug"
+		},
+		{
+			"name" : "poker_bots_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "poker_bots_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/CS Projects/poker-bots/misc"
 		},
 		{
 			"name" : "sfml-audio_LIB_DEPENDS",

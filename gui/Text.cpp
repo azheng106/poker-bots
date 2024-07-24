@@ -1,5 +1,14 @@
 #include "Text.h"
 
+/**
+ * Constructor
+ * @param text
+ * @param font
+ * @param characterSize
+ * @param position
+ * @param color
+ * @param style
+ */
 Text::Text(string text, sf::Font& font, int characterSize, sf::Vector2f position, sf::Color color,
            sf::Uint32 style) {
     content.setString(text);
@@ -10,7 +19,10 @@ Text::Text(string text, sf::Font& font, int characterSize, sf::Vector2f position
     content.setStyle(style);
 }
 
-// Draw the content
+/**
+ * Draw the text to the window
+ * @param window
+ */
 void Text::draw(sf::RenderWindow& window) {
     window.draw(content);
 }

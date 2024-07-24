@@ -1,8 +1,36 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game() : window(sf::VideoMode(800, 600), "Poker Bots") {
     isFinished = false;
     round = 0;
+}
+
+void Game::run() {
+    while (window.isOpen()) {
+        processEvents();
+        update();
+        render();
+    }
+}
+
+void Game::processEvents() {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+            window.close();
+    }
+}
+
+void Game::update() {
+    // Update game logic here
+}
+
+void Game::render() {
+    Default::drawDefault(window);
+    for (auto& drawable : drawables) {
+        window.draw(drawable);
+    }
+    window.display();
 }
 
 /**

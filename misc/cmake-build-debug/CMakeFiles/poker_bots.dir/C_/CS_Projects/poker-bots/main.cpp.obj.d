@@ -283,6 +283,7 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
  C:\CS\ Projects\poker-bots\game/Card.h \
  C:\CS\ Projects\poker-bots\game/CardUtil.h \
- C:\CS\ Projects\poker-bots\gui/Button.h \
- C:\CS\ Projects\poker-bots\gui/Text.h \
- C:\CS\ Projects\poker-bots\gui/Misc.h
+ C:/CS\ Projects/poker-bots/gui/Button.h \
+ C:/CS\ Projects/poker-bots/gui/Text.h \
+ C:/CS\ Projects/poker-bots/gui/Misc.h \
+ C:/CS\ Projects/poker-bots/gui/Default.h

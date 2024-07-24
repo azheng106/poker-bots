@@ -1,10 +1,16 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 #include <random>
 #include <algorithm>
 
 #include "Player.h"
 #include "CardUtil.h"
+
+#include "../gui/Button.h"
+#include "../gui/Text.h"
+#include "../gui/Default.h"
 
 class Game {
 public:
@@ -45,4 +51,15 @@ public:
     void playHand();
     void showdown();
     void reset();
+
+    // For SFML
+    void run();
+
+private:
+    void processEvents();
+    void update();
+    void render();
+
+    sf::RenderWindow window;
+    std::vector<sf::Drawable> drawables;
 };

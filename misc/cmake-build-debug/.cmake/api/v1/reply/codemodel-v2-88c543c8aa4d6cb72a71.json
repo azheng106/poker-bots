@@ -169,7 +169,7 @@
 					[
 						0
 					],
-					"name" : "CMakeSFMLProject",
+					"name" : "poker_bots",
 					"targetIndexes" : 
 					[
 						0
@@ -205,7 +205,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "poker_bots::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-poker_bots-Debug-7d12925e2116b00e7eb1.json",
+					"jsonFile" : "target-poker_bots-Debug-608f2678bbd480716cc4.json",
 					"name" : "poker_bots",
 					"projectIndex" : 0
 				},
