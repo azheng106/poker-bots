@@ -1,9 +1,9 @@
-#include "classes/Game.h"
-#include "util/obj.cpp"
-#include "util/event.cpp"
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+
+#include "game/Game.h"
+#include "gui/Button.h"
+#include "gui/Text.h"
 
 using namespace std;
 
@@ -13,17 +13,13 @@ const string BASE_PATH = "../../../";
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Poker Bots");
 
-    // Create button
-    sf::RectangleShape button = createRectangularButton(sf::Vector2f(200, 50), sf::Vector2f(300, 275),
-                                                        sf::Color::Green, sf::Color::White, 2);
-
     // Create font
     sf::Font robotoMono;
     robotoMono.loadFromFile(BASE_PATH+"fonts/RobotoMono-Regular.ttf");
 
-    // Create text
-    sf::Text text = createText("bro is about to win a gazillion dollars", robotoMono, 24,
-                               sf::Vector2f(10, 10), sf::Color::White);
+    // Create button
+    Text buttonText("Don't Click", robotoMono, 26, sf::Vector2f(10, 10), sf::Color::White);
+    Button button(sf::Vector2f(300, 275), sf::Vector2f(200, 50), sf::Color::Blue, buttonText);
 
     while (window.isOpen()) {
         sf::Event event{};
@@ -34,15 +30,14 @@ int main() {
             }
 
             // Button was clicked
-            if (buttonClicked(button, window, event)) {
+            if (button.buttonClicked(button.button, window, event)) {
                 cout << "Button pressed\n";
             }
         }
         window.clear();
 
         // Drawables
-        window.draw(button);
-        window.draw(text);
+        button.draw(window);
 
         window.display();
     }

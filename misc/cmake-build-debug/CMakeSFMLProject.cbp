@@ -472,28 +472,40 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/CS Projects/poker-bots/classes/Card.cpp">
+		<Unit filename="C:/CS Projects/poker-bots/game/Card.cpp">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/classes/Card.h">
+		<Unit filename="C:/CS Projects/poker-bots/game/Card.h">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/classes/CardUtil.cpp">
+		<Unit filename="C:/CS Projects/poker-bots/game/CardUtil.cpp">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/classes/CardUtil.h">
+		<Unit filename="C:/CS Projects/poker-bots/game/CardUtil.h">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/classes/Game.cpp">
+		<Unit filename="C:/CS Projects/poker-bots/game/Game.cpp">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/classes/Game.h">
+		<Unit filename="C:/CS Projects/poker-bots/game/Game.h">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/classes/Player.cpp">
+		<Unit filename="C:/CS Projects/poker-bots/game/Player.cpp">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/classes/Player.h">
+		<Unit filename="C:/CS Projects/poker-bots/game/Player.h">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Button.cpp">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Button.h">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Text.cpp">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Text.h">
 			<Option target="poker_bots"/>
 		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/main.cpp">

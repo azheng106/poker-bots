@@ -11,15 +11,19 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(poker_bots
-        ../classes/Card.cpp
-        ../classes/Card.h
-        ../classes/Player.cpp
-        ../classes/Player.h
+        ../game/Card.cpp
+        ../game/Card.h
+        ../game/Player.cpp
+        ../game/Player.h
         ../main.cpp
-        ../classes/Game.cpp
-        ../classes/Game.h
-        ../classes/CardUtil.cpp
-        ../classes/CardUtil.h
+        ../game/Game.cpp
+        ../game/Game.h
+        ../game/CardUtil.cpp
+        ../game/CardUtil.h
+        ../gui/Button.cpp
+        ../gui/Button.h
+        ../gui/Text.cpp
+        ../gui/Text.h
 )
 target_link_libraries(poker_bots PRIVATE sfml-graphics)
 target_compile_features(poker_bots PRIVATE cxx_std_17)
