@@ -22,14 +22,6 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, Text t
         buttonText.setPosition(centerX, centerY - baselineAdjustment / 3.5f);
 }
 
-sf::Color Button::adjustColorBrightness(const sf::Color& color, int delta) {
-    int red = max(0, color.r + delta);
-    int green = max(0, color.g + delta);
-    int blue = max(0, color.b + delta);
-
-    return sf::Color(red, green, blue);
-}
-
 bool Button::isMouseOverButton(sf::RectangleShape& button, sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     sf::Vector2f coords = window.mapPixelToCoords(mousePos);
@@ -40,7 +32,7 @@ bool Button::isMouseOverButton(sf::RectangleShape& button, sf::RenderWindow& win
 bool Button::buttonClicked(sf::RectangleShape& button, sf::RenderWindow& window, sf::Event& event) {
     static bool isButtonPressed = false;
     static sf::Color originalColor = button.getFillColor();
-    sf::Color clickedColor = adjustColorBrightness(originalColor, -100);
+    sf::Color clickedColor = Misc::adjustColorBrightness(originalColor, -100);
 
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
         if (isMouseOverButton(button, window)) {

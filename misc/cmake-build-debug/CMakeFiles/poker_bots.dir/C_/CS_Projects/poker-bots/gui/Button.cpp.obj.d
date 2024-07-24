@@ -248,4 +248,5 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj: \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Sprite.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Text.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp \
- C:\CS\ Projects\poker-bots\gui\Text.h
+ C:\CS\ Projects\poker-bots\gui\Text.h \
+ C:\CS\ Projects\poker-bots\gui\Misc.h

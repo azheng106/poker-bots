@@ -391,6 +391,30 @@ C_/CS_Projects/poker-bots/gui/Button.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.s
 .PHONY : C_/CS_Projects/poker-bots/gui/Button.cpp.s
 
+C_/CS_Projects/poker-bots/gui/Misc.obj: C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/Misc.obj
+
+# target to build an object file
+C_/CS_Projects/poker-bots/gui/Misc.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
+
+C_/CS_Projects/poker-bots/gui/Misc.i: C_/CS_Projects/poker-bots/gui/Misc.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/Misc.i
+
+# target to preprocess a source file
+C_/CS_Projects/poker-bots/gui/Misc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/Misc.cpp.i
+
+C_/CS_Projects/poker-bots/gui/Misc.s: C_/CS_Projects/poker-bots/gui/Misc.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/Misc.s
+
+# target to generate assembly for a file
+C_/CS_Projects/poker-bots/gui/Misc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/Misc.cpp.s
+
 C_/CS_Projects/poker-bots/gui/Text.obj: C_/CS_Projects/poker-bots/gui/Text.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/gui/Text.obj
 
@@ -475,6 +499,9 @@ help:
 	@echo ... C_/CS_Projects/poker-bots/gui/Button.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/Button.i
 	@echo ... C_/CS_Projects/poker-bots/gui/Button.s
+	@echo ... C_/CS_Projects/poker-bots/gui/Misc.obj
+	@echo ... C_/CS_Projects/poker-bots/gui/Misc.i
+	@echo ... C_/CS_Projects/poker-bots/gui/Misc.s
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.i
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.s

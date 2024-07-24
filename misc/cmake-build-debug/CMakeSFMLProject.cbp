@@ -502,6 +502,12 @@
 		<Unit filename="C:/CS Projects/poker-bots/gui/Button.h">
 			<Option target="poker_bots"/>
 		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Misc.cpp">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Misc.h">
+			<Option target="poker_bots"/>
+		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/gui/Text.cpp">
 			<Option target="poker_bots"/>
 		</Unit>
