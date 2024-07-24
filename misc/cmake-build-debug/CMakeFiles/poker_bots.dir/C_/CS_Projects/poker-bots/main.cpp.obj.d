@@ -284,4 +284,10 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Sprite.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Text.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp \
- C:\CS\ Projects\poker-bots\util/event.cpp
+ C:\CS\ Projects\poker-bots\util/event.cpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Audio/Music.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Audio/Export.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Audio/SoundStream.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Audio/SoundSource.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Audio/AlResource.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Audio/InputSoundFile.hpp

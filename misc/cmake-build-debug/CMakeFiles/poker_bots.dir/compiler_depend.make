@@ -692,6 +692,12 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/classes/Player.cpp.obj: C:/C
   C:/CS\ Projects/poker-bots/classes/Player.h
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: C:/CS\ Projects/poker-bots/main.cpp \
+  _deps/sfml-src/include/SFML/Audio/AlResource.hpp \
+  _deps/sfml-src/include/SFML/Audio/Export.hpp \
+  _deps/sfml-src/include/SFML/Audio/InputSoundFile.hpp \
+  _deps/sfml-src/include/SFML/Audio/Music.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundSource.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundStream.hpp \
   _deps/sfml-src/include/SFML/Config.hpp \
   _deps/sfml-src/include/SFML/Graphics.hpp \
   _deps/sfml-src/include/SFML/Graphics/BlendMode.hpp \
@@ -1211,6 +1217,8 @@ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32
 
 _deps/sfml-src/include/SFML/Graphics/Shader.hpp:
 
+_deps/sfml-src/include/SFML/Audio/Export.hpp:
+
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/vector:
 
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/atomic_word.h:
@@ -1331,6 +1339,8 @@ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include
 
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h:
 
+_deps/sfml-src/include/SFML/Audio/Music.hpp:
+
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/sec_api/wchar_s.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/signal.h:
@@ -1376,6 +1386,8 @@ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc:
 
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/node_handle.h:
+
+_deps/sfml-src/include/SFML/Audio/AlResource.hpp:
 
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_algo.h:
 
@@ -1458,6 +1470,14 @@ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include
 C:/CS\ Projects/poker-bots/classes/Player.h:
 
 C:/CS\ Projects/poker-bots/main.cpp:
+
+_deps/sfml-src/include/SFML/Audio/InputSoundFile.hpp:
+
+_deps/sfml-src/include/SFML/Audio/SoundSource.hpp:
+
+C:/CS\ Projects/poker-bots/util/event.cpp:
+
+_deps/sfml-src/include/SFML/Audio/SoundStream.hpp:
 
 _deps/sfml-src/include/SFML/Config.hpp:
 
@@ -1556,5 +1576,3 @@ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iterator:
 
 C:/CS\ Projects/poker-bots/util/creation.cpp:
-
-C:/CS\ Projects/poker-bots/util/event.cpp:
