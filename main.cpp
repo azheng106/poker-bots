@@ -1,10 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-
 #include "game/Game.h"
-#include "gui/Button.h"
-#include "gui/Text.h"
-#include "gui/Default.h"
 
 using namespace std;
 

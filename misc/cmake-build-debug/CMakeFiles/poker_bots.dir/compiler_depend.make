@@ -310,6 +310,10 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj: C:/CS
   C:/CS\ Projects/poker-bots/game/CardUtil.h
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj: C:/CS\ Projects/poker-bots/game/Game.cpp \
+  C:/CS\ Projects/poker-bots/gui/Button.h \
+  C:/CS\ Projects/poker-bots/gui/Default.h \
+  C:/CS\ Projects/poker-bots/gui/Misc.h \
+  C:/CS\ Projects/poker-bots/gui/Text.h \
   _deps/sfml-src/include/SFML/Config.hpp \
   _deps/sfml-src/include/SFML/Graphics.hpp \
   _deps/sfml-src/include/SFML/Graphics/BlendMode.hpp \
@@ -1749,6 +1753,10 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj: C:/CS\ Pro
   C:/CS\ Projects/poker-bots/gui/Text.h
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: C:/CS\ Projects/poker-bots/main.cpp \
+  C:/CS\ Projects/poker-bots/gui/Button.h \
+  C:/CS\ Projects/poker-bots/gui/Default.h \
+  C:/CS\ Projects/poker-bots/gui/Misc.h \
+  C:/CS\ Projects/poker-bots/gui/Text.h \
   _deps/sfml-src/include/SFML/Config.hpp \
   _deps/sfml-src/include/SFML/Graphics.hpp \
   _deps/sfml-src/include/SFML/Graphics/BlendMode.hpp \
@@ -2031,11 +2039,7 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: C:/CS\ Project
   C:/CS\ Projects/poker-bots/game/Card.h \
   C:/CS\ Projects/poker-bots/game/CardUtil.h \
   C:/CS\ Projects/poker-bots/game/Game.h \
-  C:/CS\ Projects/poker-bots/game/Player.h \
-  C:/CS\ Projects/poker-bots/gui/Button.h \
-  C:/CS\ Projects/poker-bots/gui/Default.h \
-  C:/CS\ Projects/poker-bots/gui/Misc.h \
-  C:/CS\ Projects/poker-bots/gui/Text.h
+  C:/CS\ Projects/poker-bots/game/Player.h
 
 
 _deps/sfml-src/include/SFML/System/FileInputStream.hpp:
@@ -2210,11 +2214,11 @@ _deps/sfml-src/include/SFML/Window/Touch.hpp:
 
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/streambuf.tcc:
 
-C:/CS\ Projects/poker-bots/gui/Misc.h:
-
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/limits:
 
 _deps/sfml-src/include/SFML/Window/Keyboard.hpp:
+
+C:/CS\ Projects/poker-bots/gui/Misc.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/string_view.tcc:
 
@@ -2450,6 +2454,12 @@ C:/CS\ Projects/poker-bots/game/CardUtil.h:
 
 C:/CS\ Projects/poker-bots/game/Game.cpp:
 
+C:/CS\ Projects/poker-bots/gui/Button.h:
+
+C:/CS\ Projects/poker-bots/gui/Default.h:
+
+C:/CS\ Projects/poker-bots/gui/Text.h:
+
 _deps/sfml-src/include/SFML/Config.hpp:
 
 _deps/sfml-src/include/SFML/Graphics/BlendMode.hpp:
@@ -2616,13 +2626,7 @@ C:/CS\ Projects/poker-bots/game/Player.cpp:
 
 C:/CS\ Projects/poker-bots/gui/Button.cpp:
 
-C:/CS\ Projects/poker-bots/gui/Button.h:
-
-C:/CS\ Projects/poker-bots/gui/Text.h:
-
 C:/CS\ Projects/poker-bots/gui/Default.cpp:
-
-C:/CS\ Projects/poker-bots/gui/Default.h:
 
 C:/CS\ Projects/poker-bots/gui/Misc.cpp:
 

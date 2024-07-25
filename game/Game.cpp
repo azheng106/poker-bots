@@ -47,29 +47,66 @@ int Game::randomInt(int a, int b) {
  * Initialize players at the start of the game
  */
 void Game::setupPlayers() {
-    int numPlayers;
-    do {
-        cout << "Input number of players (2-10):\n";
-        cin >> numPlayers;
-    } while (numPlayers < 2 || numPlayers > 10);
+    int numPlayers = 6;
 
-    int stash;
-    cout << "Input stash (amount of money each players starts with):\n";
-    cin >> stash;
+    Text dec("-", 24, sf::Vector2f(0, 0), sf::Color::White);
+    Text inc("+", 24, sf::Vector2f(0, 0), sf::Color::White);
 
-    cout << "Input minimum bet (also big blind bet):\n";
-    cin >> bigBlindBet;
-    currentMinBet = bigBlindBet;
+    Button decreasePlayers(sf::Vector2f(200, 400), sf::Vector2f(100, 100), sf::Color::White, dec);
+    Button increasePlayers(sf::Vector2f(500, 400), sf::Vector2f(100, 100), sf::Color::White, inc);
 
-    for (int i=0; i<numPlayers; i++) {
-        string name;
-        cout << "Enter name for player " << i + 1 << ":\n";
-        cin >> name;
+    bool setupDone = false;
+    while (!setupDone) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+                setupDone = true;
+            }
 
-        Player player(i, stash, name);
-        players.push_back(player);
+            if (Button::buttonClicked(decreasePlayers.button, window, event)) {
+                numPlayers = std::max(2, numPlayers - 1); // Ensure at least 2 players
+                std::cout << "Decreased players to " << numPlayers << std::endl;
+            }
+
+            if (Button::buttonClicked(increasePlayers.button, window, event)) {
+                numPlayers = std::min(10, numPlayers + 1); // Ensure at most 10 players
+                std::cout << "Increased players to " << numPlayers << std::endl;
+            }
+
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+                setupDone = true;
+            }
+        }
+
+        Default::drawDefault(window);
+        decreasePlayers.draw(window);
+        increasePlayers.draw(window);
+
+        window.display();
     }
-    initialDealerIndex = Game::randomInt(0, players.size() - 1);
+//    do {
+//        cout << "Input number of players (2-10):\n";
+//        cin >> numPlayers;
+//    } while (numPlayers < 2 || numPlayers > 10);
+//
+//    int stash;
+//    cout << "Input stash (amount of money each players starts with):\n";
+//    cin >> stash;
+//
+//    cout << "Input minimum bet (also big blind bet):\n";
+//    cin >> bigBlindBet;
+//    currentMinBet = bigBlindBet;
+//
+//    for (int i=0; i<numPlayers; i++) {
+//        string name;
+//        cout << "Enter name for player " << i + 1 << ":\n";
+//        cin >> name;
+//
+//        Player player(i, stash, name);
+//        players.push_back(player);
+//    }
+//    initialDealerIndex = Game::randomInt(0, players.size() - 1);
 }
 
 /**

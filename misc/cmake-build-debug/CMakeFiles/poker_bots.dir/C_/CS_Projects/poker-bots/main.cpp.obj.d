@@ -1,5 +1,6 @@
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: \
  C:\CS\ Projects\poker-bots\main.cpp \
+ C:\CS\ Projects\poker-bots\game/Game.h \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Window.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System.hpp \
@@ -247,7 +248,6 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj: \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Sprite.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Text.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp \
- C:\CS\ Projects\poker-bots\game/Game.h \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/random \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cmath \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/math.h \

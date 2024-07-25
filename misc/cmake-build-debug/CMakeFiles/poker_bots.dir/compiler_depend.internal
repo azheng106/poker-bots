@@ -313,6 +313,10 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj
  C:/CS Projects/poker-bots/game/Game.cpp
+ C:/CS Projects/poker-bots/gui/Button.h
+ C:/CS Projects/poker-bots/gui/Default.h
+ C:/CS Projects/poker-bots/gui/Misc.h
+ C:/CS Projects/poker-bots/gui/Text.h
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Config.hpp
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Graphics.hpp
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Graphics/BlendMode.hpp
@@ -1758,6 +1762,10 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj
  C:/CS Projects/poker-bots/main.cpp
+ C:/CS Projects/poker-bots/gui/Button.h
+ C:/CS Projects/poker-bots/gui/Default.h
+ C:/CS Projects/poker-bots/gui/Misc.h
+ C:/CS Projects/poker-bots/gui/Text.h
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Config.hpp
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Graphics.hpp
  C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/include/SFML/Graphics/BlendMode.hpp
@@ -2041,8 +2049,4 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj
  C:/CS Projects/poker-bots/game/CardUtil.h
  C:/CS Projects/poker-bots/game/Game.h
  C:/CS Projects/poker-bots/game/Player.h
- C:/CS Projects/poker-bots/gui/Button.h
- C:/CS Projects/poker-bots/gui/Default.h
- C:/CS Projects/poker-bots/gui/Misc.h
- C:/CS Projects/poker-bots/gui/Text.h
 

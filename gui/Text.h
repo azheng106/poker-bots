@@ -6,7 +6,7 @@ using namespace std;
 
 class Text {
 public:
-    Text(string text, sf::Font& font, int characterSize, sf::Vector2f position, sf::Color color,
+    Text(string text, int characterSize, sf::Vector2f position, sf::Color color,
          sf::Uint32 style = sf::Text::Regular);
 
     sf::Text content;
