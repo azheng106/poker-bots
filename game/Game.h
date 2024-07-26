@@ -4,6 +4,7 @@
 
 #include <random>
 #include <algorithm>
+#include <variant>
 
 #include "Player.h"
 #include "CardUtil.h"
@@ -11,6 +12,8 @@
 #include "../gui/Button.h"
 #include "../gui/Text.h"
 #include "../gui/Default.h"
+
+using Drawable = std::variant<sf::RectangleShape, sf::Text>;
 
 class Game {
 public:
@@ -52,7 +55,6 @@ public:
     void showdown();
     void reset();
 
-    // For SFML
     void run();
 
 private:
@@ -61,5 +63,4 @@ private:
     void render();
 
     sf::RenderWindow window;
-    std::vector<sf::Drawable> drawables;
 };

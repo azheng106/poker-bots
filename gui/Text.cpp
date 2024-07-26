@@ -1,7 +1,5 @@
 #include "Text.h"
 
-const string BASE_PATH = "../../../";
-
 /**
  * Constructor
  * @param text
@@ -11,17 +9,12 @@ const string BASE_PATH = "../../../";
  * @param color
  * @param style
  */
-Text::Text(string text, int characterSize, sf::Vector2f position, sf::Color color,
-           sf::Uint32 style) {
-    sf::Font robotoMono;
-    robotoMono.loadFromFile(BASE_PATH+"fonts/RobotoMono-Regular.ttf");
-
+Text::Text(string text, sf::Font &font, int characterSize, sf::Vector2f position, sf::Color color) {
     content.setString(text);
-    content.setFont(robotoMono);
+    content.setFont(font);
     content.setCharacterSize(characterSize);
     content.setPosition(position);
     content.setFillColor(color);
-    content.setStyle(style);
 }
 
 /**

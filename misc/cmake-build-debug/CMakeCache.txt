@@ -160,7 +160,7 @@ CMAKE_INSTALL_MANDIR:PATH=
 CMAKE_INSTALL_OLDINCLUDEDIR:PATH=/usr/include
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/CMakeSFMLProject
+CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/poker_bots
 
 //Run-time variable data (LOCALSTATEDIR/run)
 CMAKE_INSTALL_RUNSTATEDIR:PATH=
@@ -304,15 +304,6 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // during the make.  This is useful for debugging only. With Visual
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
-
-//Value Computed by CMake
-CMakeSFMLProject_BINARY_DIR:STATIC=C:/CS Projects/poker-bots/misc/cmake-build-debug
-
-//Value Computed by CMake
-CMakeSFMLProject_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-CMakeSFMLProject_SOURCE_DIR:STATIC=C:/CS Projects/poker-bots/misc
 
 //Enable to build 7-Zip packages
 CPACK_BINARY_7Z:BOOL=OFF
@@ -750,5 +741,5 @@ VORBIS_LIBRARY-ADVANCED:INTERNAL=1
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
-_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/CMakeSFMLProject
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/poker_bots
 

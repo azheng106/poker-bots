@@ -7,11 +7,15 @@
  * @param color
  * @param text
  */
-Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, Text text) {
+Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color outlineColor, Text text) {
         // Set up the button shape
         button.setSize(size);
         button.setPosition(position);
+
         button.setFillColor(color);
+        originalButtonColor = color;
+
+        button.setOutlineColor(outlineColor);
 
         // Center the content in the button
         buttonText = text.content;
@@ -34,7 +38,7 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, Text t
  * @param button
  * @param window
  */
-bool Button::isMouseOverButton(sf::RectangleShape& button, sf::RenderWindow& window) {
+bool Button::isMouseOver(sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     sf::Vector2f coords = window.mapPixelToCoords(mousePos);
     sf::FloatRect buttonBounds = button.getGlobalBounds();
@@ -47,13 +51,11 @@ bool Button::isMouseOverButton(sf::RectangleShape& button, sf::RenderWindow& win
  * @param window
  * @param event
  */
-bool Button::buttonClicked(sf::RectangleShape& button, sf::RenderWindow& window, sf::Event& event) {
-    static bool isButtonPressed = false;
-    static sf::Color originalColor = button.getFillColor();
-    sf::Color clickedColor = Misc::adjustColorBrightness(originalColor, -100);
+bool Button::isClicked(sf::RenderWindow& window, sf::Event& event) {
+    sf::Color clickedColor = Misc::adjustColorBrightness(originalButtonColor, -100);
 
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-        if (isMouseOverButton(button, window)) {
+        if (isMouseOver(window)) {
             // Change button color to a slightly darker shade
             button.setFillColor(clickedColor);
             isButtonPressed = true;
@@ -63,9 +65,9 @@ bool Button::buttonClicked(sf::RectangleShape& button, sf::RenderWindow& window,
     if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
         if (isButtonPressed) {
             isButtonPressed = false;
-            button.setFillColor(originalColor);
+            button.setFillColor(originalButtonColor);
 
-            if (isMouseOverButton(button, window)) {
+            if (isMouseOver(window)) {
                 return true;
             }
         }

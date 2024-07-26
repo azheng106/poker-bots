@@ -907,7 +907,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Program Files (x86)/CMakeSFMLProject"
+			"value" : "C:/Program Files (x86)/poker_bots"
 		},
 		{
 			"name" : "CMAKE_INSTALL_RUNSTATEDIR",
@@ -1596,42 +1596,6 @@
 			],
 			"type" : "BOOL",
 			"value" : "FALSE"
-		},
-		{
-			"name" : "CMakeSFMLProject_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "C:/CS Projects/poker-bots/misc/cmake-build-debug"
-		},
-		{
-			"name" : "CMakeSFMLProject_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "CMakeSFMLProject_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "C:/CS Projects/poker-bots/misc"
 		},
 		{
 			"name" : "CPACK_BINARY_7Z",
@@ -2427,7 +2391,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Program Files (x86)/CMakeSFMLProject"
+			"value" : "C:/Program Files (x86)/poker_bots"
 		},
 		{
 			"name" : "poker_bots_BINARY_DIR",

@@ -1,5 +1,7 @@
 #include "Game.h"
 
+const string BASE_PATH = "../../../";
+
 Game::Game() : window(sf::VideoMode(800, 600), "Poker Bots") {
     isFinished = false;
     round = 0;
@@ -22,12 +24,11 @@ void Game::processEvents() {
 }
 
 void Game::update() {
-    // Update game logic here
+    setupPlayers();
 }
 
 void Game::render() {
     Default::drawDefault(window);
-    window.display();
 }
 
 /**
@@ -44,16 +45,24 @@ int Game::randomInt(int a, int b) {
  * Initialize players at the start of the game
  */
 void Game::setupPlayers() {
+    sf::Font robotoMono;
+    robotoMono.loadFromFile(BASE_PATH+"fonts/RobotoMono-Regular.ttf");
+
     int numPlayers = 6;
 
-    Text dec("-", 24, sf::Vector2f(0, 0), sf::Color::White);
-    Text inc("+", 24, sf::Vector2f(0, 0), sf::Color::White);
+    Text numPlayersText("Players: " + to_string(numPlayers), robotoMono, 24, sf::Vector2f(335, 400), sf::Color::White);
 
-    Button decreasePlayers(sf::Vector2f(200, 400), sf::Vector2f(100, 100), sf::Color::White, dec);
-    Button increasePlayers(sf::Vector2f(500, 400), sf::Vector2f(100, 100), sf::Color::White, inc);
+    Text dec("-", robotoMono, 36, sf::Vector2f(0, 0), sf::Color::Black);
+    Text inc("+", robotoMono, 36, sf::Vector2f(0, 0), sf::Color::Black);
+
+    Button decreasePlayers(sf::Vector2f(200, 400), sf::Vector2f(100, 100),
+                           sf::Color::White, sf::Color::White, dec);
+    Button increasePlayers(sf::Vector2f(500, 400), sf::Vector2f(100, 100),
+                           sf::Color::White, sf::Color::White, inc);
 
     bool setupDone = false;
     while (!setupDone) {
+        numPlayersText.content.setString("Players: "+to_string(numPlayers));
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
@@ -61,25 +70,22 @@ void Game::setupPlayers() {
                 setupDone = true;
             }
 
-            if (Button::buttonClicked(decreasePlayers.button, window, event)) {
+            if (decreasePlayers.isClicked(window, event)) {
                 numPlayers = max(2, numPlayers - 1);
-                std::cout << "Decreased players to " << numPlayers << std::endl;
             }
 
-            if (Button::buttonClicked(increasePlayers.button, window, event)) {
+            if (increasePlayers.isClicked(window, event)) {
                 numPlayers = min(10, numPlayers + 1);
-                std::cout << "Increased players to " << numPlayers << std::endl;
             }
 
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
                 setupDone = true;
             }
         }
-
         Default::drawDefault(window);
+        numPlayersText.draw(window);
         decreasePlayers.draw(window);
         increasePlayers.draw(window);
-
         window.display();
     }
 //    do {
