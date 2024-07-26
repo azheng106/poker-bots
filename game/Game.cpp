@@ -14,7 +14,7 @@ void Game::run() {
 }
 
 void Game::processEvents() {
-    sf::Event event;
+    sf::Event event{};
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             window.close();
@@ -27,9 +27,6 @@ void Game::update() {
 
 void Game::render() {
     Default::drawDefault(window);
-    for (auto& drawable : drawables) {
-        window.draw(drawable);
-    }
     window.display();
 }
 
@@ -65,12 +62,12 @@ void Game::setupPlayers() {
             }
 
             if (Button::buttonClicked(decreasePlayers.button, window, event)) {
-                numPlayers = std::max(2, numPlayers - 1); // Ensure at least 2 players
+                numPlayers = max(2, numPlayers - 1);
                 std::cout << "Decreased players to " << numPlayers << std::endl;
             }
 
             if (Button::buttonClicked(increasePlayers.button, window, event)) {
-                numPlayers = std::min(10, numPlayers + 1); // Ensure at most 10 players
+                numPlayers = min(10, numPlayers + 1);
                 std::cout << "Increased players to " << numPlayers << std::endl;
             }
 
