@@ -23,10 +23,12 @@ void Game::initWindow() {
     int windowHeight = 600;
 
     window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Poker Bots");
+    window->setVerticalSyncEnabled(true);
 }
 
 void Game::initRender() {
-
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 1;
 }
 
 void Game::initFont() {
@@ -36,11 +38,14 @@ void Game::initFont() {
 }
 
 void Game::initUI() {
+    // Status Text UI
+    statusText = new Text("status text", font, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
+
     // Player Setup UI
     numPlayers = 6;
 
-    numPlayersText = new Text("Number of Players: "+to_string(numPlayers), font, 16,
-                              Misc::percentageToPixels(sf::Vector2f(50, 25), *window));
+    numPlayersText = new Text("# of Players: "+to_string(numPlayers), font, 20,
+                              Misc::percentageToPixels(sf::Vector2f(49, 25), *window));
 
     decreasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 25), *window), sf::Vector2f(50, 50),
                                     sf::Color::White, 270);
@@ -58,6 +63,7 @@ void Game::run() {
     while (window->isOpen()) {
         processEvents();
         update();
+        updateStatusText();
         render();
     }
 }
@@ -95,6 +101,26 @@ void Game::update() {
     }
 }
 
+void Game::updateStatusText() {
+    string status;
+    switch (currentState) {
+        case GameState::SETUP_PLAYERS:
+            status = "setting up players (press enter to submit)";
+            break;
+        case GameState::SETUP_HAND:
+            status = "setting up hand";
+            break;
+        case GameState::PLAY_HAND:
+            status = "playing hand";
+            break;
+        case GameState::SHOWDOWN:
+            status = "showdown";
+            break;
+    }
+    statusText->text.setString(status);
+    statusText->updateOrigin();
+}
+
 void Game::render() {
     window->clear(sf::Color(0, 0, 30));
 
@@ -111,6 +137,7 @@ void Game::render() {
         case GameState::SHOWDOWN:
             break;
     }
+    statusText->draw(*window);
     window->display();
 }
 
@@ -134,16 +161,18 @@ void Game::setupPlayers(sf::Event& event) {
 
     if (decreasePlayers->isClicked(*window, event)) {
         numPlayers = max(2, numPlayers - 1);
-        numPlayersText->text.setString("Number of Players: " + to_string(numPlayers));
+        numPlayersText->text.setString("# of Players: " + to_string(numPlayers));
+        numPlayersText->updateOrigin();
     }
 
     if (increasePlayers->isClicked(*window, event)) {
         numPlayers = min(10, numPlayers + 1);
-        numPlayersText->text.setString("Number of Players: " + to_string(numPlayers));
+        numPlayersText->text.setString("# of Players: " + to_string(numPlayers));
+        numPlayersText->updateOrigin();
     }
 
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-        currentState = GameState::PLAY_HAND;
+        currentState = GameState::SETUP_HAND;
     }
 }
 //

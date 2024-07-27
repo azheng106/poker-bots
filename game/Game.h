@@ -32,6 +32,7 @@ private:
     // Event Loop
     void processEvents();
     void update();
+    void updateStatusText();
     void render();
 
     // Game Logic
@@ -79,6 +80,7 @@ private:
 
     // Global UI Elements
     sf::Font font;
+    Text* statusText;
 
     // Setup Players UI
     int numPlayers;

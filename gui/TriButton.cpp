@@ -13,8 +13,6 @@ TriButton::TriButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, 
     // Set position and color
     triangle.setPosition(position);
     triangle.setFillColor(color);
-    triangle.setOutlineColor(sf::Color::Black); // Optional: Add an outline color
-    triangle.setOutlineThickness(2.f); // Optional: Add outline thickness
 
     // Store the original color for resetting
     originalButtonColor = color;
