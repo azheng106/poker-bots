@@ -439,6 +439,30 @@ C_/CS_Projects/poker-bots/gui/Text.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.s
 .PHONY : C_/CS_Projects/poker-bots/gui/Text.cpp.s
 
+C_/CS_Projects/poker-bots/gui/TextBox.obj: C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.obj
+
+# target to build an object file
+C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj
+
+C_/CS_Projects/poker-bots/gui/TextBox.i: C_/CS_Projects/poker-bots/gui/TextBox.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.i
+
+# target to preprocess a source file
+C_/CS_Projects/poker-bots/gui/TextBox.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.cpp.i
+
+C_/CS_Projects/poker-bots/gui/TextBox.s: C_/CS_Projects/poker-bots/gui/TextBox.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.s
+
+# target to generate assembly for a file
+C_/CS_Projects/poker-bots/gui/TextBox.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.cpp.s
+
 C_/CS_Projects/poker-bots/gui/TriButton.obj: C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/gui/TriButton.obj
 
@@ -529,6 +553,9 @@ help:
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.i
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.s
+	@echo ... C_/CS_Projects/poker-bots/gui/TextBox.obj
+	@echo ... C_/CS_Projects/poker-bots/gui/TextBox.i
+	@echo ... C_/CS_Projects/poker-bots/gui/TextBox.s
 	@echo ... C_/CS_Projects/poker-bots/gui/TriButton.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/TriButton.i
 	@echo ... C_/CS_Projects/poker-bots/gui/TriButton.s

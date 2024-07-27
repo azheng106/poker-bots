@@ -11,6 +11,7 @@
 
 #include "../gui/RecButton.h"
 #include "../gui/TriButton.h"
+#include "../gui/TextBox.h"
 #include "../gui/Text.h"
 
 class Game {
@@ -55,6 +56,7 @@ private:
     enum GameState { SETUP_PLAYERS, SETUP_HAND, PLAY_HAND, SHOWDOWN };
     GameState currentState;
 
+    int stash;
     int round;
     int turn;
     int pot;
@@ -87,6 +89,11 @@ private:
     Text* numPlayersText;
     TriButton* decreasePlayers;
     TriButton* increasePlayers;
+
+    Text* stashTextBoxLabel;
+    TextBox* stashTextBox;
+    TriButton* decreaseStash;
+    TriButton* increaseStash;
 
     // Setup Hand UI
 

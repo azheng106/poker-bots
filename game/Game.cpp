@@ -52,6 +52,17 @@ void Game::initUI() {
     increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 25), *window), sf::Vector2f(50, 50),
                                     sf::Color::White, 90);
 
+    stashTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
+                               sf::Vector2f(200, 40), font, 24, sf::Color::Transparent, sf::Color::White);
+
+    stashTextBox->setString(to_string(stash));
+    stash = 1000;
+    stashTextBox->setString(to_string(stash));
+
+    decreaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 50), *window), sf::Vector2f(50, 50),
+                                  sf::Color::White, 270);
+    increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 50), *window), sf::Vector2f(50, 50),
+                                  sf::Color::White, 90);
     // Setup Hand UI
 
     // Player Hand UI
@@ -129,6 +140,9 @@ void Game::render() {
             numPlayersText->draw(*window);
             decreasePlayers->draw(*window);
             increasePlayers->draw(*window);
+            stashTextBox->draw(*window);
+            decreaseStash->draw(*window);
+            increaseStash->draw(*window);
             break;
         case GameState::SETUP_HAND:
             break;
@@ -171,7 +185,22 @@ void Game::setupPlayers(sf::Event& event) {
         numPlayersText->updateOrigin();
     }
 
+    stashTextBox->handleEvent(event);
+    stash = stashTextBox->retrieveTextAsInt();
+
+    if (decreaseStash->isClicked(*window, event)) {
+        stash = max(0, stash - 100);
+        stashTextBox->setString(to_string(stash));
+    }
+
+    if (increaseStash->isClicked(*window, event)) {
+        stash += 100;
+        stashTextBox->setString(to_string(stash));
+    }
+
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+        // Fetch the entered stash value
+        stash = stoi(stashTextBox->getString());
         currentState = GameState::SETUP_HAND;
     }
 }
