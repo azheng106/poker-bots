@@ -496,16 +496,28 @@
 		<Unit filename="C:/CS Projects/poker-bots/game/Player.h">
 			<Option target="poker_bots"/>
 		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/gui/Button.cpp">
-			<Option target="poker_bots"/>
-		</Unit>
-		<Unit filename="C:/CS Projects/poker-bots/gui/Button.h">
-			<Option target="poker_bots"/>
-		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/gui/Misc.cpp">
 			<Option target="poker_bots"/>
 		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/gui/Misc.h">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/RecButton.cpp">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/RecButton.h">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Text.cpp">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Text.h">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/TriButton.cpp">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/TriButton.h">
 			<Option target="poker_bots"/>
 		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/main.cpp">

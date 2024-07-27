@@ -39,28 +39,13 @@ void Game::initUI() {
     // Player Setup UI
     numPlayers = 6;
 
-    numPlayersText.setString("Number of Players: " + to_string(numPlayers));
-    numPlayersText.setFont(font);
-    numPlayersText.setCharacterSize(16);
-    numPlayersText.setPosition(300, 370);
-    numPlayersText.setFillColor(sf::Color::White);
+    numPlayersText = new Text("Number of Players: "+to_string(numPlayers), font, 16,
+                              Misc::percentageToPixels(sf::Vector2f(50, 25), *window));
 
-    sf::Text dec;
-    dec.setString("-");
-    dec.setFont(font);
-    dec.setCharacterSize(36);
-    dec.setFillColor(sf::Color::Black);
-
-    sf::Text inc;
-    inc.setString("+");
-    inc.setFont(font);
-    inc.setCharacterSize(36);
-    inc.setFillColor(sf::Color::Black);
-
-    decreasePlayers = new RecButton(sf::Vector2f(300, 400), sf::Vector2f(50, 50),
-                                    sf::Color::White, sf::Color::White, dec);
-    increasePlayers = new RecButton(sf::Vector2f(400, 400), sf::Vector2f(50, 50),
-                                    sf::Color::White, sf::Color::White, inc);
+    decreasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 25), *window), sf::Vector2f(50, 50),
+                                    sf::Color::White, 270);
+    increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 25), *window), sf::Vector2f(50, 50),
+                                    sf::Color::White, 90);
 
     // Setup Hand UI
 
@@ -115,7 +100,7 @@ void Game::render() {
 
     switch (currentState) {
         case GameState::SETUP_PLAYERS:
-            window->draw(numPlayersText);
+            numPlayersText->draw(*window);
             decreasePlayers->draw(*window);
             increasePlayers->draw(*window);
             break;
@@ -149,12 +134,12 @@ void Game::setupPlayers(sf::Event& event) {
 
     if (decreasePlayers->isClicked(*window, event)) {
         numPlayers = max(2, numPlayers - 1);
-        numPlayersText.setString("Number of Players: " + to_string(numPlayers));
+        numPlayersText->text.setString("Number of Players: " + to_string(numPlayers));
     }
 
     if (increasePlayers->isClicked(*window, event)) {
         numPlayers = min(10, numPlayers + 1);
-        numPlayersText.setString("Number of Players: " + to_string(numPlayers));
+        numPlayersText->text.setString("Number of Players: " + to_string(numPlayers));
     }
 
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {

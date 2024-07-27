@@ -8,6 +8,6 @@ CMake Deprecation Warning:
   use the cmake-file-api(7) to view CMake-generated project build trees.
 
 
--- Configuring done (9.9s)
--- Generating done (1.6s)
+-- Configuring done (4.5s)
+-- Generating done (0.8s)
 -- Build files have been written to: C:/CS Projects/poker-bots/misc/cmake-build-debug

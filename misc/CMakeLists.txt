@@ -24,6 +24,10 @@ add_executable(poker_bots
         ../gui/RecButton.h
         ../gui/Misc.cpp
         ../gui/Misc.h
+        ../gui/TriButton.h
+        ../gui/TriButton.cpp
+        ../gui/Text.h
+        ../gui/Text.cpp
 )
 target_link_libraries(poker_bots PRIVATE sfml-graphics)
 target_compile_features(poker_bots PRIVATE cxx_std_17)

@@ -143,20 +143,20 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.s: cmake_f
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\game\CardUtil.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\game\CardUtil.cpp.s
 
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj: C:/CS\ Projects/poker-bots/gui/Button.cpp
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Button.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Button.cpp.obj -c "C:\CS Projects\poker-bots\gui\Button.cpp"
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj: C:/CS\ Projects/poker-bots/gui/RecButton.cpp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\RecButton.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\RecButton.cpp.obj -c "C:\CS Projects\poker-bots\gui\RecButton.cpp"
 
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\CS Projects\poker-bots\gui\Button.cpp" > CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Button.cpp.i
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\CS Projects\poker-bots\gui\RecButton.cpp" > CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\RecButton.cpp.i
 
-CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\gui\Button.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Button.cpp.s
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\gui\RecButton.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\RecButton.cpp.s
 
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
@@ -173,6 +173,36 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\gui\Misc.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Misc.cpp.s
 
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj: C:/CS\ Projects/poker-bots/gui/TriButton.cpp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\TriButton.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\TriButton.cpp.obj -c "C:\CS Projects\poker-bots\gui\TriButton.cpp"
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\CS Projects\poker-bots\gui\TriButton.cpp" > CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\TriButton.cpp.i
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\gui\TriButton.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\TriButton.cpp.s
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj: C:/CS\ Projects/poker-bots/gui/Text.cpp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Text.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Text.cpp.obj -c "C:\CS Projects\poker-bots\gui\Text.cpp"
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\CS Projects\poker-bots\gui\Text.cpp" > CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Text.cpp.i
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\gui\Text.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\Text.cpp.s
+
 # Object files for target poker_bots
 poker_bots_OBJECTS = \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Card.cpp.obj" \
@@ -180,8 +210,10 @@ poker_bots_OBJECTS = \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj" \
-"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj" \
-"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj"
+"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj" \
+"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj" \
+"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj" \
+"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj"
 
 # External object files for target poker_bots
 poker_bots_EXTERNAL_OBJECTS =
@@ -191,8 +223,10 @@ bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Pla
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj
-bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj
+bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
+bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj
+bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/build.make
 bin/poker_bots.exe: _deps/sfml-build/lib/libsfml-graphics-s-d.a
 bin/poker_bots.exe: _deps/sfml-build/lib/libsfml-window-s-d.a
@@ -201,7 +235,7 @@ bin/poker_bots.exe: _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/linkLibs.rsp
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/objects1.rsp
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable bin\poker_bots.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable bin\poker_bots.exe"
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copy OpenAL DLL"
 	"C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe" -E copy "C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/extlibs/bin/x64/openal32.dll" "C:/CS Projects/poker-bots/misc/cmake-build-debug/bin"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\poker_bots.dir\link.txt --verbose=$(VERBOSE)

@@ -12,10 +12,13 @@ RecButton::RecButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, 
         button.setSize(size);
         button.setPosition(position);
 
+        // Set colors
         button.setFillColor(color);
-        originalButtonColor = color;
-
         button.setOutlineColor(outlineColor);
+        button.setOutlineThickness(2.f);
+
+        // Store the original color for resetting
+        originalButtonColor = color;
 
         // Center the content in the button
         buttonText = text;

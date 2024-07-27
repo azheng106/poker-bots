@@ -10,8 +10,8 @@
 #include "CardUtil.h"
 
 #include "../gui/RecButton.h"
-
-using Drawable = std::variant<sf::RectangleShape, sf::Text>;
+#include "../gui/TriButton.h"
+#include "../gui/Text.h"
 
 class Game {
 public:
@@ -82,9 +82,9 @@ private:
 
     // Setup Players UI
     int numPlayers;
-    sf::Text numPlayersText;
-    RecButton* decreasePlayers;
-    RecButton* increasePlayers;
+    Text* numPlayersText;
+    TriButton* decreasePlayers;
+    TriButton* increasePlayers;
 
     // Setup Hand UI
 
