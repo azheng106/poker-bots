@@ -1,4 +1,4 @@
-#include "Button.h"
+#include "RecButton.h"
 
 /**
  * Constructor
@@ -7,7 +7,7 @@
  * @param color
  * @param text
  */
-Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color outlineColor, Text text) {
+RecButton::RecButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color outlineColor, sf::Text text) {
         // Set up the button shape
         button.setSize(size);
         button.setPosition(position);
@@ -18,7 +18,7 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Co
         button.setOutlineColor(outlineColor);
 
         // Center the content in the button
-        buttonText = text.content;
+        buttonText = text;
         sf::FloatRect textBounds = buttonText.getLocalBounds();
 
         // Set origin to the center of the content bounds
@@ -38,7 +38,7 @@ Button::Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Co
  * @param button
  * @param window
  */
-bool Button::isMouseOver(sf::RenderWindow& window) {
+bool RecButton::isMouseOver(sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     sf::Vector2f coords = window.mapPixelToCoords(mousePos);
     sf::FloatRect buttonBounds = button.getGlobalBounds();
@@ -51,7 +51,7 @@ bool Button::isMouseOver(sf::RenderWindow& window) {
  * @param window
  * @param event
  */
-bool Button::isClicked(sf::RenderWindow& window, sf::Event& event) {
+bool RecButton::isClicked(sf::RenderWindow& window, sf::Event& event) {
     sf::Color clickedColor = Misc::adjustColorBrightness(originalButtonColor, -100);
 
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
@@ -79,7 +79,7 @@ bool Button::isClicked(sf::RenderWindow& window, sf::Event& event) {
  * Draws the button to the window
  * @param window
  */
-void Button::draw(sf::RenderWindow& window) {
+void RecButton::draw(sf::RenderWindow& window) {
     window.draw(button);
     window.draw(buttonText);
 }

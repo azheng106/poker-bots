@@ -1,14 +1,76 @@
 #include "Game.h"
 
-const string BASE_PATH = "../../../";
+Game::Game() {
+    initVariables();
+    initWindow();
+    initRender();
+    initFont();
+    initUI();
+}
 
-Game::Game() : window(sf::VideoMode(800, 600), "Poker Bots") {
+Game::~Game() {
+    delete window;
+}
+
+void Game::initVariables() {
+    currentState = GameState::SETUP_PLAYERS;
     isFinished = false;
     round = 0;
 }
 
+void Game::initWindow() {
+    int windowWidth = 800;
+    int windowHeight = 600;
+
+    window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Poker Bots");
+}
+
+void Game::initRender() {
+
+}
+
+void Game::initFont() {
+    if (!font.loadFromFile(string(BASE_PATH)+"fonts/RobotoMono-Regular.ttf")) {
+        cout << "Font loading error\n";
+    }
+}
+
+void Game::initUI() {
+    // Player Setup UI
+    numPlayers = 6;
+
+    numPlayersText.setString("Number of Players: " + to_string(numPlayers));
+    numPlayersText.setFont(font);
+    numPlayersText.setCharacterSize(16);
+    numPlayersText.setPosition(300, 370);
+    numPlayersText.setFillColor(sf::Color::White);
+
+    sf::Text dec;
+    dec.setString("-");
+    dec.setFont(font);
+    dec.setCharacterSize(36);
+    dec.setFillColor(sf::Color::Black);
+
+    sf::Text inc;
+    inc.setString("+");
+    inc.setFont(font);
+    inc.setCharacterSize(36);
+    inc.setFillColor(sf::Color::Black);
+
+    decreasePlayers = new RecButton(sf::Vector2f(300, 400), sf::Vector2f(50, 50),
+                                    sf::Color::White, sf::Color::White, dec);
+    increasePlayers = new RecButton(sf::Vector2f(400, 400), sf::Vector2f(50, 50),
+                                    sf::Color::White, sf::Color::White, inc);
+
+    // Setup Hand UI
+
+    // Player Hand UI
+
+    // Showdown UI
+}
+
 void Game::run() {
-    while (window.isOpen()) {
+    while (window->isOpen()) {
         processEvents();
         update();
         render();
@@ -17,18 +79,54 @@ void Game::run() {
 
 void Game::processEvents() {
     sf::Event event{};
-    while (window.pollEvent(event)) {
+    while (window->pollEvent(event)) {
         if (event.type == sf::Event::Closed)
-            window.close();
+            window->close();
+
+        switch (currentState) {
+            case GameState::SETUP_PLAYERS:
+                setupPlayers(event);
+                break;
+            case GameState::SETUP_HAND:
+                break;
+            case GameState::PLAY_HAND:
+                break;
+            case GameState::SHOWDOWN:
+                break;
+        }
     }
 }
 
 void Game::update() {
-    setupPlayers();
+    switch (currentState) {
+        case GameState::SETUP_PLAYERS:
+            break;
+        case GameState::SETUP_HAND:
+            break;
+        case GameState::PLAY_HAND:
+            break;
+        case GameState::SHOWDOWN:
+            break;
+    }
 }
 
 void Game::render() {
-    Default::drawDefault(window);
+    window->clear(sf::Color(0, 0, 30));
+
+    switch (currentState) {
+        case GameState::SETUP_PLAYERS:
+            window->draw(numPlayersText);
+            decreasePlayers->draw(*window);
+            increasePlayers->draw(*window);
+            break;
+        case GameState::SETUP_HAND:
+            break;
+        case GameState::PLAY_HAND:
+            break;
+        case GameState::SHOWDOWN:
+            break;
+    }
+    window->display();
 }
 
 /**
@@ -44,54 +142,25 @@ int Game::randomInt(int a, int b) {
 /**
  * Initialize players at the start of the game
  */
-void Game::setupPlayers() {
-    sf::Font robotoMono;
-    robotoMono.loadFromFile(BASE_PATH+"fonts/RobotoMono-Regular.ttf");
-
-    int numPlayers = 6;
-
-    Text numPlayersText("Players: " + to_string(numPlayers), robotoMono, 24, sf::Vector2f(335, 400), sf::Color::White);
-
-    Text dec("-", robotoMono, 36, sf::Vector2f(0, 0), sf::Color::Black);
-    Text inc("+", robotoMono, 36, sf::Vector2f(0, 0), sf::Color::Black);
-
-    Button decreasePlayers(sf::Vector2f(200, 400), sf::Vector2f(100, 100),
-                           sf::Color::White, sf::Color::White, dec);
-    Button increasePlayers(sf::Vector2f(500, 400), sf::Vector2f(100, 100),
-                           sf::Color::White, sf::Color::White, inc);
-
-    bool setupDone = false;
-    while (!setupDone) {
-        numPlayersText.content.setString("Players: "+to_string(numPlayers));
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-                setupDone = true;
-            }
-
-            if (decreasePlayers.isClicked(window, event)) {
-                numPlayers = max(2, numPlayers - 1);
-            }
-
-            if (increasePlayers.isClicked(window, event)) {
-                numPlayers = min(10, numPlayers + 1);
-            }
-
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-                setupDone = true;
-            }
-        }
-        Default::drawDefault(window);
-        numPlayersText.draw(window);
-        decreasePlayers.draw(window);
-        increasePlayers.draw(window);
-        window.display();
+void Game::setupPlayers(sf::Event& event) {
+    if (event.type == sf::Event::Closed) {
+        window->close();
     }
-//    do {
-//        cout << "Input number of players (2-10):\n";
-//        cin >> numPlayers;
-//    } while (numPlayers < 2 || numPlayers > 10);
+
+    if (decreasePlayers->isClicked(*window, event)) {
+        numPlayers = max(2, numPlayers - 1);
+        numPlayersText.setString("Number of Players: " + to_string(numPlayers));
+    }
+
+    if (increasePlayers->isClicked(*window, event)) {
+        numPlayers = min(10, numPlayers + 1);
+        numPlayersText.setString("Number of Players: " + to_string(numPlayers));
+    }
+
+    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+        currentState = GameState::PLAY_HAND;
+    }
+}
 //
 //    int stash;
 //    cout << "Input stash (amount of money each players starts with):\n";
@@ -110,7 +179,6 @@ void Game::setupPlayers() {
 //        players.push_back(player);
 //    }
 //    initialDealerIndex = Game::randomInt(0, players.size() - 1);
-}
 
 /**
  * Create a new deck of cards

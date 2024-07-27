@@ -20,14 +20,10 @@ add_executable(poker_bots
         ../game/Game.h
         ../game/CardUtil.cpp
         ../game/CardUtil.h
-        ../gui/Button.cpp
-        ../gui/Button.h
-        ../gui/Default.cpp
-        ../gui/Default.h
+        ../gui/RecButton.cpp
+        ../gui/RecButton.h
         ../gui/Misc.cpp
         ../gui/Misc.h
-        ../gui/Text.cpp
-        ../gui/Text.h
 )
 target_link_libraries(poker_bots PRIVATE sfml-graphics)
 target_compile_features(poker_bots PRIVATE cxx_std_17)

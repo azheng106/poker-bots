@@ -13,9 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/CS Projects/poker-bots/game/Game.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj.d"
   "C:/CS Projects/poker-bots/game/Player.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.obj.d"
   "C:/CS Projects/poker-bots/gui/Button.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.obj.d"
-  "C:/CS Projects/poker-bots/gui/Default.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Default.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Default.cpp.obj.d"
   "C:/CS Projects/poker-bots/gui/Misc.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj.d"
-  "C:/CS Projects/poker-bots/gui/Text.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj.d"
   "C:/CS Projects/poker-bots/main.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj.d"
   )
 

@@ -9,15 +9,50 @@
 #include "Player.h"
 #include "CardUtil.h"
 
-#include "../gui/Button.h"
-#include "../gui/Text.h"
-#include "../gui/Default.h"
+#include "../gui/RecButton.h"
 
 using Drawable = std::variant<sf::RectangleShape, sf::Text>;
 
 class Game {
 public:
+    // Constructor and Destructor
     Game();
+    ~Game();
+
+    // Main Game Loop
+    void run();
+private:
+    // Initialization
+    void initVariables();
+    void initWindow();
+    void initRender();
+    void initFont();
+    void initUI();
+
+    // Event Loop
+    void processEvents();
+    void update();
+    void render();
+
+    // Game Logic
+    static int randomInt(int a, int b);
+    void setupPlayers(sf::Event& event);
+    void shuffleDeck();
+    void setupBlinds();
+    void distributeHoleCards();
+    void distributeCommunityCards();
+    void displayPot();
+    void calculatePot();
+    void doBlindBets();
+    void getAction(Player& player);
+    bool isTurnOver();
+    void playHand();
+    void showdown();
+    void reset();
+
+    // Game Variables
+    enum GameState { SETUP_PLAYERS, SETUP_HAND, PLAY_HAND, SHOWDOWN };
+    GameState currentState;
 
     int round;
     int turn;
@@ -32,35 +67,34 @@ public:
     bool isFinished;
     bool isHeadsUp;
 
+    // Players
     Player* dealer;
     Player* smallBlind;
     Player* bigBlind;
     vector<Player> players;
 
+    // Cards
     vector<Card> deck;
     vector<Card> communityCards;
 
-    static int randomInt(int a, int b);
-    void setupPlayers();
-    void shuffleDeck();
-    void setupBlinds();
-    void distributeHoleCards();
-    void distributeCommunityCards();
-    void displayPot();
-    void calculatePot();
-    void doBlindBets();
-    void getAction(Player& player);
-    bool isTurnOver();
-    void playHand();
-    void showdown();
-    void reset();
+    // Global UI Elements
+    sf::Font font;
 
-    void run();
+    // Setup Players UI
+    int numPlayers;
+    sf::Text numPlayersText;
+    RecButton* decreasePlayers;
+    RecButton* increasePlayers;
 
-private:
-    void processEvents();
-    void update();
-    void render();
+    // Setup Hand UI
 
-    sf::RenderWindow window;
+    // Play Hand UI
+
+    // Showdown UI
+
+    // Window
+    sf::RenderWindow* window;
+
+    // File Paths
+    static constexpr const char* BASE_PATH = "../../../";
 };

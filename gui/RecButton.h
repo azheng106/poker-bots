@@ -2,14 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Text.h"
 #include "Misc.h"
 
 using namespace std;
 
-class Button {
+class RecButton {
 public:
-    Button(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color outlineColor, Text text);
+    RecButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color outlineColor, sf::Text text);
 
     bool isButtonPressed;
     sf::Color originalButtonColor;

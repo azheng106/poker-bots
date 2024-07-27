@@ -391,30 +391,6 @@ C_/CS_Projects/poker-bots/gui/Button.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Button.cpp.s
 .PHONY : C_/CS_Projects/poker-bots/gui/Button.cpp.s
 
-C_/CS_Projects/poker-bots/gui/Default.obj: C_/CS_Projects/poker-bots/gui/Default.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/Default.obj
-
-# target to build an object file
-C_/CS_Projects/poker-bots/gui/Default.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Default.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/Default.cpp.obj
-
-C_/CS_Projects/poker-bots/gui/Default.i: C_/CS_Projects/poker-bots/gui/Default.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/Default.i
-
-# target to preprocess a source file
-C_/CS_Projects/poker-bots/gui/Default.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Default.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/Default.cpp.i
-
-C_/CS_Projects/poker-bots/gui/Default.s: C_/CS_Projects/poker-bots/gui/Default.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/Default.s
-
-# target to generate assembly for a file
-C_/CS_Projects/poker-bots/gui/Default.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Default.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/Default.cpp.s
-
 C_/CS_Projects/poker-bots/gui/Misc.obj: C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/gui/Misc.obj
 
@@ -438,30 +414,6 @@ C_/CS_Projects/poker-bots/gui/Misc.s: C_/CS_Projects/poker-bots/gui/Misc.cpp.s
 C_/CS_Projects/poker-bots/gui/Misc.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.s
 .PHONY : C_/CS_Projects/poker-bots/gui/Misc.cpp.s
-
-C_/CS_Projects/poker-bots/gui/Text.obj: C_/CS_Projects/poker-bots/gui/Text.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.obj
-
-# target to build an object file
-C_/CS_Projects/poker-bots/gui/Text.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.cpp.obj
-
-C_/CS_Projects/poker-bots/gui/Text.i: C_/CS_Projects/poker-bots/gui/Text.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.i
-
-# target to preprocess a source file
-C_/CS_Projects/poker-bots/gui/Text.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.cpp.i
-
-C_/CS_Projects/poker-bots/gui/Text.s: C_/CS_Projects/poker-bots/gui/Text.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.s
-
-# target to generate assembly for a file
-C_/CS_Projects/poker-bots/gui/Text.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.cpp.s
 
 C_/CS_Projects/poker-bots/main.obj: C_/CS_Projects/poker-bots/main.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/main.obj
@@ -523,15 +475,9 @@ help:
 	@echo ... C_/CS_Projects/poker-bots/gui/Button.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/Button.i
 	@echo ... C_/CS_Projects/poker-bots/gui/Button.s
-	@echo ... C_/CS_Projects/poker-bots/gui/Default.obj
-	@echo ... C_/CS_Projects/poker-bots/gui/Default.i
-	@echo ... C_/CS_Projects/poker-bots/gui/Default.s
 	@echo ... C_/CS_Projects/poker-bots/gui/Misc.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/Misc.i
 	@echo ... C_/CS_Projects/poker-bots/gui/Misc.s
-	@echo ... C_/CS_Projects/poker-bots/gui/Text.obj
-	@echo ... C_/CS_Projects/poker-bots/gui/Text.i
-	@echo ... C_/CS_Projects/poker-bots/gui/Text.s
 	@echo ... C_/CS_Projects/poker-bots/main.obj
 	@echo ... C_/CS_Projects/poker-bots/main.i
 	@echo ... C_/CS_Projects/poker-bots/main.s
