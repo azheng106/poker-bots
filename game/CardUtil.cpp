@@ -92,7 +92,7 @@ vector<int> CardUtil::scoreFlush(vector<Card> cards) {
     if (!equal(suits.begin() + 1, suits.end(), suits.begin())) return {};
     sort(values.begin(), values.end());
 
-    return {6, values[4]};
+    return {6, values[4], values[3], values[2], values[1], values[0]};
 }
 
 /*
@@ -145,7 +145,7 @@ vector<int> CardUtil::scoreThreeOfAKind(vector<Card> cards) {
     sort(values.begin(), values.end());
 
     if (trips != -1) {
-        return {4, trips, values[1]};
+        return {4, trips, values[1], values[0]};
     }
     return {};
 }
@@ -209,7 +209,7 @@ vector<int> CardUtil::scoreOnePair(vector<Card> cards) {
     sort(values.begin(), values.end());
 
     if (pair != -1) {
-        return {2, pair, values[2]};
+        return {2, pair, values[2], values[1], values[0]};
     }
     return {};
 }
@@ -225,7 +225,7 @@ vector<int> CardUtil::scoreHighCard(vector<Card> cards) {
     }
     sort(values.begin(), values.end());
 
-    return {1, values[4], values[3]};
+    return {1, values[4], values[3], values[2], values[1], values[0]};
 }
 
 /*

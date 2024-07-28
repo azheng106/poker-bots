@@ -44,7 +44,7 @@ void Game::initBasicUI() {
     // Status Text UI
     statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
 
-    // Basic Setup UI
+    // # of Players
     numPlayers = 6;
 
     numPlayersLabel = new Text("Players", boldFont, 36,
@@ -60,18 +60,36 @@ void Game::initBasicUI() {
     increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 25), *window), sf::Vector2f(30, 30),
                                     sf::Color::White, 90);
 
+    // Stash
+    stash = 1000;
+
     stashTextBoxLabel = new Text("Stash", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
 
     stashTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
                                sf::Vector2f(200, 40), regularFont, 24, sf::Color::Transparent, sf::Color::White);
 
-    stash = 1000;
     stashTextBox->setString(to_string(stash));
 
     decreaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 50), *window), sf::Vector2f(30, 30),
                                   sf::Color::White, 270);
     increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 50), *window), sf::Vector2f(30, 30),
                                   sf::Color::White, 90);
+
+    // Big Blind
+    bigBlindBet = 10;
+
+    bigBlindBoxLabel = new Text("Big Blind", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 65), *window));
+
+    bigBlindBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 75), *window),
+                              sf::Vector2f(200, 40), regularFont, 24, sf::Color::Transparent, sf::Color::White);
+
+    bigBlindBox->setString(to_string(bigBlindBet));
+
+    decreaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 75), *window), sf::Vector2f(30, 30),
+                                       sf::Color::White, 270);
+
+    increaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 75), *window), sf::Vector2f(30, 30),
+                                     sf::Color::White, 90);
 }
 
 void Game::run() {
@@ -152,10 +170,16 @@ void Game::render() {
             numPlayersBox->draw(*window);
             decreasePlayers->draw(*window);
             increasePlayers->draw(*window);
+
             stashTextBoxLabel->draw(*window);
             stashTextBox->draw(*window);
             decreaseStash->draw(*window);
             increaseStash->draw(*window);
+
+            bigBlindBoxLabel->draw(*window);
+            bigBlindBox->draw(*window);
+            decreaseBigBlind->draw(*window);
+            increaseBigBlind->draw(*window);
             break;
         case GameState::SETUP_PLAYERS:
             break;
@@ -230,11 +254,33 @@ void Game::basicSetup(sf::Event& event) {
         stashTextBox->textIsValid = true;
     }
 
+    // Big Blind Bet
+    bigBlindBox->handleEvent(event);
+    if (bigBlindBox->retrieveTextAsInt() >= 1 && bigBlindBox->retrieveTextAsInt() <= stash) {
+        bigBlindBet = bigBlindBox->retrieveTextAsInt();
+        bigBlindBox->textIsValid = true;
+    } else {
+        bigBlindBox->textIsValid = false;
+    }
+
+    if (decreaseBigBlind->isClicked(*window, event)) {
+        bigBlindBet = max(1, bigBlindBet - 10);
+        bigBlindBox->setString(to_string(bigBlindBet));
+        bigBlindBox->textIsValid = true;
+    }
+
+    if (increaseBigBlind->isClicked(*window, event)) {
+        bigBlindBet = min(stash, bigBlindBet + 10);
+        bigBlindBox->setString(to_string(bigBlindBet));
+        bigBlindBox->textIsValid = true;
+    }
+
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
         currentState = GameState::SETUP_PLAYERS;
         cout << "Basic Setup Complete\n";
         cout << "\t# of Players: " << numPlayers << "\n";
         cout << "\tStash: $" << stash << "\n";
+        cout << "\tBig Blind: $" << bigBlindBet << "\n";
     }
 }
 //

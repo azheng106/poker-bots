@@ -56,12 +56,15 @@ private:
     enum GameState { BASIC_SETUP, SETUP_PLAYERS, SETUP_HAND, PLAY_HAND, SHOWDOWN };
     GameState currentState;
 
+    // Basic Setup
+    int numPlayers;
     int stash;
+    int bigBlindBet;
+
     int round;
     int turn;
     int pot;
     bool hasOpened;
-    int bigBlindBet;
     int currentMinBet;
     int initialDealerIndex;
     bool skipToEnd;
@@ -86,7 +89,6 @@ private:
     Text* statusText;
 
     // Setup Players UI
-    int numPlayers;
     Text* numPlayersLabel;
     TextBox* numPlayersBox;
     TriButton* decreasePlayers;
@@ -96,6 +98,11 @@ private:
     TextBox* stashTextBox;
     TriButton* decreaseStash;
     TriButton* increaseStash;
+
+    Text* bigBlindBoxLabel;
+    TextBox* bigBlindBox;
+    TriButton* decreaseBigBlind;
+    TriButton* increaseBigBlind;
 
     // Setup Hand UI
 
