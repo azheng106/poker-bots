@@ -83,6 +83,7 @@ private:
     // Cards
     vector<Card> deck;
     vector<Card> communityCards;
+    map<string, sf::Texture> textures;
 
     // Global UI Elements
     sf::Font regularFont;
@@ -121,4 +122,6 @@ private:
     static constexpr const char* BASE_PATH = "../../../";
 
     void initSetupPlayersUI();
+
+    void initCardTextures();
 };

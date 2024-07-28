@@ -21,6 +21,9 @@ TriButton::TriButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, 
     triangle.setRotation(angle);
 }
 
+/**
+ * Check if the user's mouse is over this button
+ */
 bool TriButton::isMouseOver(sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     sf::Vector2f coords = window.mapPixelToCoords(mousePos);
@@ -30,6 +33,9 @@ bool TriButton::isMouseOver(sf::RenderWindow& window) {
     return buttonBounds.contains(coords);
 }
 
+/**
+ * Check if the user clicked this button
+ */
 bool TriButton::isClicked(sf::RenderWindow& window, sf::Event& event) {
     sf::Color clickedColor = Misc::adjustColorBrightness(triangle.getFillColor(), -100);
 
@@ -54,6 +60,9 @@ bool TriButton::isClicked(sf::RenderWindow& window, sf::Event& event) {
     return false;
 }
 
+/**
+ * Draw the button to the window
+ */
 void TriButton::draw(sf::RenderWindow& window) {
     window.draw(triangle);
 }

@@ -2,11 +2,6 @@
 
 /**
  * Constructor
- * @param string
- * @param font
- * @param characterSize
- * @param position
- * @param color
  */
 Text::Text(string string, sf::Font& font, int characterSize, sf::Vector2f position, sf::Color color) {
     text.setFont(font);
