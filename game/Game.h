@@ -39,6 +39,7 @@ private:
     // Game Logic
     static int randomInt(int a, int b);
     void basicSetup(sf::Event& event);
+    void setupPlayers(sf::Event& event);
     void shuffleDeck();
     void setupBlinds();
     void distributeHoleCards();
@@ -105,6 +106,8 @@ private:
     TriButton* increaseBigBlind;
 
     // Setup Hand UI
+    vector<Text*> playerNameTexts{};
+    vector<TextBox*> playerNameTextBoxes{};
 
     // Play Hand UI
 

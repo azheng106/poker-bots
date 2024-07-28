@@ -28,6 +28,9 @@ TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int c
     box.setPosition(position);
 }
 
+/**
+ * Changes outline color when user clicks on it, and allows user to type in the box.
+ */
 void TextBox::handleEvent(sf::Event& event) {
     if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mouse(event.mouseButton.x, event.mouseButton.y);
@@ -41,7 +44,7 @@ void TextBox::handleEvent(sf::Event& event) {
     }
 
     if (isActive && event.type == sf::Event::TextEntered) {
-        // Backspace logic
+        // unicode 8 = backspace
         if (event.text.unicode == 8 && !text.getString().isEmpty()) {
             std::string str = text.getString();
             str.pop_back();

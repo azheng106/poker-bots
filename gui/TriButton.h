@@ -5,6 +5,7 @@
 #include "Misc.h"
 
 class TriButton {
+    // Triangular button
 public:
     TriButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, float angle);
 

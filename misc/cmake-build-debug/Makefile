@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\CS Projects\poker-bots\misc"
+CMAKE_SOURCE_DIR = C:\Users\azhen\CLionProjects\poker-bots\misc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\CS Projects\poker-bots\misc\cmake-build-debug"
+CMAKE_BINARY_DIR = C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -77,7 +77,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool for source..."
-	"C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cpack.exe" --config ./CPackSourceConfig.cmake "C:/CS Projects/poker-bots/misc/cmake-build-debug/CPackSourceConfig.cmake"
+	"C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/azhen/CLionProjects/poker-bots/misc/cmake-build-debug/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -151,9 +151,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" "C:\CS Projects\poker-bots\misc\cmake-build-debug\\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\CMakeFiles C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -271,245 +271,245 @@ sfml-audio/fast:
 	$(MAKE) $(MAKESILENT) -f _deps\sfml-build\src\SFML\Audio\CMakeFiles\sfml-audio.dir\build.make _deps/sfml-build/src/SFML/Audio/CMakeFiles/sfml-audio.dir/build
 .PHONY : sfml-audio/fast
 
-C_/CS_Projects/poker-bots/game/Card.obj: C_/CS_Projects/poker-bots/game/Card.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/game/Card.obj
+C_/Users/azhen/CLionProjects/poker-bots/game/Card.obj: C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Card.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/game/Card.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Card.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/game/Card.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.obj
 
-C_/CS_Projects/poker-bots/game/Card.i: C_/CS_Projects/poker-bots/game/Card.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/game/Card.i
+C_/Users/azhen/CLionProjects/poker-bots/game/Card.i: C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Card.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/game/Card.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Card.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/game/Card.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.i
 
-C_/CS_Projects/poker-bots/game/Card.s: C_/CS_Projects/poker-bots/game/Card.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/game/Card.s
+C_/Users/azhen/CLionProjects/poker-bots/game/Card.s: C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Card.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/game/Card.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Card.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/game/Card.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Card.cpp.s
 
-C_/CS_Projects/poker-bots/game/CardUtil.obj: C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/game/CardUtil.obj
+C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.obj: C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.obj
 
-C_/CS_Projects/poker-bots/game/CardUtil.i: C_/CS_Projects/poker-bots/game/CardUtil.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/game/CardUtil.i
+C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.i: C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/game/CardUtil.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/game/CardUtil.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.i
 
-C_/CS_Projects/poker-bots/game/CardUtil.s: C_/CS_Projects/poker-bots/game/CardUtil.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/game/CardUtil.s
+C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.s: C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/game/CardUtil.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/game/CardUtil.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.cpp.s
 
-C_/CS_Projects/poker-bots/game/Game.obj: C_/CS_Projects/poker-bots/game/Game.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/game/Game.obj
+C_/Users/azhen/CLionProjects/poker-bots/game/Game.obj: C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Game.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/game/Game.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/game/Game.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.obj
 
-C_/CS_Projects/poker-bots/game/Game.i: C_/CS_Projects/poker-bots/game/Game.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/game/Game.i
+C_/Users/azhen/CLionProjects/poker-bots/game/Game.i: C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Game.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/game/Game.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/game/Game.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.i
 
-C_/CS_Projects/poker-bots/game/Game.s: C_/CS_Projects/poker-bots/game/Game.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/game/Game.s
+C_/Users/azhen/CLionProjects/poker-bots/game/Game.s: C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Game.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/game/Game.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/game/Game.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Game.cpp.s
 
-C_/CS_Projects/poker-bots/game/Player.obj: C_/CS_Projects/poker-bots/game/Player.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/game/Player.obj
+C_/Users/azhen/CLionProjects/poker-bots/game/Player.obj: C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Player.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/game/Player.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/game/Player.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.obj
 
-C_/CS_Projects/poker-bots/game/Player.i: C_/CS_Projects/poker-bots/game/Player.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/game/Player.i
+C_/Users/azhen/CLionProjects/poker-bots/game/Player.i: C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Player.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/game/Player.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/game/Player.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.i
 
-C_/CS_Projects/poker-bots/game/Player.s: C_/CS_Projects/poker-bots/game/Player.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/game/Player.s
+C_/Users/azhen/CLionProjects/poker-bots/game/Player.s: C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Player.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/game/Player.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/game/Player.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/game/Player.cpp.s
 
-C_/CS_Projects/poker-bots/gui/Misc.obj: C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/Misc.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.obj: C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/gui/Misc.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.obj
 
-C_/CS_Projects/poker-bots/gui/Misc.i: C_/CS_Projects/poker-bots/gui/Misc.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/Misc.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.i: C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/gui/Misc.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/Misc.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.i
 
-C_/CS_Projects/poker-bots/gui/Misc.s: C_/CS_Projects/poker-bots/gui/Misc.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/Misc.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.s: C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/gui/Misc.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/Misc.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.cpp.s
 
-C_/CS_Projects/poker-bots/gui/RecButton.obj: C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/RecButton.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.obj: C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.obj
 
-C_/CS_Projects/poker-bots/gui/RecButton.i: C_/CS_Projects/poker-bots/gui/RecButton.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/RecButton.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.i: C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/gui/RecButton.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/RecButton.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.i
 
-C_/CS_Projects/poker-bots/gui/RecButton.s: C_/CS_Projects/poker-bots/gui/RecButton.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/RecButton.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.s: C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/gui/RecButton.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/RecButton.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.cpp.s
 
-C_/CS_Projects/poker-bots/gui/Text.obj: C_/CS_Projects/poker-bots/gui/Text.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/Text.obj: C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Text.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/gui/Text.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.obj
 
-C_/CS_Projects/poker-bots/gui/Text.i: C_/CS_Projects/poker-bots/gui/Text.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/Text.i: C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Text.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/gui/Text.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.i
 
-C_/CS_Projects/poker-bots/gui/Text.s: C_/CS_Projects/poker-bots/gui/Text.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/Text.s: C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Text.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/gui/Text.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/Text.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/Text.cpp.s
 
-C_/CS_Projects/poker-bots/gui/TextBox.obj: C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.obj: C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.obj
 
-C_/CS_Projects/poker-bots/gui/TextBox.i: C_/CS_Projects/poker-bots/gui/TextBox.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.i: C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/gui/TextBox.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.i
 
-C_/CS_Projects/poker-bots/gui/TextBox.s: C_/CS_Projects/poker-bots/gui/TextBox.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.s: C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/gui/TextBox.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/TextBox.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.cpp.s
 
-C_/CS_Projects/poker-bots/gui/TriButton.obj: C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/TriButton.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.obj: C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.obj
 
-C_/CS_Projects/poker-bots/gui/TriButton.i: C_/CS_Projects/poker-bots/gui/TriButton.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/TriButton.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.i: C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/gui/TriButton.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/gui/TriButton.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.i
 
-C_/CS_Projects/poker-bots/gui/TriButton.s: C_/CS_Projects/poker-bots/gui/TriButton.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/TriButton.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.s: C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/gui/TriButton.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/gui/TriButton.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.cpp.s
 
-C_/CS_Projects/poker-bots/main.obj: C_/CS_Projects/poker-bots/main.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/main.obj
+C_/Users/azhen/CLionProjects/poker-bots/main.obj: C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/main.obj
 
 # target to build an object file
-C_/CS_Projects/poker-bots/main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.obj
-.PHONY : C_/CS_Projects/poker-bots/main.cpp.obj
+C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/main.cpp.obj
 
-C_/CS_Projects/poker-bots/main.i: C_/CS_Projects/poker-bots/main.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/main.i
+C_/Users/azhen/CLionProjects/poker-bots/main.i: C_/Users/azhen/CLionProjects/poker-bots/main.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/main.i
 
 # target to preprocess a source file
-C_/CS_Projects/poker-bots/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.i
-.PHONY : C_/CS_Projects/poker-bots/main.cpp.i
+C_/Users/azhen/CLionProjects/poker-bots/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/main.cpp.i
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/main.cpp.i
 
-C_/CS_Projects/poker-bots/main.s: C_/CS_Projects/poker-bots/main.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/main.s
+C_/Users/azhen/CLionProjects/poker-bots/main.s: C_/Users/azhen/CLionProjects/poker-bots/main.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/main.s
 
 # target to generate assembly for a file
-C_/CS_Projects/poker-bots/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/main.cpp.s
-.PHONY : C_/CS_Projects/poker-bots/main.cpp.s
+C_/Users/azhen/CLionProjects/poker-bots/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/Users/azhen/CLionProjects/poker-bots/main.cpp.s
+.PHONY : C_/Users/azhen/CLionProjects/poker-bots/main.cpp.s
 
 # Help Target
 help:
@@ -532,36 +532,36 @@ help:
 	@echo ... sfml-network
 	@echo ... sfml-system
 	@echo ... sfml-window
-	@echo ... C_/CS_Projects/poker-bots/game/Card.obj
-	@echo ... C_/CS_Projects/poker-bots/game/Card.i
-	@echo ... C_/CS_Projects/poker-bots/game/Card.s
-	@echo ... C_/CS_Projects/poker-bots/game/CardUtil.obj
-	@echo ... C_/CS_Projects/poker-bots/game/CardUtil.i
-	@echo ... C_/CS_Projects/poker-bots/game/CardUtil.s
-	@echo ... C_/CS_Projects/poker-bots/game/Game.obj
-	@echo ... C_/CS_Projects/poker-bots/game/Game.i
-	@echo ... C_/CS_Projects/poker-bots/game/Game.s
-	@echo ... C_/CS_Projects/poker-bots/game/Player.obj
-	@echo ... C_/CS_Projects/poker-bots/game/Player.i
-	@echo ... C_/CS_Projects/poker-bots/game/Player.s
-	@echo ... C_/CS_Projects/poker-bots/gui/Misc.obj
-	@echo ... C_/CS_Projects/poker-bots/gui/Misc.i
-	@echo ... C_/CS_Projects/poker-bots/gui/Misc.s
-	@echo ... C_/CS_Projects/poker-bots/gui/RecButton.obj
-	@echo ... C_/CS_Projects/poker-bots/gui/RecButton.i
-	@echo ... C_/CS_Projects/poker-bots/gui/RecButton.s
-	@echo ... C_/CS_Projects/poker-bots/gui/Text.obj
-	@echo ... C_/CS_Projects/poker-bots/gui/Text.i
-	@echo ... C_/CS_Projects/poker-bots/gui/Text.s
-	@echo ... C_/CS_Projects/poker-bots/gui/TextBox.obj
-	@echo ... C_/CS_Projects/poker-bots/gui/TextBox.i
-	@echo ... C_/CS_Projects/poker-bots/gui/TextBox.s
-	@echo ... C_/CS_Projects/poker-bots/gui/TriButton.obj
-	@echo ... C_/CS_Projects/poker-bots/gui/TriButton.i
-	@echo ... C_/CS_Projects/poker-bots/gui/TriButton.s
-	@echo ... C_/CS_Projects/poker-bots/main.obj
-	@echo ... C_/CS_Projects/poker-bots/main.i
-	@echo ... C_/CS_Projects/poker-bots/main.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Card.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Card.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Card.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/CardUtil.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Game.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Game.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Game.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Player.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Player.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/game/Player.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/Misc.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/RecButton.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/Text.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/Text.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/Text.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/TextBox.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/gui/TriButton.s
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/main.obj
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/main.i
+	@echo ... C_/Users/azhen/CLionProjects/poker-bots/main.s
 .PHONY : help
 
 

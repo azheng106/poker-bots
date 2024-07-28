@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <sstream>
 
 Game::Game() {
     initVariables();
@@ -19,11 +20,11 @@ void Game::initVariables() {
 }
 
 void Game::initWindow() {
-    int windowWidth = 800;
-    int windowHeight = 600;
+    sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
 
-    window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Poker Bots");
-    window->setVerticalSyncEnabled(true);
+    window = new sf::RenderWindow(sf::VideoMode(desktopMode.width-50, desktopMode.height-100), "Poker Bots");
+    window->setVerticalSyncEnabled(true); // Limit FPS to refresh rate
+    window->setPosition(sf::Vector2i(0, 0));
 }
 
 void Game::initRender() {
@@ -41,7 +42,7 @@ void Game::initFont() {
 }
 
 void Game::initBasicUI() {
-    // Status Text UI
+    // Status Text label at the bottom, which is updated by updateStatusText() as the game progresses
     statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
 
     // # of Players
@@ -112,6 +113,10 @@ void Game::processEvents() {
                 basicSetup(event);
                 break;
             case GameState::SETUP_PLAYERS:
+                setupPlayers(event);
+                for (TextBox* textBox : playerNameTextBoxes) {
+                    textBox->handleEvent(event);
+                }
                 break;
             case GameState::SETUP_HAND:
                 break;
@@ -182,6 +187,12 @@ void Game::render() {
             increaseBigBlind->draw(*window);
             break;
         case GameState::SETUP_PLAYERS:
+            for (Text* playerNameText : playerNameTexts) {
+                playerNameText->draw(*window);
+            }
+            for (TextBox* textBox : playerNameTextBoxes) {
+                textBox->draw(*window);
+            }
             break;
         case GameState::SETUP_HAND:
             break;
@@ -208,10 +219,6 @@ int Game::randomInt(int a, int b) {
  * Initialize players at the start of the game
  */
 void Game::basicSetup(sf::Event& event) {
-    if (event.type == sf::Event::Closed) {
-        window->close();
-    }
-
     // Number of Players Selection
     numPlayersBox->handleEvent(event);
     if (numPlayersBox->retrieveTextAsInt() >= 2 && numPlayersBox->retrieveTextAsInt() <= 10) {
@@ -232,7 +239,6 @@ void Game::basicSetup(sf::Event& event) {
         numPlayersBox->setString(to_string(numPlayers));
         numPlayersBox->textIsValid = true;
     }
-
     // Stash Selection
     stashTextBox->handleEvent(event);
     if (stashTextBox->retrieveTextAsInt() >= 1 && stashTextBox->retrieveTextAsInt() <= 1000000) {
@@ -276,11 +282,15 @@ void Game::basicSetup(sf::Event& event) {
     }
 
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-        currentState = GameState::SETUP_PLAYERS;
-        cout << "Basic Setup Complete\n";
-        cout << "\t# of Players: " << numPlayers << "\n";
-        cout << "\tStash: $" << stash << "\n";
-        cout << "\tBig Blind: $" << bigBlindBet << "\n";
+        if (Misc::textBoxesValid({*numPlayersBox, *stashTextBox, *bigBlindBox})) {
+            currentState = GameState::SETUP_PLAYERS;
+            cout << "Basic Setup Complete\n";
+            cout << "\t# of Players: " << numPlayers << "\n";
+            cout << "\tStash: $" << stash << "\n";
+            cout << "\tBig Blind: $" << bigBlindBet << "\n";
+        } else {
+            cout << "Some box(es) are invalid" << endl;
+        }
     }
 }
 //
@@ -297,6 +307,28 @@ void Game::basicSetup(sf::Event& event) {
 //        players.push_back(player);
 //    }
 //    initialDealerIndex = Game::randomInt(0, players.size() - 1);
+
+/**
+ * Initialize setup player UI and handle events
+ */
+void Game::setupPlayers(sf::Event& event) {
+    playerNameTexts.clear(); // Clear any existing texts
+    playerNameTextBoxes.clear();
+
+    for (int i = 0; i < numPlayers; i++) {
+        stringstream ss;
+        ss << i + 1;
+        string indexNum = ss.str();
+        Text* playerNameText = new Text("Player " + indexNum + " name", regularFont, 24,
+                                        Misc::percentageToPixels(sf::Vector2f(50, 1 + i * 10), *window));
+        TextBox* playerNameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 5 + i * 10), *window),
+                                                 sf::Vector2f(200, 40), regularFont, 24,
+                                                 sf::Color::Transparent,
+                                                 sf::Color::White);
+        playerNameTexts.push_back(playerNameText);
+        playerNameTextBoxes.push_back(playerNameTextBox);
+    }
+}
 
 /**
  * Create a new deck of cards
