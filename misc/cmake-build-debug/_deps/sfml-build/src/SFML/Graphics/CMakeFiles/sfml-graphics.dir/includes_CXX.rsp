@@ -1,0 +1,1 @@
+-I"C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include" -I"C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/src" -isystem "C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/extlibs/headers/STB_IM~1" -isystem "C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/extlibs/headers/glad/include" -isystem "C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/extlibs/headers/FREETY~1"

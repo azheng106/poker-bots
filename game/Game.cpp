@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <sstream>
 
 Game::Game() {
     initVariables();
@@ -25,7 +24,7 @@ void Game::initVariables() {
 void Game::initWindow() {
     sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
 
-    window = new sf::RenderWindow(sf::VideoMode(desktopMode.width-50, desktopMode.height-100), "Poker Bots");
+    window = new sf::RenderWindow(sf::VideoMode(desktopMode.width/2, desktopMode.height/2), "Poker Bots");
     window->setVerticalSyncEnabled(true); // Limit FPS to refresh rate
     window->setPosition(sf::Vector2i(0, 0));
 }
@@ -55,7 +54,7 @@ void Game::initBasicUI() {
                                Misc::percentageToPixels(sf::Vector2f(50, 15), *window));
 
     numPlayersBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 25), *window),
-                                sf::Vector2f(200, 40), regularFont, 24, sf::Color::Transparent, sf::Color::White);
+                                sf::Vector2f(200, 50), regularFont, 22, sf::Color::Transparent, sf::Color::White);
 
     numPlayersBox->setString(to_string(numPlayers));
 
@@ -70,7 +69,7 @@ void Game::initBasicUI() {
     stashTextBoxLabel = new Text("Stash", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
 
     stashTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                               sf::Vector2f(200, 40), regularFont, 24, sf::Color::Transparent, sf::Color::White);
+                               sf::Vector2f(200, 50), regularFont, 22, sf::Color::Transparent, sf::Color::White);
 
     stashTextBox->setString(to_string(stash));
 
@@ -85,7 +84,7 @@ void Game::initBasicUI() {
     bigBlindBoxLabel = new Text("Big Blind", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 65), *window));
 
     bigBlindBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 75), *window),
-                              sf::Vector2f(200, 40), regularFont, 24, sf::Color::Transparent, sf::Color::White);
+                              sf::Vector2f(200, 50), regularFont, 22, sf::Color::Transparent, sf::Color::White);
 
     bigBlindBox->setString(to_string(bigBlindBet));
 
@@ -97,13 +96,11 @@ void Game::initBasicUI() {
 }
 
 void Game::initSetupPlayersUI() {
-    stringstream ss;
-    ss << currentPlayerIndex + 1;
-    string indexNum = ss.str();
-    nameText = new Text("Player " + indexNum + " name", boldFont, 36,
-                        Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
-    nameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 60), *window),
-                              sf::Vector2f(200, 40), regularFont, 24,
+    currentPlayerIndex = 1;
+    nameTextLabel = new Text("Player " + to_string(currentPlayerIndex) + " Name", boldFont, 36,
+                             Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
+    nameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
+                              sf::Vector2f(200, 50), regularFont, 22,
                               sf::Color::Transparent, sf::Color::White);
 }
 
@@ -214,7 +211,7 @@ void Game::render() {
             increaseBigBlind->draw(*window);
             break;
         case GameState::SETUP_PLAYERS:
-            nameText->draw(*window);
+            nameTextLabel->draw(*window);
             nameTextBox->draw(*window);
             break;
         case GameState::SETUP_HAND: {
@@ -326,51 +323,39 @@ void Game::basicSetup(sf::Event& event) {
         }
     }
 }
-//
-//    cout << "Input minimum bet (also big blind bet):\n";
-//    cin >> bigBlindBet;
-//    currentMinBet = bigBlindBet;
-//
-//    for (int i=0; i<numPlayers; i++) {
-//        string name;
-//        cout << "Enter name for player " << i + 1 << ":\n";
-//        cin >> name;
-//
-//        Player player(i, stash, name);
-//        players.push_back(player);
-//    }
-//    initialDealerIndex = Game::randomInt(0, players.size() - 1);
 
 /**
  * Initialize setup player UI and handle events
  */
 void Game::setupPlayers(sf::Event& event) {
-    // Check if all players are processed
-    if (currentPlayerIndex >= numPlayers) {
-        currentState = GameState::SETUP_HAND;
-        cout << "Players initialized: " << endl;
-        for (Player p : players) {
-            cout << p.name << endl;
-        }
-        return;
-    }
     nameTextBox->handleEvent(event);
+    string enteredName = nameTextBox->getString();
 
     // If the Enter key is pressed and the text box is not empty
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-        if (!nameTextBox->getString().empty()) {
+        if (!enteredName.empty()) {
             // Create a new player with the entered name
-            Player player(currentPlayerIndex, stash, nameTextBox->getString());
+            Player player(currentPlayerIndex, stash, enteredName);
             players.push_back(player);
 
             // Move to the next player
             currentPlayerIndex++;
-            stringstream ss;
-            ss << currentPlayerIndex + 1;
-            string indexNum = ss.str();
-            nameText->text.setString("Player " + indexNum + " name");
-            nameTextBox->setString(""); // Clear the text box after each name entry
+            nameTextLabel->text.setString("Player " + to_string(currentPlayerIndex) + " Name");
+
+            // Clear the text box after each name entry
+            nameTextBox->setString("");
         }
+    }
+
+    // Check if all players are processed
+    if (currentPlayerIndex > numPlayers) {
+        currentState = GameState::SETUP_HAND;
+        cout << "Players Setup Complete" << endl;
+        for (Player& player : players) {
+            cout << player.name << "\n";
+        }
+        initialDealerIndex = Game::randomInt(0, players.size() - 1);
+        cout << "Initial Dealer Index: " << initialDealerIndex << "\n";
     }
 }
 

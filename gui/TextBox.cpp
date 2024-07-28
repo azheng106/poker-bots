@@ -46,7 +46,7 @@ void TextBox::handleEvent(sf::Event& event) {
     if (isActive && event.type == sf::Event::TextEntered) {
         // unicode 8 = backspace
         if (event.text.unicode == 8 && !text.getString().isEmpty()) {
-            std::string str = text.getString();
+            string str = text.getString();
             str.pop_back();
             text.setString(str);
             updateTextPosition();

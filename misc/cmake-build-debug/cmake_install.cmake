@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/azhen/CLionProjects/poker-bots/misc
+# Install script for directory: C:/CS Projects/poker-bots/misc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/azhen/CLionProjects/poker-bots/misc/cmake-build-debug/_deps/sfml-build/cmake_install.cmake")
+  include("C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-build/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/azhen/CLionProjects/poker-bots/misc/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/CS Projects/poker-bots/misc/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

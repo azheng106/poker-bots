@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild
+CMAKE_SOURCE_DIR = "C:\CS Projects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild
+CMAKE_BINARY_DIR = "C:\CS Projects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild\CMakeFiles C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild\CMakeFiles" "C:\CS Projects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\azhen\CLionProjects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\_deps\sfml-subbuild\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target

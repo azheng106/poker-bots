@@ -14,6 +14,8 @@
 #include "../gui/TextBox.h"
 #include "../gui/Text.h"
 
+using namespace std;
+
 class Game {
 public:
     // Constructor and Destructor
@@ -28,7 +30,10 @@ private:
     void initWindow();
     void initRender();
     void initFont();
+    void initCardTextures();
+
     void initBasicUI();
+    void initSetupPlayersUI();
 
     // Event Loop
     void processEvents();
@@ -90,7 +95,7 @@ private:
     sf::Font boldFont;
     Text* statusText;
 
-    // Setup Players UI
+    // Basic Setup UI
     Text* numPlayersLabel;
     TextBox* numPlayersBox;
     TriButton* decreasePlayers;
@@ -106,9 +111,9 @@ private:
     TriButton* decreaseBigBlind;
     TriButton* increaseBigBlind;
 
-    // Setup Hand UI
+    // Setup Players UI
     int currentPlayerIndex;
-    Text* nameText;
+    Text* nameTextLabel;
     TextBox* nameTextBox;
 
     // Play Hand UI
@@ -120,8 +125,4 @@ private:
 
     // File Paths
     static constexpr const char* BASE_PATH = "../../../";
-
-    void initSetupPlayersUI();
-
-    void initCardTextures();
 };
