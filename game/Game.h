@@ -53,7 +53,7 @@ private:
     void reset();
 
     // Game Variables
-    enum GameState { SETUP_PLAYERS, SETUP_HAND, PLAY_HAND, SHOWDOWN };
+    enum GameState { BASIC_SETUP, SETUP_PLAYERS, SETUP_HAND, PLAY_HAND, SHOWDOWN };
     GameState currentState;
 
     int stash;
@@ -81,12 +81,14 @@ private:
     vector<Card> communityCards;
 
     // Global UI Elements
-    sf::Font font;
+    sf::Font regularFont;
+    sf::Font boldFont;
     Text* statusText;
 
     // Setup Players UI
     int numPlayers;
-    Text* numPlayersText;
+    Text* numPlayersLabel;
+    TextBox* numPlayersBox;
     TriButton* decreasePlayers;
     TriButton* increasePlayers;
 

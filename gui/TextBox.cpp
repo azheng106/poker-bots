@@ -2,11 +2,18 @@
 
 TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int characterSize, sf::Color color, sf::Color textColor) {
     isActive = false;
+    textIsValid = true;
+
+    highlightColor = sf::Color::Blue;
+    originalHighlightColor = highlightColor;
 
     box.setSize(size);
     box.setFillColor(color);
-    box.setOutlineColor(textColor);
-    originalOutlineColor = textColor;
+
+    outlineColor = sf::Color::Green;
+    originalOutlineColor = outlineColor;
+    box.setOutlineColor(outlineColor);
+
     box.setOutlineThickness(1.f);
 
     text.setFont(font);
@@ -26,20 +33,20 @@ void TextBox::handleEvent(sf::Event& event) {
         sf::Vector2f mouse(event.mouseButton.x, event.mouseButton.y);
         if (box.getGlobalBounds().contains(mouse)) {
             isActive = true;
-            box.setOutlineColor(sf::Color::Blue);
+            box.setOutlineColor(highlightColor);
         } else {
             isActive = false;
-            box.setOutlineColor(originalOutlineColor);
+            box.setOutlineColor(outlineColor);
         }
     }
 
     if (isActive && event.type == sf::Event::TextEntered) {
-        // Backspace
+        // Backspace logic
         if (event.text.unicode == 8 && !text.getString().isEmpty()) {
-            string str = text.getString();
+            std::string str = text.getString();
             str.pop_back();
             text.setString(str);
-        // Input
+            updateTextPosition();
         } else if (event.text.unicode < 128 && event.text.unicode != 8) {
             text.setString(text.getString() + static_cast<char>(event.text.unicode));
             updateTextPosition();
@@ -48,11 +55,19 @@ void TextBox::handleEvent(sf::Event& event) {
 }
 
 void TextBox::draw(sf::RenderWindow& window) {
+    if (!textIsValid && !isActive) {
+        box.setOutlineColor(sf::Color::Red);
+    } else if (isActive) {
+        box.setOutlineColor(highlightColor);
+    } else {
+        box.setOutlineColor(originalOutlineColor);
+    }
+
     window.draw(box);
     window.draw(text);
 }
 
-void TextBox::setString(string text) {
+void TextBox::setString(std::string text) {
     this->text.setString(text);
     updateTextPosition();
 }

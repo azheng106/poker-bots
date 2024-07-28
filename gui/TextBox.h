@@ -20,7 +20,11 @@ public:
     int retrieveTextAsInt();
 
     sf::RectangleShape box;
+    sf::Color outlineColor;
     sf::Color originalOutlineColor;
+    sf::Color highlightColor;
+    sf::Color originalHighlightColor;
     sf::Text text;
     bool isActive;
+    bool textIsValid;
 };

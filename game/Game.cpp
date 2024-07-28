@@ -13,7 +13,7 @@ Game::~Game() {
 }
 
 void Game::initVariables() {
-    currentState = GameState::SETUP_PLAYERS;
+    currentState = GameState::BASIC_SETUP;
     isFinished = false;
     round = 0;
 }
@@ -32,36 +32,45 @@ void Game::initRender() {
 }
 
 void Game::initFont() {
-    if (!font.loadFromFile(string(BASE_PATH)+"fonts/RobotoMono-Regular.ttf")) {
+    if (!regularFont.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Regular.ttf")) {
+        cout << "Font loading error\n";
+    }
+    if (!boldFont.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Bold.ttf")) {
         cout << "Font loading error\n";
     }
 }
 
 void Game::initUI() {
     // Status Text UI
-    statusText = new Text("status text", font, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
+    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
 
     // Player Setup UI
     numPlayers = 6;
 
-    numPlayersText = new Text("# of Players: "+to_string(numPlayers), font, 20,
-                              Misc::percentageToPixels(sf::Vector2f(49, 25), *window));
+    numPlayersLabel = new Text("Players", boldFont, 36,
+                               Misc::percentageToPixels(sf::Vector2f(50, 15), *window));
 
-    decreasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 25), *window), sf::Vector2f(50, 50),
+    numPlayersBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 25), *window),
+                                sf::Vector2f(200, 40), regularFont, 24, sf::Color::Transparent, sf::Color::White);
+
+    numPlayersBox->setString(to_string(numPlayers));
+
+    decreasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 25), *window), sf::Vector2f(30, 30),
                                     sf::Color::White, 270);
-    increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 25), *window), sf::Vector2f(50, 50),
+    increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 25), *window), sf::Vector2f(30, 30),
                                     sf::Color::White, 90);
 
-    stashTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                               sf::Vector2f(200, 40), font, 24, sf::Color::Transparent, sf::Color::White);
+    stashTextBoxLabel = new Text("Stash", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
 
-    stashTextBox->setString(to_string(stash));
+    stashTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
+                               sf::Vector2f(200, 40), regularFont, 24, sf::Color::Transparent, sf::Color::White);
+
     stash = 1000;
     stashTextBox->setString(to_string(stash));
 
-    decreaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 50), *window), sf::Vector2f(50, 50),
+    decreaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 50), *window), sf::Vector2f(30, 30),
                                   sf::Color::White, 270);
-    increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 50), *window), sf::Vector2f(50, 50),
+    increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 50), *window), sf::Vector2f(30, 30),
                                   sf::Color::White, 90);
     // Setup Hand UI
 
@@ -86,8 +95,10 @@ void Game::processEvents() {
             window->close();
 
         switch (currentState) {
-            case GameState::SETUP_PLAYERS:
+            case GameState::BASIC_SETUP:
                 setupPlayers(event);
+                break;
+            case GameState::SETUP_PLAYERS:
                 break;
             case GameState::SETUP_HAND:
                 break;
@@ -101,6 +112,8 @@ void Game::processEvents() {
 
 void Game::update() {
     switch (currentState) {
+        case GameState::BASIC_SETUP:
+            break;
         case GameState::SETUP_PLAYERS:
             break;
         case GameState::SETUP_HAND:
@@ -115,8 +128,11 @@ void Game::update() {
 void Game::updateStatusText() {
     string status;
     switch (currentState) {
+        case GameState::BASIC_SETUP:
+            status = "basic setup (press enter to continue)";
+            break;
         case GameState::SETUP_PLAYERS:
-            status = "setting up players (press enter to submit)";
+            status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
             status = "setting up hand";
@@ -136,13 +152,17 @@ void Game::render() {
     window->clear(sf::Color(0, 0, 30));
 
     switch (currentState) {
-        case GameState::SETUP_PLAYERS:
-            numPlayersText->draw(*window);
+        case GameState::BASIC_SETUP:
+            numPlayersLabel->draw(*window);
+            numPlayersBox->draw(*window);
             decreasePlayers->draw(*window);
             increasePlayers->draw(*window);
+            stashTextBoxLabel->draw(*window);
             stashTextBox->draw(*window);
             decreaseStash->draw(*window);
             increaseStash->draw(*window);
+            break;
+        case GameState::SETUP_PLAYERS:
             break;
         case GameState::SETUP_HAND:
             break;
@@ -173,18 +193,28 @@ void Game::setupPlayers(sf::Event& event) {
         window->close();
     }
 
+    // Number of Players Selection
+    numPlayersBox->handleEvent(event);
+    if (numPlayersBox->retrieveTextAsInt() >= 2 && numPlayersBox->retrieveTextAsInt() <= 10) {
+        numPlayers = numPlayersBox->retrieveTextAsInt();
+        numPlayersBox->textIsValid = true;
+    } else {
+        numPlayersBox->textIsValid = false;
+    }
+
     if (decreasePlayers->isClicked(*window, event)) {
         numPlayers = max(2, numPlayers - 1);
-        numPlayersText->text.setString("# of Players: " + to_string(numPlayers));
-        numPlayersText->updateOrigin();
+        numPlayersBox->setString(to_string(numPlayers));
+        numPlayersBox->textIsValid = true;
     }
 
     if (increasePlayers->isClicked(*window, event)) {
         numPlayers = min(10, numPlayers + 1);
-        numPlayersText->text.setString("# of Players: " + to_string(numPlayers));
-        numPlayersText->updateOrigin();
+        numPlayersBox->setString(to_string(numPlayers));
+        numPlayersBox->textIsValid = true;
     }
 
+    // Stash Selection
     stashTextBox->handleEvent(event);
     stash = stashTextBox->retrieveTextAsInt();
 
@@ -199,9 +229,10 @@ void Game::setupPlayers(sf::Event& event) {
     }
 
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-        // Fetch the entered stash value
-        stash = stoi(stashTextBox->getString());
-        currentState = GameState::SETUP_HAND;
+        currentState = GameState::SETUP_PLAYERS;
+        cout << "Basic Setup Complete\n";
+        cout << "\t# of Players: " << numPlayers << "\n";
+        cout << "\tStash: $" << stash << "\n";
     }
 }
 //
