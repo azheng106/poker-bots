@@ -5,7 +5,7 @@ Game::Game() {
     initWindow();
     initRender();
     initFont();
-    initUI();
+    initBasicUI();
 }
 
 Game::~Game() {
@@ -40,11 +40,11 @@ void Game::initFont() {
     }
 }
 
-void Game::initUI() {
+void Game::initBasicUI() {
     // Status Text UI
     statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
 
-    // Player Setup UI
+    // Basic Setup UI
     numPlayers = 6;
 
     numPlayersLabel = new Text("Players", boldFont, 36,
@@ -72,11 +72,6 @@ void Game::initUI() {
                                   sf::Color::White, 270);
     increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 50), *window), sf::Vector2f(30, 30),
                                   sf::Color::White, 90);
-    // Setup Hand UI
-
-    // Player Hand UI
-
-    // Showdown UI
 }
 
 void Game::run() {
@@ -96,7 +91,7 @@ void Game::processEvents() {
 
         switch (currentState) {
             case GameState::BASIC_SETUP:
-                setupPlayers(event);
+                basicSetup(event);
                 break;
             case GameState::SETUP_PLAYERS:
                 break;
@@ -188,7 +183,7 @@ int Game::randomInt(int a, int b) {
 /**
  * Initialize players at the start of the game
  */
-void Game::setupPlayers(sf::Event& event) {
+void Game::basicSetup(sf::Event& event) {
     if (event.type == sf::Event::Closed) {
         window->close();
     }
@@ -216,16 +211,23 @@ void Game::setupPlayers(sf::Event& event) {
 
     // Stash Selection
     stashTextBox->handleEvent(event);
-    stash = stashTextBox->retrieveTextAsInt();
+    if (stashTextBox->retrieveTextAsInt() >= 1 && stashTextBox->retrieveTextAsInt() <= 1000000) {
+        stash = stashTextBox->retrieveTextAsInt();
+        stashTextBox->textIsValid = true;
+    } else {
+        stashTextBox->textIsValid = false;
+    }
 
     if (decreaseStash->isClicked(*window, event)) {
-        stash = max(0, stash - 100);
+        stash = max(1, stash - 100);
         stashTextBox->setString(to_string(stash));
+        stashTextBox->textIsValid = true;
     }
 
     if (increaseStash->isClicked(*window, event)) {
-        stash += 100;
+        stash = min(1000000, stash + 100);
         stashTextBox->setString(to_string(stash));
+        stashTextBox->textIsValid = true;
     }
 
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
@@ -235,10 +237,6 @@ void Game::setupPlayers(sf::Event& event) {
         cout << "\tStash: $" << stash << "\n";
     }
 }
-//
-//    int stash;
-//    cout << "Input stash (amount of money each players starts with):\n";
-//    cin >> stash;
 //
 //    cout << "Input minimum bet (also big blind bet):\n";
 //    cin >> bigBlindBet;

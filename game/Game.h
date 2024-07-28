@@ -28,7 +28,7 @@ private:
     void initWindow();
     void initRender();
     void initFont();
-    void initUI();
+    void initBasicUI();
 
     // Event Loop
     void processEvents();
@@ -38,7 +38,7 @@ private:
 
     // Game Logic
     static int randomInt(int a, int b);
-    void setupPlayers(sf::Event& event);
+    void basicSetup(sf::Event& event);
     void shuffleDeck();
     void setupBlinds();
     void distributeHoleCards();
