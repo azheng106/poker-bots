@@ -7,7 +7,7 @@ using namespace std;
 
 class TextBox {
 public:
-    TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int characterSize, sf::Color color, sf::Color textColor);
+    TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int characterSize, sf::Color color, sf::Color textColor, bool useNumbers = false);
 
     void handleEvent(sf::Event& event);
     void draw(sf::RenderWindow& window);
@@ -16,7 +16,6 @@ public:
     void setPosition(sf::Vector2f position);
     void setSize(sf::Vector2f size);
     void updateTextPosition();
-
     int retrieveTextAsInt();
 
     sf::RectangleShape box;
@@ -27,4 +26,5 @@ public:
     sf::Text text;
     bool isActive;
     bool textIsValid;
+    bool numbersOnly;
 };

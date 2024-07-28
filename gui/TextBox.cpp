@@ -1,8 +1,9 @@
 #include "TextBox.h"
 
-TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int characterSize, sf::Color color, sf::Color textColor) {
+TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int characterSize, sf::Color color, sf::Color textColor, bool useNumbers) {
     isActive = false;
     textIsValid = true;
+    numbersOnly = useNumbers;
 
     highlightColor = sf::Color::Blue;
     originalHighlightColor = highlightColor;
@@ -28,9 +29,6 @@ TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int c
     box.setPosition(position);
 }
 
-/**
- * Changes outline color when user clicks on it, and allows user to type in the box.
- */
 void TextBox::handleEvent(sf::Event& event) {
     if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mouse(event.mouseButton.x, event.mouseButton.y);
@@ -44,15 +42,20 @@ void TextBox::handleEvent(sf::Event& event) {
     }
 
     if (isActive && event.type == sf::Event::TextEntered) {
-        // unicode 8 = backspace
-        if (event.text.unicode == 8 && !text.getString().isEmpty()) {
+        if (event.text.unicode == '\b' && !text.getString().isEmpty()) { // Backspace key
             string str = text.getString();
             str.pop_back();
             text.setString(str);
             updateTextPosition();
-        } else if (event.text.unicode < 128 && event.text.unicode != 8) {
-            text.setString(text.getString() + static_cast<char>(event.text.unicode));
-            updateTextPosition();
+        } else if (event.text.unicode == '\r' || event.text.unicode == '\t' || event.text.unicode == '\n') {
+            // Do nothing if user presses tab or enter key
+        } else if (event.text.unicode < 128) {
+            char enteredChar = static_cast<char>(event.text.unicode);
+            // If only numbers are allowed, check if it is a digit (0-9)
+            if (!numbersOnly || (enteredChar >= '0' && enteredChar <= '9')) {
+                text.setString(text.getString() + enteredChar);
+                updateTextPosition();
+            }
         }
     }
 }

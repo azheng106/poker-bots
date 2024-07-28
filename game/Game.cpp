@@ -54,7 +54,7 @@ void Game::initBasicUI() {
                                Misc::percentageToPixels(sf::Vector2f(50, 15), *window));
 
     numPlayersBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 25), *window),
-                                sf::Vector2f(200, 50), regularFont, 22, sf::Color::Transparent, sf::Color::White);
+                                sf::Vector2f(200, 40), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
 
     numPlayersBox->setString(to_string(numPlayers));
 
@@ -69,7 +69,7 @@ void Game::initBasicUI() {
     stashTextBoxLabel = new Text("Stash", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
 
     stashTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                               sf::Vector2f(200, 50), regularFont, 22, sf::Color::Transparent, sf::Color::White);
+                               sf::Vector2f(200, 40), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
 
     stashTextBox->setString(to_string(stash));
 
@@ -84,7 +84,7 @@ void Game::initBasicUI() {
     bigBlindBoxLabel = new Text("Big Blind", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 65), *window));
 
     bigBlindBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 75), *window),
-                              sf::Vector2f(200, 50), regularFont, 22, sf::Color::Transparent, sf::Color::White);
+                              sf::Vector2f(200, 40), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
 
     bigBlindBox->setString(to_string(bigBlindBet));
 
@@ -100,7 +100,7 @@ void Game::initSetupPlayersUI() {
     nameTextLabel = new Text("Player " + to_string(currentPlayerIndex) + " Name", boldFont, 36,
                              Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
     nameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                              sf::Vector2f(200, 50), regularFont, 22,
+                              sf::Vector2f(250, 40), regularFont, 22,
                               sf::Color::Transparent, sf::Color::White);
 }
 
