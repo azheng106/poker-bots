@@ -106,8 +106,9 @@ private:
     TriButton* increaseBigBlind;
 
     // Setup Hand UI
-    vector<Text*> playerNameTexts{};
-    vector<TextBox*> playerNameTextBoxes{};
+    int currentPlayerIndex;
+    Text* nameText;
+    TextBox* nameTextBox;
 
     // Play Hand UI
 
@@ -118,4 +119,6 @@ private:
 
     // File Paths
     static constexpr const char* BASE_PATH = "../../../";
+
+    void initSetupPlayersUI();
 };

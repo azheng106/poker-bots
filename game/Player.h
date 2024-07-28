@@ -33,4 +33,5 @@ public:
     void win(int potAmount);
 
     bool operator==(Player& other) const;
+
 };

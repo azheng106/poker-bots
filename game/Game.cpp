@@ -7,6 +7,7 @@ Game::Game() {
     initRender();
     initFont();
     initBasicUI();
+    initSetupPlayersUI();
 }
 
 Game::~Game() {
@@ -17,6 +18,7 @@ void Game::initVariables() {
     currentState = GameState::BASIC_SETUP;
     isFinished = false;
     round = 0;
+    currentPlayerIndex = 0;
 }
 
 void Game::initWindow() {
@@ -93,6 +95,17 @@ void Game::initBasicUI() {
                                      sf::Color::White, 90);
 }
 
+void Game::initSetupPlayersUI() {
+    stringstream ss;
+    ss << currentPlayerIndex + 1;
+    string indexNum = ss.str();
+    nameText = new Text("Player " + indexNum + " name", boldFont, 36,
+                        Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
+    nameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 60), *window),
+                              sf::Vector2f(200, 40), regularFont, 24,
+                              sf::Color::Transparent, sf::Color::White);
+}
+
 void Game::run() {
     while (window->isOpen()) {
         processEvents();
@@ -114,9 +127,6 @@ void Game::processEvents() {
                 break;
             case GameState::SETUP_PLAYERS:
                 setupPlayers(event);
-                for (TextBox* textBox : playerNameTextBoxes) {
-                    textBox->handleEvent(event);
-                }
                 break;
             case GameState::SETUP_HAND:
                 break;
@@ -187,12 +197,8 @@ void Game::render() {
             increaseBigBlind->draw(*window);
             break;
         case GameState::SETUP_PLAYERS:
-            for (Text* playerNameText : playerNameTexts) {
-                playerNameText->draw(*window);
-            }
-            for (TextBox* textBox : playerNameTextBoxes) {
-                textBox->draw(*window);
-            }
+            nameText->draw(*window);
+            nameTextBox->draw(*window);
             break;
         case GameState::SETUP_HAND:
             break;
@@ -312,21 +318,32 @@ void Game::basicSetup(sf::Event& event) {
  * Initialize setup player UI and handle events
  */
 void Game::setupPlayers(sf::Event& event) {
-    playerNameTexts.clear(); // Clear any existing texts
-    playerNameTextBoxes.clear();
+    // Check if all players are processed
+    if (currentPlayerIndex >= numPlayers) {
+        currentState = GameState::SETUP_HAND;
+        cout << "Players initialized: " << endl;
+        for (Player p : players) {
+            cout << p.name << endl;
+        }
+        return;
+    }
+    nameTextBox->handleEvent(event);
 
-    for (int i = 0; i < numPlayers; i++) {
-        stringstream ss;
-        ss << i + 1;
-        string indexNum = ss.str();
-        Text* playerNameText = new Text("Player " + indexNum + " name", regularFont, 24,
-                                        Misc::percentageToPixels(sf::Vector2f(50, 1 + i * 10), *window));
-        TextBox* playerNameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 5 + i * 10), *window),
-                                                 sf::Vector2f(200, 40), regularFont, 24,
-                                                 sf::Color::Transparent,
-                                                 sf::Color::White);
-        playerNameTexts.push_back(playerNameText);
-        playerNameTextBoxes.push_back(playerNameTextBox);
+    // If the Enter key is pressed and the text box is not empty
+    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+        if (!nameTextBox->getString().empty()) {
+            // Create a new player with the entered name
+            Player player(currentPlayerIndex, stash, nameTextBox->getString());
+            players.push_back(player);
+
+            // Move to the next player
+            currentPlayerIndex++;
+            stringstream ss;
+            ss << currentPlayerIndex + 1;
+            string indexNum = ss.str();
+            nameText->text.setString("Player " + indexNum + " name");
+            nameTextBox->setString(""); // Clear the text box after each name entry
+        }
     }
 }
 
