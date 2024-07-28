@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -14,6 +15,9 @@ public:
     void setString(string text);
     string getString();
     void setPosition(sf::Vector2f position);
+    // Prevent recentering from affecting y value
+    float originalYOrigin;
+    float originalYPos;
     void setSize(sf::Vector2f size);
     void updateTextPosition();
     int retrieveTextAsInt();

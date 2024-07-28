@@ -34,9 +34,13 @@ void TextBox::handleEvent(sf::Event& event) {
         sf::Vector2f mouse(event.mouseButton.x, event.mouseButton.y);
         if (box.getGlobalBounds().contains(mouse)) {
             isActive = true;
+            // Clear the text box if the text was invalid
+            if (!textIsValid) setString("");
             box.setOutlineColor(highlightColor);
         } else {
             isActive = false;
+            // Inform of invalid text
+            if (!textIsValid) setString("Invalid");
             box.setOutlineColor(outlineColor);
         }
     }
@@ -98,10 +102,11 @@ void TextBox::updateTextPosition() {
     sf::FloatRect textBounds = text.getLocalBounds();
     sf::FloatRect boxBounds = box.getGlobalBounds();
 
-    // Center the text within the box
-    text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+    // Only change the x value of the origin for horizontal centering, 0.636 is finetuned for constant, centered y
+    text.setOrigin(textBounds.left + textBounds.width / 2.0f, text.getCharacterSize()*0.636);
     text.setPosition(boxBounds.left + boxBounds.width / 2.0f, boxBounds.top + boxBounds.height / 2.0f);
 }
+
 
 int TextBox::retrieveTextAsInt() {
     try {

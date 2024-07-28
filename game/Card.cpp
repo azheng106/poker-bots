@@ -1,14 +1,8 @@
 #include "Card.h"
 
-Card::Card(int value, char suit, sf::Texture& texture) {
+Card::Card(int value, char suit) {
     this->value = value;
     this->suit = suit;
-    sprite.setTexture(texture);
-};
-
-void Card::draw(sf::RenderWindow &window, sf::Vector2f position) {
-    sprite.setPosition(position);
-    window.draw(sprite);
 }
 
 ostream& operator<<(ostream& os, Card& card) {

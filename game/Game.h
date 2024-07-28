@@ -30,7 +30,6 @@ private:
     void initWindow();
     void initRender();
     void initFont();
-    void initCardTextures();
 
     void initBasicUI();
     void initSetupPlayersUI();
@@ -88,7 +87,6 @@ private:
     // Cards
     vector<Card> deck;
     vector<Card> communityCards;
-    map<string, sf::Texture> textures;
 
     // Global UI Elements
     sf::Font regularFont;

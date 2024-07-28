@@ -7,7 +7,6 @@ Game::Game() {
     initFont();
     initBasicUI();
     initSetupPlayersUI();
-    initCardTextures();
 }
 
 Game::~Game() {
@@ -54,7 +53,7 @@ void Game::initBasicUI() {
                                Misc::percentageToPixels(sf::Vector2f(50, 15), *window));
 
     numPlayersBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 25), *window),
-                                sf::Vector2f(200, 40), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
+                                sf::Vector2f(200, 41), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
 
     numPlayersBox->setString(to_string(numPlayers));
 
@@ -69,7 +68,7 @@ void Game::initBasicUI() {
     stashTextBoxLabel = new Text("Stash", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
 
     stashTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                               sf::Vector2f(200, 40), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
+                               sf::Vector2f(200, 41), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
 
     stashTextBox->setString(to_string(stash));
 
@@ -84,7 +83,7 @@ void Game::initBasicUI() {
     bigBlindBoxLabel = new Text("Big Blind", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 65), *window));
 
     bigBlindBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 75), *window),
-                              sf::Vector2f(200, 40), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
+                              sf::Vector2f(200, 41), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
 
     bigBlindBox->setString(to_string(bigBlindBet));
 
@@ -100,7 +99,7 @@ void Game::initSetupPlayersUI() {
     nameTextLabel = new Text("Player " + to_string(currentPlayerIndex) + " Name", boldFont, 36,
                              Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
     nameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                              sf::Vector2f(250, 40), regularFont, 22,
+                              sf::Vector2f(250, 41), regularFont, 22,
                               sf::Color::Transparent, sf::Color::White);
 }
 
@@ -132,22 +131,6 @@ void Game::processEvents() {
                 break;
             case GameState::SHOWDOWN:
                 break;
-        }
-    }
-}
-
-void Game::initCardTextures() {
-    string suits = "cdhs";
-    for (char suit : suits) {
-        for (int value = 2; value <= 14; ++value) {
-            if (value >5 || suit != 's') continue; // cuz too lazy to get all the images saved rn
-            string filename = string(BASE_PATH) + "images/" + to_string(value) + suit + ".png";
-            sf::Texture texture;
-            if (texture.loadFromFile(filename)) {
-                textures[to_string(value) + suit] = texture;
-            } else {
-                cerr << "Failed to load texture: " << filename << endl;
-            }
         }
     }
 }
@@ -215,15 +198,6 @@ void Game::render() {
             nameTextBox->draw(*window);
             break;
         case GameState::SETUP_HAND: {
-            // testing to see if drawing a card works (it does)
-            if (textures.find("2s") != textures.end()) {
-                sf::Sprite sprite;
-                sprite.setTexture(textures["2s"]);
-                sprite.setPosition(100, 100);
-                window->draw(sprite);
-            } else {
-                std::cerr << "Texture for '2s' not found" << std::endl;
-            }
             break;
         }
         case GameState::PLAY_HAND:
@@ -352,27 +326,27 @@ void Game::setupPlayers(sf::Event& event) {
         currentState = GameState::SETUP_HAND;
         cout << "Players Setup Complete" << endl;
         for (Player& player : players) {
-            cout << player.name << "\n";
+            cout << "\t" << player.index << ". " << player.name << "\n";
         }
-        initialDealerIndex = Game::randomInt(0, players.size() - 1);
-        cout << "Initial Dealer Index: " << initialDealerIndex << "\n";
+        initialDealerIndex = Game::randomInt(1, players.size());
+        cout << "\tInitial Dealer Index: " << initialDealerIndex << "\n";
     }
 }
 
 /**
  * Create a new deck of cards
  */
-//void Game::shuffleDeck() {
-//    deck.clear();
-//    char suits[4] = {'c', 'd', 'h', 's'};
-//    // 11=J, 12=Q, 13=K, 14=A
-//    for (int i=2; i<=14; i++) {
-//        for (int j=0; j<=3; j++) {
-//            Card card(i, suits[j]);
-//            deck.push_back(card);
-//        }
-//    }
-//}
+void Game::shuffleDeck() {
+    deck.clear();
+    char suits[4] = {'c', 'd', 'h', 's'};
+    // 11=J, 12=Q, 13=K, 14=A
+    for (int i=2; i<=14; i++) {
+        for (int j=0; j<=3; j++) {
+            Card card(i, suits[j]);
+            deck.push_back(card);
+        }
+    }
+}
 
 /**
  * Setup small and big blinds
@@ -394,26 +368,26 @@ void Game::setupBlinds() {
 /**
  * Distributes 2 cards to each player
  */
-//void Game::distributeHoleCards() {
-//    if (deck.empty()) {
-//        shuffleDeck();
-//    }
-//
-//    for (Player& player : players) {
-//        player.holeCards.clear();
-//        for (int i = 0; i < 2; i++) {
-//            int drawnCardIndex = randomInt(0, deck.size() - 1);
-//            Card drawnCard = deck[drawnCardIndex];
-//            deck.erase(deck.begin() + drawnCardIndex);
-//            player.holeCards.push_back(drawnCard);
-//        }
-//    }
-//
-//    // Debug usage
-//    for (Player& player : players) {
-//        cout << "Player " << player.name << " has hole cards: " << player.holeCards[0] << ", " << player.holeCards[1] << "\n";
-//    }
-//}
+void Game::distributeHoleCards() {
+    if (deck.empty()) {
+        shuffleDeck();
+    }
+
+    for (Player& player : players) {
+        player.holeCards.clear();
+        for (int i = 0; i < 2; i++) {
+            int drawnCardIndex = randomInt(0, deck.size() - 1);
+            Card drawnCard = deck[drawnCardIndex];
+            deck.erase(deck.begin() + drawnCardIndex);
+            player.holeCards.push_back(drawnCard);
+        }
+    }
+
+    // Debug usage
+    for (Player& player : players) {
+        cout << "Player " << player.name << " has hole cards: " << player.holeCards[0] << ", " << player.holeCards[1] << "\n";
+    }
+}
 
 /**
  * Distributes community cards to the flop
