@@ -113,15 +113,15 @@ void Game::initSetupPlayersUI() {
 void Game::initCardSpriteTest() {
     // Testing purposes only
     shuffleDeck();
-    int posX = 80;
-    int posY = 80;
+    int posX = 60;
+    int posY = 60;
 
     for (Card& card : deck) {
-        card.generateSprite(sf::Vector2f(posX, posY), sf::Vector2f(60, 80));
-        posX += 70;
-        if (posX >= window->getSize().x - 80) {
-            posY += 90;
-            posX = 80;
+        card.generateSprite(sf::Vector2f(posX, posY), sf::Vector2f(65, 78)); // Keep x : y ratio to 5 : 6
+        posX += 75;
+        if (posX >= window->getSize().x - 60) {
+            posY += 88;
+            posX = 60;
         }
     }
 }

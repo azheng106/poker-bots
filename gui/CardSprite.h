@@ -13,8 +13,6 @@ public:
     void updateCard();
 
     sf::Vector2f size;
-    sf::Texture suitTexture;
-    sf::Sprite suitSprite;
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
     sf::Font regularFont;

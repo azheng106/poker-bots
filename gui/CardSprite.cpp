@@ -12,18 +12,8 @@ CardSprite::CardSprite(int value, char suit, sf::Vector2f position, sf::Vector2f
     cardValue = to_string(value);
     cardSuit = suit;
 
-    // Load suit texture
-    string suitTextureFile = string(BASE_PATH) + "img/" + cardSuit + ".png";
-    if (!suitTexture.loadFromFile(suitTextureFile)) {
-        cout << "Failed to load suit texture\n";
-    }
-    suitSprite.setTexture(suitTexture);
-
-    // Scale suit sprite to 60px
-    suitSprite.setScale((size.x/2) / suitSprite.getLocalBounds().width, (size.x/2) / suitSprite.getLocalBounds().width);
-
     // Load card background texture
-    string cardBackgroundFile = string(BASE_PATH) + "img/bg.png";
+    string cardBackgroundFile = string(BASE_PATH) + "img/" + cardSuit + ".png";
     if (!backgroundTexture.loadFromFile(cardBackgroundFile)) {
         cout << "Failed to load card background texture\n";
     }
@@ -36,34 +26,18 @@ CardSprite::CardSprite(int value, char suit, sf::Vector2f position, sf::Vector2f
     cardText.setFont(boldFont);
     cardText.setCharacterSize(size.x / 3);
 
-    // Change text color to suit color
-    switch (suit) {
-        case 'c':
-            cardText.setFillColor(sf::Color(0, 136, 0));
-            break;
-        case 'd':
-            cardText.setFillColor(sf::Color(0, 81, 216));
-            break;
-        case 'h':
-            cardText.setFillColor(sf::Color::Red);
-            break;
-        case 's':
-            cardText.setFillColor(sf::Color::Black);
-            break;
-    }
+    cardText.setFillColor(sf::Color::White);
     updateCard();
     setPosition(position);
 }
 
 void CardSprite::setPosition(sf::Vector2f position) {
     backgroundSprite.setPosition(position);
-    suitSprite.setPosition(position.x + (size.x/4), position.y + (size.y/3));
     cardText.setPosition(position.x + (size.x/8), position.y + (size.y/30));
 }
 
 void CardSprite::draw(sf::RenderWindow& window) {
     window.draw(backgroundSprite);
-    window.draw(suitSprite);
     window.draw(cardText);
 }
 
