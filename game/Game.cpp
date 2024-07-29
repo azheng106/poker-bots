@@ -64,9 +64,9 @@ void Game::initBasicUI() {
 
     numPlayersBox->setString(to_string(numPlayers));
 
-    decreasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 25), *window), sf::Vector2f(30, 30),
+    decreasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 25), *window), sf::Vector2f(50, 60),
                                     sf::Color::White, 270);
-    increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 25), *window), sf::Vector2f(30, 30),
+    increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 25), *window), sf::Vector2f(50, 60),
                                     sf::Color::White, 90);
 
     // Stash
@@ -79,9 +79,9 @@ void Game::initBasicUI() {
 
     stashTextBox->setString(to_string(stash));
 
-    decreaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 50), *window), sf::Vector2f(30, 30),
+    decreaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 50), *window), sf::Vector2f(50, 60),
                                   sf::Color::White, 270);
-    increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 50), *window), sf::Vector2f(30, 30),
+    increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 50), *window), sf::Vector2f(50, 60),
                                   sf::Color::White, 90);
 
     // Big Blind
@@ -94,19 +94,19 @@ void Game::initBasicUI() {
 
     bigBlindBox->setString(to_string(bigBlindBet));
 
-    decreaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(30, 75), *window), sf::Vector2f(30, 30),
+    decreaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 75), *window), sf::Vector2f(50, 60),
                                        sf::Color::White, 270);
 
-    increaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(70, 75), *window), sf::Vector2f(30, 30),
+    increaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 75), *window), sf::Vector2f(50, 60),
                                      sf::Color::White, 90);
 }
 
 void Game::initSetupPlayersUI() {
     currentPlayerIndex = 1;
     nameTextLabel = new Text("Player " + to_string(currentPlayerIndex) + " Name", boldFont, 36,
-                             Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
+                             Misc::percentageToPixels(sf::Vector2f(50, 35), *window));
     nameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                              sf::Vector2f(250, 41), regularFont, 22,
+                              sf::Vector2f(250, 56), regularFont, 36,
                               sf::Color::Transparent, sf::Color::White);
 }
 
@@ -183,7 +183,7 @@ void Game::updateStatusText() {
             status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
-            status = "showing sprites test"; // FOR TESTING ONLY! normally displays "setting up hand"
+            status = "showing sprites test (change this back to \"setting up hand\" later)"; // FOR TESTING ONLY! normally displays "setting up hand"
             break;
         case GameState::PLAY_HAND:
             status = "playing hand";
@@ -221,10 +221,12 @@ void Game::render() {
             nameTextBox->draw(*window);
             break;
         case GameState::SETUP_HAND: {
-            // Testing purposes only
+            // Testing purposes only to show all sprites
             for (Card& card : deck) {
                 card.sprite->draw(*window);
             }
+            // Testing end
+
             break;
         }
         case GameState::PLAY_HAND:

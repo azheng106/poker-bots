@@ -34,7 +34,7 @@ private:
 
     void initBasicUI();
     void initSetupPlayersUI();
-    void initCardSpriteTest(); // FOR TESTING ONLY! wanted to see sprites on the screen. delete whenever
+    void initCardSpriteTest(); // FOR TESTING ONLY! wanted to see sprites on the screen all at once. delete whenever
 
     // Event Loop
     void processEvents();
