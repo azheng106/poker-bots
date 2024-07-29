@@ -1,11 +1,13 @@
 #include "Table.h"
 
-Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards) : size(size), position(position), communityCards(communityCards) {
+Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players) : size(size), position(position), communityCards(communityCards), players(players) {
     // READ THIS!
     /*
      * sf::Vector2f size refers to the size of the rectangular center. The actual rectangular bounds are much bigger
      * For the size, x=y provides the best card sprites, i.e. size = sf::Vector2f(300, 300)
      */
+
+    // Temporary as I work on drawing players
 
     if (!fancyFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
         cout << "Font loading error\n";
@@ -40,8 +42,6 @@ Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCa
     ccBorder.setFillColor(sf::Color::Transparent);
     ccBorder.setOrigin(ccBorder.getSize().x/2, ccBorder.getSize().y/2);
     ccBorder.setPosition(position);
-
-    addCommunityCards();
 }
 
 void Table::addCommunityCards() {
@@ -61,6 +61,8 @@ void Table::addCommunityCards() {
 }
 
 void Table::draw(sf::RenderWindow& window) {
+    addCommunityCards();
+
     window.draw(tableCenter);
     window.draw(leftSemiCircle);
     window.draw(rightSemiCircle);
@@ -68,5 +70,33 @@ void Table::draw(sf::RenderWindow& window) {
 
     for (Card& card : communityCards) {
         card.sprite->draw(window);
+    }
+}
+
+void Table::drawPlayers(sf::RenderWindow& window) {
+    // DESIGN PLAN
+    /*
+     * 3 players on each semicircle
+     * 2 players on each straight end
+     */
+    float horizontalMargin = 5;
+
+    // Draw players in the left semicircle
+    for (int i = 0; i < 3 && i < players.size(); i++) {
+        Player& player = players[i];
+        float posX = 500; // work in progress
+        float posY = 300;
+
+        // Draw player's hole cards and money here
+
+        // Create CardSprites for hole cards
+        Card& card1 = player.holeCards[0];
+        Card& card2 = player.holeCards[1];
+
+        card1.generateSprite(fancyFont, sf::Vector2f(posX - (size.x / 2) - (horizontalMargin / 2), posY), sf::Vector2f(60, 72));
+        card2.generateSprite(fancyFont, sf::Vector2f(posX + (size.x / 2) + (horizontalMargin / 2), posY), sf::Vector2f(60, 72));
+
+        card1.sprite->draw(window);
+        card2.sprite->draw(window);
     }
 }

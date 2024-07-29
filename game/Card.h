@@ -14,6 +14,7 @@ public:
 
     int value;
     char suit;
+
     CardSprite* sprite;
 
     void generateSprite(sf::Font& font, sf::Vector2f position, sf::Vector2f size);

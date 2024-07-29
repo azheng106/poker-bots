@@ -51,7 +51,7 @@ void Game::initFont() {
 
 void Game::initBasicUI() {
     // Status Text label at the bottom, which is updated by updateStatusText() as the game progresses
-    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
+    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
 
     // # of Players
     numPlayers = 6;
@@ -113,8 +113,9 @@ void Game::initSetupPlayersUI() {
 void Game::initTableTest() {
     // Testing purposes only
     shuffleDeck();
-    distributeCommunityCards();
-    table = new Table(sf::Vector2f(300, 300), Misc::percentageToPixels(sf::Vector2f(50, 40), *window), communityCards);
+
+    // Players currently unused; will eventually help draw player seats
+    table = new Table(sf::Vector2f(350, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players);
 }
 
 void Game::run() {
@@ -140,6 +141,10 @@ void Game::processEvents() {
                 setupPlayers(event);
                 break;
             case GameState::SETUP_HAND:
+                //TEMPORARY
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+                    distributeCommunityCards();
+                }
                 break;
             case GameState::PLAY_HAND:
                 break;
@@ -174,7 +179,7 @@ void Game::updateStatusText() {
             status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
-            status = "showing table test (change this back to \"setting up hand\" later)"; // FOR TESTING ONLY! normally displays "setting up hand"
+            status = "showing table test (press enter to DISTRIBUTE)"; // FOR TESTING ONLY! normally displays "setting up hand"
             break;
         case GameState::PLAY_HAND:
             status = "playing hand";
@@ -214,6 +219,10 @@ void Game::render() {
         case GameState::SETUP_HAND: {
             // Testing purposes only to show table
             table->draw(*window);
+
+            // Very buggy
+                    //table->drawPlayers(*window);
+
             // Testing end
             break;
         }

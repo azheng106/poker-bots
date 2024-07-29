@@ -9,6 +9,7 @@ Player::Player(int index, int stash, string name) {
     currentBet = 0;
 }
 
+
 bool Player::operator==(Player &other) const {
     return this->name == other.name && this->index == other.index;
 }

@@ -21,9 +21,9 @@ public:
     bool hasChecked;
     int currentBet;
     int totalBet;
-    std::vector<Card> holeCards;
-    std::vector<int> bestScore;
-    std::vector<Card> bestHand;
+    vector<Card> holeCards;
+    vector<int> bestScore;
+    vector<Card> bestHand;
 
     bool bet(int* currentMinBet);
     bool check();
