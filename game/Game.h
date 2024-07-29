@@ -35,6 +35,7 @@ private:
 
     void initBasicUI();
     void initSetupPlayersUI();
+    void initDeckTest(); // FOR TESTING ONLY! for seeing cards. bahahaha
     void initTableTest(); // FOR TESTING ONLY! wanted to see table. delete whenever
 
     // Event Loop
@@ -94,6 +95,7 @@ private:
     // Global UI Elements
     sf::Font regularFont;
     sf::Font boldFont;
+    sf::Font fancyFont;
     Text* appText;
     Text* statusText;
 

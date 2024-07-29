@@ -7,6 +7,7 @@ Game::Game() {
     initRender();
     initBasicUI();
     initSetupPlayersUI();
+    initDeckTest();
     initTableTest();
 }
 
@@ -19,6 +20,7 @@ void Game::initVariables() {
     isFinished = false;
     round = 0;
     currentPlayerIndex = 0;
+    shuffleDeck();
 }
 
 void Game::initWindow() {
@@ -44,6 +46,9 @@ void Game::initFont() {
         cout << "Font loading error\n";
     }
     if (!boldFont.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Bold.ttf")) {
+        cout << "Font loading error\n";
+    }
+    if (!fancyFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
         cout << "Font loading error\n";
     }
 }
@@ -112,10 +117,21 @@ void Game::initSetupPlayersUI() {
                               sf::Color::Transparent, sf::Color::White);
 }
 
-void Game::initTableTest() {
-    // Testing purposes only
-    shuffleDeck();
+void Game::initDeckTest() {
+    int posX = 120;
+    int posY = 180;
 
+    for (Card& card : deck) {
+        card.generateSprite(fancyFont, sf::Vector2f(posX, posY), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
+        posX += 85;
+        if (posX >= window->getSize().x - 120) {
+            posY += 100;
+            posX = 120;
+        }
+    }
+}
+
+void Game::initTableTest() {
     // Players currently unused; will eventually help draw player seats
     table = new Table(sf::Vector2f(500, 500), Misc::percentageToPixels(sf::Vector2f(50, 50), *window), communityCards, players);
 }
@@ -145,10 +161,13 @@ void Game::processEvents() {
             case GameState::SETUP_HAND:
                 //TEMPORARY
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-                    distributeCommunityCards();
+                    currentState = GameState::PLAY_HAND;
                 }
                 break;
             case GameState::PLAY_HAND:
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+                    distributeCommunityCards();
+                }
                 break;
             case GameState::SHOWDOWN:
                 break;
@@ -181,10 +200,10 @@ void Game::updateStatusText() {
             status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
-            status = "showing table test (press enter to DISTRIBUTE)"; // FOR TESTING ONLY! normally displays "setting up hand"
+            status = "showing deck test (press enter to continue)"; // FOR TESTING ONLY! normally displays "setting up hand"
             break;
         case GameState::PLAY_HAND:
-            status = "playing hand";
+            status = "showing table test (press enter to DISTRIBUTE)"; // FOR TESTING ONLY! normally displays "playing hand"
             break;
         case GameState::SHOWDOWN:
             status = "showdown";
@@ -219,16 +238,19 @@ void Game::render() {
             nameTextBox->draw(*window);
             break;
         case GameState::SETUP_HAND: {
+            for (Card& card : deck) {
+                card.sprite->draw(*window);
+            }
+            break;
+        }
+        case GameState::PLAY_HAND:
             // Testing purposes only to show table
             table->draw(*window);
 
             // Very buggy
-                    //table->drawPlayers(*window);
+            //table->drawPlayers(*window);
 
             // Testing end
-            break;
-        }
-        case GameState::PLAY_HAND:
             break;
         case GameState::SHOWDOWN:
             break;
