@@ -94,6 +94,7 @@ private:
     // Global UI Elements
     sf::Font regularFont;
     sf::Font boldFont;
+    Text* appText;
     Text* statusText;
 
     // Basic Setup UI

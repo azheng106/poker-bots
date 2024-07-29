@@ -49,8 +49,11 @@ void Game::initFont() {
 }
 
 void Game::initBasicUI() {
+    // Application Text label at the top
+    appText = new Text("sponsored by thebigblackdarren", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
+
     // Status Text label at the bottom, which is updated by updateStatusText() as the game progresses
-    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
+    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
 
     // # of Players
     numPlayers = 6;
@@ -230,6 +233,7 @@ void Game::render() {
         case GameState::SHOWDOWN:
             break;
     }
+    appText->draw(*window);
     statusText->draw(*window);
     window->display();
 }
