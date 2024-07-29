@@ -367,6 +367,30 @@ C_/CS_Projects/poker-bots/game/Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.s
 .PHONY : C_/CS_Projects/poker-bots/game/Player.cpp.s
 
+C_/CS_Projects/poker-bots/gui/CardSprite.obj: C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/CardSprite.obj
+
+# target to build an object file
+C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj
+
+C_/CS_Projects/poker-bots/gui/CardSprite.i: C_/CS_Projects/poker-bots/gui/CardSprite.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/CardSprite.i
+
+# target to preprocess a source file
+C_/CS_Projects/poker-bots/gui/CardSprite.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/CardSprite.cpp.i
+
+C_/CS_Projects/poker-bots/gui/CardSprite.s: C_/CS_Projects/poker-bots/gui/CardSprite.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/CardSprite.s
+
+# target to generate assembly for a file
+C_/CS_Projects/poker-bots/gui/CardSprite.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/CardSprite.cpp.s
+
 C_/CS_Projects/poker-bots/gui/Misc.obj: C_/CS_Projects/poker-bots/gui/Misc.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/gui/Misc.obj
 
@@ -544,6 +568,9 @@ help:
 	@echo ... C_/CS_Projects/poker-bots/game/Player.obj
 	@echo ... C_/CS_Projects/poker-bots/game/Player.i
 	@echo ... C_/CS_Projects/poker-bots/game/Player.s
+	@echo ... C_/CS_Projects/poker-bots/gui/CardSprite.obj
+	@echo ... C_/CS_Projects/poker-bots/gui/CardSprite.i
+	@echo ... C_/CS_Projects/poker-bots/gui/CardSprite.s
 	@echo ... C_/CS_Projects/poker-bots/gui/Misc.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/Misc.i
 	@echo ... C_/CS_Projects/poker-bots/gui/Misc.s

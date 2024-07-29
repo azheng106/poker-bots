@@ -1,6 +1,14 @@
 CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Card.cpp.obj: \
  C:\CS\ Projects\poker-bots\game\Card.cpp \
  C:\CS\ Projects\poker-bots\game\Card.h \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Window.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Config.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/Clock.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/Export.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/Time.hpp \
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/Err.hpp \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ostream \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/requires_hosted.h \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
@@ -140,14 +148,6 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Card.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/locale_facets.tcc \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/basic_ios.tcc \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ostream.tcc \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Window.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Config.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/Clock.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/Export.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/Time.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/Err.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/FileInputStream.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/InputStream.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System/NonCopyable.hpp \
@@ -247,4 +247,10 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Card.cpp.obj: \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Glsl.inl \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Sprite.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Text.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp \
+ C:/CS\ Projects/poker-bots/gui/CardSprite.h \
+ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iostream \
+ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/istream \
+ C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
+ C:/CS\ Projects/poker-bots/gui/Misc.h \
+ C:/CS\ Projects/poker-bots/gui/TextBox.h

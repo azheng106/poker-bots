@@ -13,6 +13,7 @@
 #include "../gui/TriButton.h"
 #include "../gui/TextBox.h"
 #include "../gui/Text.h"
+#include "../gui/CardSprite.h"
 
 using namespace std;
 
@@ -33,6 +34,7 @@ private:
 
     void initBasicUI();
     void initSetupPlayersUI();
+    void initCardSpriteTest(); // FOR TESTING ONLY! wanted to see sprites on the screen. delete whenever
 
     // Event Loop
     void processEvents();

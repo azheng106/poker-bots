@@ -251,4 +251,7 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/CardUtil.cpp.obj: \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Glsl.inl \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Sprite.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Text.hpp \
- C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp
+ C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp \
+ C:/CS\ Projects/poker-bots/gui/CardSprite.h \
+ C:/CS\ Projects/poker-bots/gui/Misc.h \
+ C:/CS\ Projects/poker-bots/gui/TextBox.h

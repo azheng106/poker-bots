@@ -224,7 +224,7 @@ CMakeFiles/poker_bots.dir/all: _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfm
 
 # Build rule for subdir invocation for target.
 CMakeFiles/poker_bots.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 71
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 72
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/poker_bots.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 0
 .PHONY : CMakeFiles/poker_bots.dir/rule
@@ -271,12 +271,12 @@ _deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/clean:
 _deps/sfml-build/src/SFML/Main/CMakeFiles/sfml-main.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps\sfml-build\src\SFML\Main\CMakeFiles\sfml-main.dir\build.make _deps/sfml-build/src/SFML/Main/CMakeFiles/sfml-main.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps\sfml-build\src\SFML\Main\CMakeFiles\sfml-main.dir\build.make _deps/sfml-build/src/SFML/Main/CMakeFiles/sfml-main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=53,54 "Built target sfml-main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=54 "Built target sfml-main"
 .PHONY : _deps/sfml-build/src/SFML/Main/CMakeFiles/sfml-main.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/sfml-build/src/SFML/Main/CMakeFiles/sfml-main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 _deps/sfml-build/src/SFML/Main/CMakeFiles/sfml-main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 0
 .PHONY : _deps/sfml-build/src/SFML/Main/CMakeFiles/sfml-main.dir/rule
@@ -350,12 +350,12 @@ _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/all: _deps/sfml-
 _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/all: _deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps\sfml-build\src\SFML\Graphics\CMakeFiles\sfml-graphics.dir\build.make _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps\sfml-build\src\SFML\Graphics\CMakeFiles\sfml-graphics.dir\build.make _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52 "Built target sfml-graphics"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53 "Built target sfml-graphics"
 .PHONY : _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 62
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 63
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" 0
 .PHONY : _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/rule

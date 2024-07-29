@@ -3,10 +3,11 @@
 Game::Game() {
     initVariables();
     initWindow();
-    initRender();
     initFont();
+    initRender();
     initBasicUI();
     initSetupPlayersUI();
+    initCardSpriteTest();
 }
 
 Game::~Game() {
@@ -21,9 +22,10 @@ void Game::initVariables() {
 }
 
 void Game::initWindow() {
-    sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
+    int windowWidth = 1000;
+    int windowHeight = 600;
 
-    window = new sf::RenderWindow(sf::VideoMode(desktopMode.width/2, desktopMode.height/2), "Poker Bots");
+    window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Poker Bots");
     window->setVerticalSyncEnabled(true); // Limit FPS to refresh rate
     window->setPosition(sf::Vector2i(0, 0));
 }
@@ -31,6 +33,11 @@ void Game::initWindow() {
 void Game::initRender() {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 1;
+
+    window->clear(sf::Color(0, 0, 30));
+    Text loadingLabel("Loading assets", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
+    loadingLabel.draw(*window);
+    window->display();
 }
 
 void Game::initFont() {
@@ -103,6 +110,22 @@ void Game::initSetupPlayersUI() {
                               sf::Color::Transparent, sf::Color::White);
 }
 
+void Game::initCardSpriteTest() {
+    // Testing purposes only
+    shuffleDeck();
+    int posX = 80;
+    int posY = 80;
+
+    for (Card& card : deck) {
+        card.generateSprite(sf::Vector2f(posX, posY), sf::Vector2f(60, 80));
+        posX += 70;
+        if (posX >= window->getSize().x - 80) {
+            posY += 90;
+            posX = 80;
+        }
+    }
+}
+
 void Game::run() {
     while (window->isOpen()) {
         processEvents();
@@ -160,7 +183,7 @@ void Game::updateStatusText() {
             status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
-            status = "setting up hand";
+            status = "showing sprites test"; // FOR TESTING ONLY! normally displays "setting up hand"
             break;
         case GameState::PLAY_HAND:
             status = "playing hand";
@@ -198,6 +221,10 @@ void Game::render() {
             nameTextBox->draw(*window);
             break;
         case GameState::SETUP_HAND: {
+            // Testing purposes only
+            for (Card& card : deck) {
+                card.sprite->draw(*window);
+            }
             break;
         }
         case GameState::PLAY_HAND:

@@ -218,6 +218,21 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.s: cmake_for
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\gui\TextBox.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\TextBox.cpp.s
 
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj: CMakeFiles/poker_bots.dir/flags.make
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj: CMakeFiles/poker_bots.dir/includes_CXX.rsp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj: C:/CS\ Projects/poker-bots/gui/CardSprite.cpp
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj: CMakeFiles/poker_bots.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj -MF CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\CardSprite.cpp.obj.d -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\CardSprite.cpp.obj -c "C:\CS Projects\poker-bots\gui\CardSprite.cpp"
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\CS Projects\poker-bots\gui\CardSprite.cpp" > CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\CardSprite.cpp.i
+
+CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\CS Projects\poker-bots\gui\CardSprite.cpp" -o CMakeFiles\poker_bots.dir\C_\CS_Projects\poker-bots\gui\CardSprite.cpp.s
+
 # Object files for target poker_bots
 poker_bots_OBJECTS = \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Card.cpp.obj" \
@@ -229,7 +244,8 @@ poker_bots_OBJECTS = \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj" \
 "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj" \
-"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj"
+"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj" \
+"CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj"
 
 # External object files for target poker_bots
 poker_bots_EXTERNAL_OBJECTS =
@@ -244,6 +260,7 @@ bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj
+bin/poker_bots.exe: CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/build.make
 bin/poker_bots.exe: _deps/sfml-build/lib/libsfml-graphics-s-d.a
 bin/poker_bots.exe: _deps/sfml-build/lib/libsfml-window-s-d.a
@@ -252,7 +269,7 @@ bin/poker_bots.exe: _deps/sfml-src/extlibs/libs-mingw/x64/libfreetype.a
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/linkLibs.rsp
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/objects1.rsp
 bin/poker_bots.exe: CMakeFiles/poker_bots.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable bin\poker_bots.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable bin\poker_bots.exe"
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copy OpenAL DLL"
 	"C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe" -E copy "C:/CS Projects/poker-bots/misc/cmake-build-debug/_deps/sfml-src/extlibs/bin/x64/openal32.dll" "C:/CS Projects/poker-bots/misc/cmake-build-debug/bin"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\poker_bots.dir\link.txt --verbose=$(VERBOSE)

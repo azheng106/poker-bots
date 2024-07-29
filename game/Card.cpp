@@ -1,8 +1,12 @@
 #include "Card.h"
 
-Card::Card(int value, char suit) {
+Card::Card(int value, char suit){
     this->value = value;
     this->suit = suit;
+}
+
+void Card::generateSprite(sf::Vector2f position, sf::Vector2f size) {
+    sprite = new CardSprite(value, suit, position, size);
 }
 
 ostream& operator<<(ostream& os, Card& card) {

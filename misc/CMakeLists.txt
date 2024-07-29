@@ -29,6 +29,8 @@ add_executable(poker_bots
         ../gui/Text.h
         ../gui/Text.cpp
         ../gui/TextBox.cpp
+        ../gui/CardSprite.h
+        ../gui/CardSprite.cpp
 )
 target_link_libraries(poker_bots PRIVATE sfml-graphics)
 target_compile_features(poker_bots PRIVATE cxx_std_17)
