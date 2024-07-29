@@ -14,6 +14,7 @@
 #include "../gui/TextBox.h"
 #include "../gui/Text.h"
 #include "../gui/CardSprite.h"
+#include "../gui/Table.h"
 
 using namespace std;
 
@@ -34,7 +35,7 @@ private:
 
     void initBasicUI();
     void initSetupPlayersUI();
-    void initCardSpriteTest(); // FOR TESTING ONLY! wanted to see sprites on the screen all at once. delete whenever
+    void initTableTest(); // FOR TESTING ONLY! wanted to see table. delete whenever
 
     // Event Loop
     void processEvents();
@@ -117,6 +118,7 @@ private:
     TextBox* nameTextBox;
 
     // Play Hand UI
+    Table* table;
 
     // Showdown UI
 

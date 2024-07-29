@@ -439,6 +439,30 @@ C_/CS_Projects/poker-bots/gui/RecButton.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.s
 .PHONY : C_/CS_Projects/poker-bots/gui/RecButton.cpp.s
 
+C_/CS_Projects/poker-bots/gui/Table.obj: C_/CS_Projects/poker-bots/gui/Table.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/Table.obj
+
+# target to build an object file
+C_/CS_Projects/poker-bots/gui/Table.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/Table.cpp.obj
+
+C_/CS_Projects/poker-bots/gui/Table.i: C_/CS_Projects/poker-bots/gui/Table.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/Table.i
+
+# target to preprocess a source file
+C_/CS_Projects/poker-bots/gui/Table.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/Table.cpp.i
+
+C_/CS_Projects/poker-bots/gui/Table.s: C_/CS_Projects/poker-bots/gui/Table.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/Table.s
+
+# target to generate assembly for a file
+C_/CS_Projects/poker-bots/gui/Table.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/Table.cpp.s
+
 C_/CS_Projects/poker-bots/gui/Text.obj: C_/CS_Projects/poker-bots/gui/Text.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/gui/Text.obj
 
@@ -577,6 +601,9 @@ help:
 	@echo ... C_/CS_Projects/poker-bots/gui/RecButton.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/RecButton.i
 	@echo ... C_/CS_Projects/poker-bots/gui/RecButton.s
+	@echo ... C_/CS_Projects/poker-bots/gui/Table.obj
+	@echo ... C_/CS_Projects/poker-bots/gui/Table.i
+	@echo ... C_/CS_Projects/poker-bots/gui/Table.s
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.i
 	@echo ... C_/CS_Projects/poker-bots/gui/Text.s

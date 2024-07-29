@@ -1,39 +1,33 @@
 #include "CardSprite.h"
 
-CardSprite::CardSprite(int value, char suit, sf::Vector2f position, sf::Vector2f size) : size(size) {
-    // Initialize fonts
-    if (!regularFont.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Regular.ttf")) {
-        cout << "Font loading error\n";
-    }
-    if (!boldFont.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Bold.ttf")) {
-        cout << "Font loading error\n";
-    }
-
-    cardValue = to_string(value);
+CardSprite::CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size) : size(size), fancyFont(textFont) {
+    cardValue = std::to_string(value);
     cardSuit = suit;
 
     // Load card background texture
-    string cardBackgroundFile = string(BASE_PATH) + "img/" + cardSuit + ".png";
+    string cardBackgroundFile = std::string(BASE_PATH) + "img/" + cardSuit + ".png";
     if (!backgroundTexture.loadFromFile(cardBackgroundFile)) {
-        cout << "Failed to load card background texture\n";
+        std::cout << "Failed to load card background texture\n";
     }
     backgroundSprite.setTexture(backgroundTexture);
 
-    // Scale card background to 120x150px
-    // 120, 150
+    // Scale card background
     backgroundSprite.setScale(size.x / backgroundTexture.getSize().x, size.y / backgroundTexture.getSize().y);
 
-    cardText.setFont(boldFont);
-    cardText.setCharacterSize(size.x / 3);
+    // Set the origin to the center of the sprite
+    backgroundSprite.setOrigin(backgroundTexture.getSize().x / 2, backgroundTexture.getSize().y / 2);
 
+    cardText.setFont(fancyFont);
+    cardText.setCharacterSize(size.x / 2.5);
     cardText.setFillColor(sf::Color::White);
+
     updateCard();
     setPosition(position);
 }
 
 void CardSprite::setPosition(sf::Vector2f position) {
     backgroundSprite.setPosition(position);
-    cardText.setPosition(position.x + (size.x/8), position.y + (size.y/30));
+    cardText.setPosition(position.x - (size.x/3), position.y - (size.y/2.2));
 }
 
 void CardSprite::draw(sf::RenderWindow& window) {

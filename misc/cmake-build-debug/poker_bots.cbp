@@ -514,6 +514,12 @@
 		<Unit filename="C:/CS Projects/poker-bots/gui/RecButton.h">
 			<Option target="poker_bots"/>
 		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Table.cpp">
+			<Option target="poker_bots"/>
+		</Unit>
+		<Unit filename="C:/CS Projects/poker-bots/gui/Table.h">
+			<Option target="poker_bots"/>
+		</Unit>
 		<Unit filename="C:/CS Projects/poker-bots/gui/Text.cpp">
 			<Option target="poker_bots"/>
 		</Unit>

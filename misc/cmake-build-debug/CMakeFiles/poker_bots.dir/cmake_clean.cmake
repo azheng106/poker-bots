@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj.d"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj.d"
+  "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.obj"
+  "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.obj.d"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj.d"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj"

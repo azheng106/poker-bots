@@ -16,7 +16,7 @@ public:
     char suit;
     CardSprite* sprite;
 
-    void generateSprite(sf::Vector2f position, sf::Vector2f size);
+    void generateSprite(sf::Font& font, sf::Vector2f position, sf::Vector2f size);
 
     friend ostream& operator<<(ostream& os, Card& card);
 };

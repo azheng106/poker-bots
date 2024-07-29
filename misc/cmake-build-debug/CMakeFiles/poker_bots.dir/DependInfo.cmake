@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/CS Projects/poker-bots/gui/CardSprite.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj.d"
   "C:/CS Projects/poker-bots/gui/Misc.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj.d"
   "C:/CS Projects/poker-bots/gui/RecButton.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/RecButton.cpp.obj.d"
+  "C:/CS Projects/poker-bots/gui/Table.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.obj.d"
   "C:/CS Projects/poker-bots/gui/Text.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Text.cpp.obj.d"
   "C:/CS Projects/poker-bots/gui/TextBox.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TextBox.cpp.obj.d"
   "C:/CS Projects/poker-bots/gui/TriButton.cpp" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj" "gcc" "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/TriButton.cpp.obj.d"

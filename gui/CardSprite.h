@@ -7,7 +7,7 @@ using namespace std;
 
 class CardSprite {
 public:
-    CardSprite(int value, char suit, sf::Vector2f position, sf::Vector2f size);
+    CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size);
     void setPosition(sf::Vector2f position);
     void draw(sf::RenderWindow& window);
     void updateCard();
@@ -15,8 +15,7 @@ public:
     sf::Vector2f size;
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
-    sf::Font regularFont;
-    sf::Font boldFont;
+    sf::Font fancyFont;
     sf::Text cardText;
     string cardValue;
     char cardSuit;

@@ -7,7 +7,7 @@ Game::Game() {
     initRender();
     initBasicUI();
     initSetupPlayersUI();
-    initCardSpriteTest();
+    initTableTest();
 }
 
 Game::~Game() {
@@ -110,20 +110,11 @@ void Game::initSetupPlayersUI() {
                               sf::Color::Transparent, sf::Color::White);
 }
 
-void Game::initCardSpriteTest() {
+void Game::initTableTest() {
     // Testing purposes only
     shuffleDeck();
-    int posX = 60;
-    int posY = 60;
-
-    for (Card& card : deck) {
-        card.generateSprite(sf::Vector2f(posX, posY), sf::Vector2f(65, 78)); // Keep x : y ratio to 5 : 6
-        posX += 75;
-        if (posX >= window->getSize().x - 60) {
-            posY += 88;
-            posX = 60;
-        }
-    }
+    distributeCommunityCards();
+    table = new Table(sf::Vector2f(300, 300), Misc::percentageToPixels(sf::Vector2f(50, 40), *window), communityCards);
 }
 
 void Game::run() {
@@ -183,7 +174,7 @@ void Game::updateStatusText() {
             status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
-            status = "showing sprites test (change this back to \"setting up hand\" later)"; // FOR TESTING ONLY! normally displays "setting up hand"
+            status = "showing table test (change this back to \"setting up hand\" later)"; // FOR TESTING ONLY! normally displays "setting up hand"
             break;
         case GameState::PLAY_HAND:
             status = "playing hand";
@@ -221,12 +212,9 @@ void Game::render() {
             nameTextBox->draw(*window);
             break;
         case GameState::SETUP_HAND: {
-            // Testing purposes only to show all sprites
-            for (Card& card : deck) {
-                card.sprite->draw(*window);
-            }
+            // Testing purposes only to show table
+            table->draw(*window);
             // Testing end
-
             break;
         }
         case GameState::PLAY_HAND:
