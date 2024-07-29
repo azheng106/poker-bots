@@ -22,12 +22,11 @@ void Game::initVariables() {
 }
 
 void Game::initWindow() {
-    int windowWidth = 1000;
-    int windowHeight = 600;
+    int windowWidth = 1200;
+    int windowHeight = 800;
 
     window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Poker Bots");
     window->setVerticalSyncEnabled(true); // Limit FPS to refresh rate
-    window->setPosition(sf::Vector2i(0, 0));
 }
 
 void Game::initRender() {
@@ -56,57 +55,57 @@ void Game::initBasicUI() {
     // # of Players
     numPlayers = 6;
 
-    numPlayersLabel = new Text("Players", boldFont, 36,
+    numPlayersLabel = new Text("Players", boldFont, 42,
                                Misc::percentageToPixels(sf::Vector2f(50, 15), *window));
 
     numPlayersBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 25), *window),
-                                sf::Vector2f(200, 41), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
+                                sf::Vector2f(200, 56), regularFont, 30, sf::Color::Transparent, sf::Color::White, true);
 
     numPlayersBox->setString(to_string(numPlayers));
 
-    decreasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 25), *window), sf::Vector2f(50, 60),
+    decreasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 25), *window), sf::Vector2f(70, 60),
                                     sf::Color::White, 270);
-    increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 25), *window), sf::Vector2f(50, 60),
+    increasePlayers = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 25), *window), sf::Vector2f(70, 60),
                                     sf::Color::White, 90);
 
     // Stash
     stash = 1000;
 
-    stashTextBoxLabel = new Text("Stash", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
+    stashTextBoxLabel = new Text("Stash", boldFont, 42, Misc::percentageToPixels(sf::Vector2f(50, 40), *window));
 
     stashTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                               sf::Vector2f(200, 41), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
+                               sf::Vector2f(200, 56), regularFont, 30, sf::Color::Transparent, sf::Color::White, true);
 
     stashTextBox->setString(to_string(stash));
 
-    decreaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 50), *window), sf::Vector2f(50, 60),
+    decreaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 50), *window), sf::Vector2f(70, 60),
                                   sf::Color::White, 270);
-    increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 50), *window), sf::Vector2f(50, 60),
+    increaseStash = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 50), *window), sf::Vector2f(70, 60),
                                   sf::Color::White, 90);
 
     // Big Blind
     bigBlindBet = 10;
 
-    bigBlindBoxLabel = new Text("Big Blind", boldFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 65), *window));
+    bigBlindBoxLabel = new Text("Big Blind", boldFont, 42, Misc::percentageToPixels(sf::Vector2f(50, 65), *window));
 
     bigBlindBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 75), *window),
-                              sf::Vector2f(200, 41), regularFont, 22, sf::Color::Transparent, sf::Color::White, true);
+                              sf::Vector2f(200, 56), regularFont, 30, sf::Color::Transparent, sf::Color::White, true);
 
     bigBlindBox->setString(to_string(bigBlindBet));
 
-    decreaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 75), *window), sf::Vector2f(50, 60),
+    decreaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(35, 75), *window), sf::Vector2f(70, 60),
                                        sf::Color::White, 270);
 
-    increaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 75), *window), sf::Vector2f(50, 60),
+    increaseBigBlind = new TriButton(Misc::percentageToPixels(sf::Vector2f(65, 75), *window), sf::Vector2f(70, 60),
                                      sf::Color::White, 90);
 }
 
 void Game::initSetupPlayersUI() {
     currentPlayerIndex = 1;
-    nameTextLabel = new Text("Player " + to_string(currentPlayerIndex) + " Name", boldFont, 36,
+    nameTextLabel = new Text("Player " + to_string(currentPlayerIndex) + " Name", boldFont, 42,
                              Misc::percentageToPixels(sf::Vector2f(50, 35), *window));
     nameTextBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(50, 50), *window),
-                              sf::Vector2f(250, 56), regularFont, 36,
+                              sf::Vector2f(300, 64), regularFont, 36,
                               sf::Color::Transparent, sf::Color::White);
 }
 
@@ -115,7 +114,7 @@ void Game::initTableTest() {
     shuffleDeck();
 
     // Players currently unused; will eventually help draw player seats
-    table = new Table(sf::Vector2f(350, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players);
+    table = new Table(sf::Vector2f(500, 500), Misc::percentageToPixels(sf::Vector2f(50, 50), *window), communityCards, players);
 }
 
 void Game::run() {
