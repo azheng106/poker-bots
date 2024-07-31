@@ -1,15 +1,10 @@
 #include "Table.h"
 
 Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players) : size(size), position(position), communityCards(communityCards), players(players) {
-    // READ THIS!
-    /*
-     * sf::Vector2f size refers to the size of the rectangular center. The actual rectangular bounds are much bigger
-     * For the size, x=y provides the best card sprites, i.e. size = sf::Vector2f(300, 300)
-     */
-
-    // Temporary as I work on drawing players
-
-    if (!fancyFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
+    if (!regularFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
+        cout << "Font loading error\n";
+    }
+    if (!boldFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Bold.ttf")) {
         cout << "Font loading error\n";
     }
 
@@ -36,7 +31,7 @@ Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCa
     rightSemiCircle.setRotation(270);
 
     // Border around community cards area
-    ccBorder.setSize(sf::Vector2f(size.x, size.y/4));
+    ccBorder.setSize(sf::Vector2f(size.x/1.5, size.y/4));
     ccBorder.setOutlineThickness(2.f);
     ccBorder.setOutlineColor(sf::Color::White);
     ccBorder.setFillColor(sf::Color::Transparent);
@@ -48,14 +43,15 @@ void Table::addCommunityCards() {
     float horizontalMargin = 5;
     float verticalMargin = 5;
 
-    float cardWidth = (size.x - (6 * horizontalMargin)) / 5;
+    float cardWidth = ((size.x/1.5) - (6 * horizontalMargin)) / 5;
     float cardHeight = (size.y / 4) - (2 * verticalMargin);
 
     float posX = position.x - (2 * cardWidth) - (2 * horizontalMargin);
     float posY = position.y;
 
     for (Card& card : communityCards) {
-        card.generateSprite(fancyFont, sf::Vector2f(posX, posY), sf::Vector2f(cardWidth, cardHeight));
+        card.sprite->setPosition(sf::Vector2f(posX, posY));
+        card.sprite->setSize(sf::Vector2f(cardWidth, cardHeight));
         posX += cardWidth + horizontalMargin;
     }
 }
@@ -74,25 +70,40 @@ void Table::draw(sf::RenderWindow& window) {
 }
 
 void Table::drawPlayers(sf::RenderWindow& window) {
-    // DESIGN PLAN
-    /*
-     * 3 players on each semicircle
-     * 2 players on each straight end
-     */
-    // Draw players in the left semicircle
-    for (int i = 0; i < 3 && i < players.size(); i++) {
-        Player& player = players[i];
-        float posX = 500; // work in progress
-        float posY = 500;
+    float horizontalMargin = 5;
 
-        // Draw player's hole cards and money here
+    /*
+     * 2 Players on bottom of rectangle:
+     * - Money and name are displayed beside the hole cards
+     */
+    float posX = position.x - (size.x / 5.0); // work in progress
+    float posY = position.y + (size.y / 1.6);
+
+    for (int i = 0; i <= 1 && i < players.size(); i++) {
+        Player& player = players[i];
+        string name = player.name;
+        string money = to_string(player.money);
+
+        // Draw player's hole cards
         Card& card1 = player.holeCards[0];
         Card& card2 = player.holeCards[1];
 
-        card1.sprite->setPosition(sf::Vector2f(posX - (card1.sprite->size.x / 3), posY - (card1.sprite->size.y / 6)));
-        card2.sprite->setPosition(sf::Vector2f(posX + (card1.sprite->size.x / 3), posY + (card1.sprite->size.y / 6)));
+        card1.sprite->setSize(sf::Vector2f(60, 72));
+        card2.sprite->setSize(sf::Vector2f(60, 72));
+
+        card1.sprite->setPosition(sf::Vector2f(posX - (card1.sprite->size.x / 2) - (horizontalMargin / 2), posY));
+        card2.sprite->setPosition(sf::Vector2f(posX + (card2.sprite->size.x / 2) + (horizontalMargin / 2), posY));
 
         card1.sprite->draw(window);
         card2.sprite->draw(window);
+
+        // Draw player's name and money
+        Text nameLabel(name, regularFont, 18, sf::Vector2f(posX, posY + (size.y / 4)), sf::Color::White);
+        Text moneyLabel("\n$" + money, boldFont, 24, sf::Vector2f(posX, posY + (size.y / 12)), sf::Color::White);
+
+        nameLabel.draw(window);
+        moneyLabel.draw(window);
+
+        posX += (size.x / 2.5);
     }
 }

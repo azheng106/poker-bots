@@ -256,6 +256,7 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.obj: \
  C:/CS\ Projects/poker-bots/gui/Misc.h \
  C:/CS\ Projects/poker-bots/gui/TextBox.h \
  C:/CS\ Projects/poker-bots/game/Player.h \
+ C:/CS\ Projects/poker-bots/gui/Text.h \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cmath \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/x86_64-w64-mingw32/include/math.h \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/specfun.h \

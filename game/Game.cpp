@@ -42,23 +42,24 @@ void Game::initRender() {
 }
 
 void Game::initFont() {
-    if (!regularFont.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Regular.ttf")) {
+    if (!regularFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
         cout << "Font loading error\n";
     }
-    if (!boldFont.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Bold.ttf")) {
+    if (!boldFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Bold.ttf")) {
         cout << "Font loading error\n";
     }
-    if (!fancyFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
+    // Roboto Mono currently unused
+    if (!robotoMonoRegular.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Regular.ttf")) {
+        cout << "Font loading error\n";
+    }
+    if (!robotoMonoBold.loadFromFile(string(BASE_PATH) + "fonts/RobotoMono-Bold.ttf")) {
         cout << "Font loading error\n";
     }
 }
 
 void Game::initBasicUI() {
-    // Application Text label at the top
-    appText = new Text("poker bots", regularFont, 17, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
-
     // Status Text label at the bottom, which is updated by updateStatusText() as the game progresses
-    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
+    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
 
     // # of Players
     numPlayers = 6;
@@ -122,10 +123,10 @@ void Game::initDeckTest() {
     float posY = 180;
 
     for (Card& card : deck) {
-        card.generateSprite(fancyFont, sf::Vector2f(posX, posY), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
-        posX += 85;
+        card.generateSprite(boldFont, sf::Vector2f(posX, posY), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
+        posX += 80;
         if (posX >= window->getSize().x - 120) {
-            posY += 100;
+            posY += 95;
             posX = 120;
         }
     }
@@ -133,7 +134,7 @@ void Game::initDeckTest() {
 
 void Game::initTableTest() {
     // Players currently unused; will eventually help draw player seats
-    table = new Table(sf::Vector2f(400, 400), Misc::percentageToPixels(sf::Vector2f(50, 50), *window), communityCards, players);
+    table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players);
 }
 
 void Game::run() {
@@ -256,7 +257,6 @@ void Game::render() {
         case GameState::SHOWDOWN:
             break;
     }
-    appText->draw(*window);
     statusText->draw(*window);
     window->display();
 }
@@ -276,7 +276,7 @@ int Game::randomInt(int a, int b) {
  */
 void Game::basicSetup(sf::Event& event) {
     // Number of Players Selection
-    numPlayersBox->handleEvent(event);
+    numPlayersBox->handleEvent(*window, event);
     if (numPlayersBox->retrieveTextAsInt() >= 2 && numPlayersBox->retrieveTextAsInt() <= 10) {
         numPlayers = numPlayersBox->retrieveTextAsInt();
         numPlayersBox->textIsValid = true;
@@ -296,7 +296,7 @@ void Game::basicSetup(sf::Event& event) {
         numPlayersBox->textIsValid = true;
     }
     // Stash Selection
-    stashTextBox->handleEvent(event);
+    stashTextBox->handleEvent(*window, event);
     if (stashTextBox->retrieveTextAsInt() >= 1 && stashTextBox->retrieveTextAsInt() <= 1000000) {
         stash = stashTextBox->retrieveTextAsInt();
         stashTextBox->textIsValid = true;
@@ -317,7 +317,7 @@ void Game::basicSetup(sf::Event& event) {
     }
 
     // Big Blind Bet
-    bigBlindBox->handleEvent(event);
+    bigBlindBox->handleEvent(*window, event);
     if (bigBlindBox->retrieveTextAsInt() >= 1 && bigBlindBox->retrieveTextAsInt() <= stash) {
         bigBlindBet = bigBlindBox->retrieveTextAsInt();
         bigBlindBox->textIsValid = true;
@@ -354,7 +354,7 @@ void Game::basicSetup(sf::Event& event) {
  * Initialize setup player UI and handle events
  */
 void Game::setupPlayers(sf::Event& event) {
-    nameTextBox->handleEvent(event);
+    nameTextBox->handleEvent(*window, event);
     string enteredName = nameTextBox->getString();
 
     // If the Enter key is pressed and the text box is not empty

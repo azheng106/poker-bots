@@ -15,7 +15,7 @@ TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int c
     originalOutlineColor = outlineColor;
     box.setOutlineColor(outlineColor);
 
-    box.setOutlineThickness(1.f);
+    box.setOutlineThickness(2.f);
 
     text.setFont(font);
     text.setCharacterSize(characterSize);
@@ -29,10 +29,16 @@ TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int c
     box.setPosition(position);
 }
 
-void TextBox::handleEvent(sf::Event& event) {
+bool TextBox::isMouseOver(sf::RenderWindow& window) {
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    sf::Vector2f coords = window.mapPixelToCoords(mousePos);
+    sf::FloatRect boxBounds = box.getGlobalBounds();
+    return boxBounds.contains(coords);
+}
+
+void TextBox::handleEvent(sf::RenderWindow& window, sf::Event& event) {
     if (event.type == sf::Event::MouseButtonPressed) {
-        sf::Vector2f mouse(event.mouseButton.x, event.mouseButton.y);
-        if (box.getGlobalBounds().contains(mouse)) {
+        if (isMouseOver(window)) {
             isActive = true;
             // Clear the text box if the text was invalid
             if (!textIsValid) setString("");

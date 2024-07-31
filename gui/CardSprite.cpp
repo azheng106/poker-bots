@@ -30,6 +30,15 @@ void CardSprite::setPosition(sf::Vector2f position) {
     cardText.setPosition(position.x - (size.x/3), position.y - (size.y/2.2));
 }
 
+void CardSprite::setSize(sf::Vector2f size) {
+    this->size = size;
+
+    // Scale card background
+    backgroundSprite.setScale(size.x / backgroundTexture.getSize().x, size.y / backgroundTexture.getSize().y);
+
+    cardText.setCharacterSize(size.x / 2.5);
+}
+
 void CardSprite::draw(sf::RenderWindow& window) {
     window.draw(backgroundSprite);
     window.draw(cardText);

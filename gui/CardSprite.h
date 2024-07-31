@@ -9,6 +9,7 @@ class CardSprite {
 public:
     CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size);
     void setPosition(sf::Vector2f position);
+    void setSize(sf::Vector2f size);
     void draw(sf::RenderWindow& window);
     void updateCard();
 

@@ -10,14 +10,12 @@ class TextBox {
 public:
     TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int characterSize, sf::Color color, sf::Color textColor, bool useNumbers = false);
 
-    void handleEvent(sf::Event& event);
+    void handleEvent(sf::RenderWindow& window, sf::Event& event);
     void draw(sf::RenderWindow& window);
     void setString(string text);
     string getString();
     void setPosition(sf::Vector2f position);
-    // Prevent recentering from affecting y value
-    float originalYOrigin;
-    float originalYPos;
+    bool isMouseOver(sf::RenderWindow& window);
     void setSize(sf::Vector2f size);
     void updateTextPosition();
     int retrieveTextAsInt();

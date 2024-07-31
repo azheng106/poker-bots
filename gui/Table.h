@@ -2,6 +2,7 @@
 
 #include "../game/Card.h"
 #include "../game/Player.h"
+#include "../gui/Text.h"
 
 #include <cmath>
 #include <vector>
@@ -13,7 +14,8 @@ public:
     sf::Vector2f size;
     sf::Vector2f position;
 
-    sf::Font fancyFont;
+    sf::Font regularFont;
+    sf::Font boldFont;
 
     sf::RectangleShape tableCenter;
     sf::CircleShape leftSemiCircle;

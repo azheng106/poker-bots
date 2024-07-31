@@ -1833,6 +1833,7 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Table.cpp.obj: C:/CS\ Pr
   C:/CS\ Projects/poker-bots/game/Player.h \
   C:/CS\ Projects/poker-bots/gui/CardSprite.h \
   C:/CS\ Projects/poker-bots/gui/Misc.h \
+  C:/CS\ Projects/poker-bots/gui/Text.h \
   C:/CS\ Projects/poker-bots/gui/TextBox.h \
   _deps/sfml-src/include/SFML/Config.hpp \
   _deps/sfml-src/include/SFML/Graphics.hpp \
