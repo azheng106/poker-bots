@@ -55,7 +55,7 @@ void Game::initFont() {
 
 void Game::initBasicUI() {
     // Application Text label at the top
-    appText = new Text("sponsored by thebigblackdarren", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
+    appText = new Text("poker bots", regularFont, 17, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
 
     // Status Text label at the bottom, which is updated by updateStatusText() as the game progresses
     statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
@@ -118,8 +118,8 @@ void Game::initSetupPlayersUI() {
 }
 
 void Game::initDeckTest() {
-    int posX = 120;
-    int posY = 180;
+    float posX = 120;
+    float posY = 180;
 
     for (Card& card : deck) {
         card.generateSprite(fancyFont, sf::Vector2f(posX, posY), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
@@ -133,7 +133,7 @@ void Game::initDeckTest() {
 
 void Game::initTableTest() {
     // Players currently unused; will eventually help draw player seats
-    table = new Table(sf::Vector2f(500, 500), Misc::percentageToPixels(sf::Vector2f(50, 50), *window), communityCards, players);
+    table = new Table(sf::Vector2f(400, 400), Misc::percentageToPixels(sf::Vector2f(50, 50), *window), communityCards, players);
 }
 
 void Game::run() {
@@ -162,6 +162,7 @@ void Game::processEvents() {
                 //TEMPORARY
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
                     currentState = GameState::PLAY_HAND;
+                    distributeHoleCards();
                 }
                 break;
             case GameState::PLAY_HAND:
@@ -248,7 +249,7 @@ void Game::render() {
             table->draw(*window);
 
             // Very buggy
-            //table->drawPlayers(*window);
+            table->drawPlayers(*window);
 
             // Testing end
             break;

@@ -79,22 +79,18 @@ void Table::drawPlayers(sf::RenderWindow& window) {
      * 3 players on each semicircle
      * 2 players on each straight end
      */
-    float horizontalMargin = 5;
-
     // Draw players in the left semicircle
     for (int i = 0; i < 3 && i < players.size(); i++) {
         Player& player = players[i];
         float posX = 500; // work in progress
-        float posY = 300;
+        float posY = 500;
 
         // Draw player's hole cards and money here
-
-        // Create CardSprites for hole cards
         Card& card1 = player.holeCards[0];
         Card& card2 = player.holeCards[1];
 
-        card1.generateSprite(fancyFont, sf::Vector2f(posX - (size.x / 2) - (horizontalMargin / 2), posY), sf::Vector2f(60, 72));
-        card2.generateSprite(fancyFont, sf::Vector2f(posX + (size.x / 2) + (horizontalMargin / 2), posY), sf::Vector2f(60, 72));
+        card1.sprite->setPosition(sf::Vector2f(posX - (card1.sprite->size.x / 3), posY - (card1.sprite->size.y / 6)));
+        card2.sprite->setPosition(sf::Vector2f(posX + (card1.sprite->size.x / 3), posY + (card1.sprite->size.y / 6)));
 
         card1.sprite->draw(window);
         card2.sprite->draw(window);

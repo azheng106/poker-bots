@@ -21,7 +21,7 @@ public:
     bool hasChecked;
     int currentBet;
     int totalBet;
-    vector<Card> holeCards;
+    vector< Card> holeCards;
     vector<int> bestScore;
     vector<Card> bestHand;
 
