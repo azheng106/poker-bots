@@ -1,6 +1,6 @@
 #include "Table.h"
 
-Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players) : size(size), position(position), communityCards(communityCards), players(players) {
+Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players, int& pot) : size(size), position(position), communityCards(communityCards), players(players), pot(pot) {
     if (!regularFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
         cout << "Font loading error\n";
     }
@@ -30,13 +30,22 @@ Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCa
     rightSemiCircle.setPosition(position.x + size.x/2, position.y);
     rightSemiCircle.setRotation(270);
 
+    // Display pot
+    potDisplay = new Text(to_string(pot), boldFont, 24, sf::Vector2f(position.x, position.y - (size.y / 8)), sf::Color::White);
+
+    // Highlight around pot display
+    potBorder.setSize(sf::Vector2f(size.x / 2.0, size.y / 6));
+    potBorder.setFillColor(sf::Color(0, 80, 0));
+    potBorder.setOrigin(potBorder.getSize().x / 2, potBorder.getSize().y / 2);
+    potBorder.setPosition(position.x, position.y - (size.y / 8));
+
     // Border around community cards area
     ccBorder.setSize(sf::Vector2f(size.x/1.5, size.y/4));
     ccBorder.setOutlineThickness(2.f);
     ccBorder.setOutlineColor(sf::Color::White);
     ccBorder.setFillColor(sf::Color::Transparent);
     ccBorder.setOrigin(ccBorder.getSize().x/2, ccBorder.getSize().y/2);
-    ccBorder.setPosition(position);
+    ccBorder.setPosition(position.x, position.y + (size.y / 8));
 }
 
 void Table::addCommunityCards() {
@@ -47,7 +56,7 @@ void Table::addCommunityCards() {
     float cardHeight = (size.y / 4) - (2 * verticalMargin);
 
     float posX = position.x - (2 * cardWidth) - (2 * horizontalMargin);
-    float posY = position.y;
+    float posY = position.y + (size.y / 8);
 
     for (Card& card : communityCards) {
         card.sprite->setPosition(sf::Vector2f(posX, posY));
@@ -62,6 +71,8 @@ void Table::draw(sf::RenderWindow& window) {
     window.draw(tableCenter);
     window.draw(leftSemiCircle);
     window.draw(rightSemiCircle);
+    window.draw(potBorder);
+    potDisplay->draw(window);
     window.draw(ccBorder);
 
     for (Card& card : communityCards) {
@@ -71,39 +82,102 @@ void Table::draw(sf::RenderWindow& window) {
 
 void Table::drawPlayers(sf::RenderWindow& window) {
     float horizontalMargin = 5;
+    float posX, posY;
 
-    /*
-     * 2 Players on bottom of rectangle:
-     * - Money and name are displayed beside the hole cards
-     */
-    float posX = position.x - (size.x / 5.0); // work in progress
-    float posY = position.y + (size.y / 1.6);
+    // eyeballing with:
+        // Size: (500, 350), Position: (600, 360)
 
-    for (int i = 0; i <= 1 && i < players.size(); i++) {
-        Player& player = players[i];
-        string name = player.name;
-        string money = to_string(player.money);
-
-        // Draw player's hole cards
-        Card& card1 = player.holeCards[0];
-        Card& card2 = player.holeCards[1];
-
-        card1.sprite->setSize(sf::Vector2f(60, 72));
-        card2.sprite->setSize(sf::Vector2f(60, 72));
-
-        card1.sprite->setPosition(sf::Vector2f(posX - (card1.sprite->size.x / 2) - (horizontalMargin / 2), posY));
-        card2.sprite->setPosition(sf::Vector2f(posX + (card2.sprite->size.x / 2) + (horizontalMargin / 2), posY));
-
-        card1.sprite->draw(window);
-        card2.sprite->draw(window);
-
-        // Draw player's name and money
-        Text nameLabel(name, regularFont, 18, sf::Vector2f(posX, posY + (size.y / 4)), sf::Color::White);
-        Text moneyLabel("\n$" + money, boldFont, 24, sf::Vector2f(posX, posY + (size.y / 12)), sf::Color::White);
-
-        nameLabel.draw(window);
-        moneyLabel.draw(window);
+    // Draw 3 players on the bottom of the rectangle
+    posX = position.x - (size.x / 2.5);
+    posY = position.y + (size.y / 1.8);
+    for (int i = 0; i < 3 && i < players.size(); i++) {
+        drawPlayer(window, players[i], posX, posY, horizontalMargin, regularFont, boldFont, size, "up");
 
         posX += (size.x / 2.5);
     }
+
+    posX += (size.x / 6.5);
+    posY -= (size.y / 3.2);
+    // Draw 2 players on the right semicircle
+    for (int i = 3; i < 5 && i < players.size(); i++) {
+        drawPlayer(window, players[i], posX, posY, horizontalMargin, regularFont, boldFont, size, "left");
+        posY -= (size.y / 2.0);
+    }
+
+    // Draw 3 players on the top of the rectangle
+    posX = position.x + (size.x / 2.5);
+    posY = position.y - (size.y / 1.3);
+    for (int i = 5; i < 8 && i < players.size(); i++) {
+        drawPlayer(window, players[i], posX, posY, horizontalMargin, regularFont, boldFont, size, "down",true);
+        posX -= (size.x / 2.5);
+    }
+
+    posX -= (size.x / 6.5);
+    posY += (size.y / 1.9);
+    // Draw 2 players on the left semicircle
+    for (int i = 8; i < 10 && i < players.size(); i++) {
+        drawPlayer(window, players[i], posX, posY, horizontalMargin, regularFont, boldFont, size, "right");
+        posY += (size.y / 2.0);
+    }
+}
+
+void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, float posY, float horizontalMargin, sf::Font& regularFont, sf::Font& boldFont, sf::Vector2f size, string dirrBet, bool inverted) {
+    string name = player.name;
+    string money = to_string(player.money);
+
+    // Draw player's name and money
+    Text nameLabel(name, regularFont, 18, sf::Vector2f(posX, posY + (size.y / 5)));
+    Text moneyLabel("\n$" + money, boldFont, 18, sf::Vector2f(posX, posY + (size.y / 12)));
+
+    // Draw player's hole cards
+    Card& card1 = player.holeCards[0];
+    Card& card2 = player.holeCards[1];
+
+    card1.sprite->setSize(sf::Vector2f(60, 72));
+    card2.sprite->setSize(sf::Vector2f(60, 72));
+
+    if (!inverted) {
+        card1.sprite->setPosition(sf::Vector2f(posX - (card1.sprite->size.x / 2) - (horizontalMargin / 2), posY));
+        card2.sprite->setPosition(sf::Vector2f(posX + (card2.sprite->size.x / 2) + (horizontalMargin / 2), posY));
+    } else {
+        card1.sprite->setPosition(sf::Vector2f(posX - (card1.sprite->size.x / 2) - (horizontalMargin / 2), posY + (size.y / 4.8)));
+        card2.sprite->setPosition(sf::Vector2f(posX + (card2.sprite->size.x / 2) + (horizontalMargin / 2), posY + (size.y / 4.8)));
+
+        nameLabel.text.setPosition(sf::Vector2f(posX, posY - (size.y / 24)));
+        moneyLabel.text.setPosition(sf::Vector2f(posX, posY - (size.y / 24)));
+    }
+
+    // Draw player bet based on direction it should be displayed, assumes down direction is already inverted
+    Text currentBetLabel("$" + to_string(player.currentBet), boldFont, 18, sf::Vector2f(posX, posY));
+    currentBetLabel.updateOrigin();
+
+    // Allow for it to also display status, such as Check or All In
+    if (player.hasChecked) {
+        currentBetLabel.text.setString("CHECK");
+        currentBetLabel.updateOrigin();
+    } else if (player.isAllIn) {
+        currentBetLabel.text.setString("ALL IN, $" + to_string(player.currentBet));
+        currentBetLabel.updateOrigin();
+    }
+
+    if (dirrBet == "up") {
+        currentBetLabel.text.setPosition(sf::Vector2f(posX, posY - (size.y / 5.4)));
+    } else if (dirrBet == "down") {
+        currentBetLabel.text.setPosition(sf::Vector2f(posX, posY + (size.y / 2.8)));
+    } else if (dirrBet == "left") {
+        currentBetLabel.text.setPosition(sf::Vector2f(posX - (size.x / 4), posY));
+    } else if (dirrBet == "right") {
+        currentBetLabel.text.setPosition(sf::Vector2f(posX + (size.x / 4), posY));
+    }
+
+    // Only draw the cards if the player hasn't folded
+    if (player.isIn) {
+        card1.sprite->draw(window);
+        card2.sprite->draw(window);
+    }
+
+    nameLabel.draw(window);
+    moneyLabel.draw(window);
+
+    currentBetLabel.draw(window);
 }

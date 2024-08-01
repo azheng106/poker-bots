@@ -35,8 +35,8 @@ private:
 
     void initBasicUI();
     void initSetupPlayersUI();
-    void initDeckTest(); // FOR TESTING ONLY! for seeing cards. bahahaha
-    void initTableTest(); // FOR TESTING ONLY! wanted to see table. delete whenever
+    void initDeckTest();
+    void initTableTest();
 
     // Event Loop
     void processEvents();
@@ -52,7 +52,7 @@ private:
     void setupBlinds();
     void distributeHoleCards();
     void distributeCommunityCards();
-    void displayPot();
+    void calculateRoundPot();
     void calculatePot();
     void doBlindBets();
     void getAction(Player& player);
@@ -73,6 +73,7 @@ private:
     int round;
     int turn;
     int pot;
+    int roundPot;
     bool hasOpened;
     int currentMinBet;
     int initialDealerIndex;

@@ -9,7 +9,7 @@
 
 class Table {
 public:
-    Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players);
+    Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players, int& pot);
 
     sf::Vector2f size;
     sf::Vector2f position;
@@ -21,14 +21,19 @@ public:
     sf::CircleShape leftSemiCircle;
     sf::CircleShape rightSemiCircle;
 
-    vector<Card>& communityCards;
+    Text* potDisplay;
+    sf::RectangleShape potBorder;
     sf::RectangleShape ccBorder;
 
+    // Game Objects
     vector<Player>& players;
+    vector<Card>& communityCards;
+    int& pot;
 
     void addCommunityCards();
     void draw(sf::RenderWindow& window);
     void drawPlayers(sf::RenderWindow& window);
+    void drawPlayer(sf::RenderWindow& window, Player& player, float posX, float posY, float horizontalMargin, sf::Font& regularFont, sf::Font& boldFont, sf::Vector2f size, string dirrBet, bool inverted=false);
 
     // File Paths
     static constexpr const char* BASE_PATH = "../../../";

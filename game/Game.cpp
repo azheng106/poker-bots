@@ -18,8 +18,8 @@ Game::~Game() {
 void Game::initVariables() {
     currentState = GameState::BASIC_SETUP;
     isFinished = false;
+    pot = 0;
     round = 0;
-    currentPlayerIndex = 0;
     shuffleDeck();
 }
 
@@ -59,7 +59,7 @@ void Game::initFont() {
 
 void Game::initBasicUI() {
     // Status Text label at the bottom, which is updated by updateStatusText() as the game progresses
-    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
+    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
 
     // # of Players
     numPlayers = 6;
@@ -134,7 +134,7 @@ void Game::initDeckTest() {
 
 void Game::initTableTest() {
     // Players currently unused; will eventually help draw player seats
-    table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players);
+    table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players, pot);
 }
 
 void Game::run() {
@@ -160,10 +160,10 @@ void Game::processEvents() {
                 setupPlayers(event);
                 break;
             case GameState::SETUP_HAND:
-                //TEMPORARY
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
                     currentState = GameState::PLAY_HAND;
-                    distributeHoleCards();
+                    // Pre-game setup
+                    playHand();
                 }
                 break;
             case GameState::PLAY_HAND:
@@ -202,10 +202,10 @@ void Game::updateStatusText() {
             status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
-            status = "showing deck test (press enter to continue)"; // FOR TESTING ONLY! normally displays "setting up hand"
+            status = "showing deck";
             break;
         case GameState::PLAY_HAND:
-            status = "showing table test (press enter to DISTRIBUTE)"; // FOR TESTING ONLY! normally displays "playing hand"
+            status = "playing hand";
             break;
         case GameState::SHOWDOWN:
             status = "showdown";
@@ -246,13 +246,8 @@ void Game::render() {
             break;
         }
         case GameState::PLAY_HAND:
-            // Testing purposes only to show table
             table->draw(*window);
-
-            // Very buggy
             table->drawPlayers(*window);
-
-            // Testing end
             break;
         case GameState::SHOWDOWN:
             break;
@@ -467,14 +462,13 @@ void Game::distributeCommunityCards() {
 }
 
 /*
- * Displays the pot value
+ * Calculate the current rounds' pot
  */
-void Game::displayPot() {
-    int tempPot = 0;
+void Game::calculateRoundPot() {
+    roundPot = 0;
     for (Player& player : players) {
-        tempPot += player.currentBet;
+        roundPot += player.currentBet;
     }
-    cout << "Pot is now worth $" << max(tempPot, pot) << "\n";
 }
 
 /*
@@ -609,151 +603,151 @@ bool Game::isTurnOver() {
 /*
  * Rewrite; plays a holeCards
  */
-//void Game::playHand() {
-//    reset();
-//    if (isFinished) return;
-//
-//    // 3 betting rounds: pre-flop, turn, river
-//    for (turn=1; turn<=3; turn++) {
-//        currentMinBet = bigBlindBet;
-//        hasOpened = false;
-//
-//        // Reset players
-//        for (Player& player : players) {
-//            player.currentBet = 0;
-//            player.hasMadeAction = false;
-//            player.hasRaised = false;
-//            player.hasChecked = false;
-//        }
-//
-//        switch (turn) {
-//            case 1:
-//                cout << "\nPre-flop\n\n";
-//                doBlindBets();
-//                break;
-//            case 2:
-//                cout << "\nNext round\n";
-//                break;
-//            case 3:
-//                cout << "\nFinal round\n";
-//                break;
-//        }
-//
-//        int startingIndex;
-//        if (turn == 1) startingIndex = (bigBlind->index + 1) % players.size();
-//        else startingIndex = smallBlind->index % players.size();
-//
-//        for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
-//            Player& player = players[i];
-//            if (!player.isIn || player.isAllIn) continue;
-//
-//            playersFolded = 0;
-//            playersBetting = 0;
-//
-//            for (Player& player : players) {
-//                if (player.isIn && !player.isAllIn) {
-//                    playersBetting += 1;
-//                }
-//                if (!player.isIn) {
-//                    playersFolded += 1;
-//                }
-//            }
-//            getAction(player);
-//        }
-//        displayPot();
-//        calculatePot();
-//        distributeCommunityCards();
-//    }
-//    showdown();
-//}
-//
-//void Game::showdown() {
-//    cout << "\nShowdown\n\n";
-//    cout << "The pot is worth a beefy $" << pot << "\n\n";
-//
-//    vector<int> bestScore = {0};
-//    vector<Card> bestHand;
-//    vector<Player*> leadingPlayers;
-//
-//    for (Player& player : players) {
-//        if (player.isIn) {
-//            cout << "Player " << player.name << " has bet $" << player.totalBet << "\n";
-//
-//            player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
-//            player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
-//
-//            // Debug usage
-//            cout << "Score: {";
-//            for (int i: player.bestScore) {
-//                cout << i << ",";
-//            }
-//            cout << "}\n";
-//
-//            if (CardUtil::compareScores(player.bestScore, bestScore)) {
-//                bestScore = player.bestScore;
-//                leadingPlayers.clear();
-//                leadingPlayers.push_back(&player);
-//            } else if (player.bestScore == bestScore) {
-//                leadingPlayers.push_back(&player);
-//            }
-//        }
-//    }
-//
-//    for (Player& player : players) {
-//        if (player.isIn) {
-//            cout << "\n";
-//            cout << "Player " << player.name << "'s best hand is a " <<
-//            CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
-//            for (Card card: player.bestHand) {
-//                cout << card << "\n";
-//            }
-//        }
-//    }
-//
-//    cout << "\n";
-//
-//    if (leadingPlayers.size() == 1) {
-//        cout << "We have one winner" << "\n";
-//        leadingPlayers[0]->win(pot);
-//    } else {
-//        cout << "The pot must be split" << "\n";
-//        for (Player* winner : leadingPlayers) {
-//            winner->win(pot/(leadingPlayers.size()));
-//        }
-//    }
-//
-//    for (int i=0; i<players.size(); i++) {
-//        if (players[i].money == 0) {
-//            cout << "\nPlayer " << players[i].name << " has gone bankrupt.\n";
-//            players.erase(players.begin()+i);
-//            i--;
-//        }
-//    }
-//}
+void Game::playHand() {
+    reset();
+    if (isFinished) return;
+
+    // 3 betting rounds: pre-flop, turn, river
+    for (turn=1; turn<=3; turn++) {
+        currentMinBet = bigBlindBet;
+        hasOpened = false;
+
+        // Reset players
+        for (Player& player : players) {
+            player.currentBet = 0;
+            player.hasMadeAction = false;
+            player.hasRaised = false;
+            player.hasChecked = false;
+        }
+
+        switch (turn) {
+            case 1:
+                cout << "\nPre-flop\n\n";
+                doBlindBets();
+                break;
+            case 2:
+                cout << "\nNext round\n";
+                break;
+            case 3:
+                cout << "\nFinal round\n";
+                break;
+        }
+
+        int startingIndex;
+        if (turn == 1) startingIndex = (bigBlind->index + 1) % players.size();
+        else startingIndex = smallBlind->index % players.size();
+
+        for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
+            Player& player = players[i];
+            if (!player.isIn || player.isAllIn) continue;
+
+            playersFolded = 0;
+            playersBetting = 0;
+
+            for (Player& player : players) {
+                if (player.isIn && !player.isAllIn) {
+                    playersBetting += 1;
+                }
+                if (!player.isIn) {
+                    playersFolded += 1;
+                }
+            }
+            getAction(player);
+        }
+        calculateRoundPot();
+        calculatePot();
+        distributeCommunityCards();
+    }
+    showdown();
+}
+
+void Game::showdown() {
+    cout << "\nShowdown\n\n";
+    cout << "The pot is worth a beefy $" << pot << "\n\n";
+
+    vector<int> bestScore = {0};
+    vector<Card> bestHand;
+    vector<Player*> leadingPlayers;
+
+    for (Player& player : players) {
+        if (player.isIn) {
+            cout << "Player " << player.name << " has bet $" << player.totalBet << "\n";
+
+            player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
+            player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
+
+            // Debug usage
+            cout << "Score: {";
+            for (int i: player.bestScore) {
+                cout << i << ",";
+            }
+            cout << "}\n";
+
+            if (CardUtil::compareScores(player.bestScore, bestScore)) {
+                bestScore = player.bestScore;
+                leadingPlayers.clear();
+                leadingPlayers.push_back(&player);
+            } else if (player.bestScore == bestScore) {
+                leadingPlayers.push_back(&player);
+            }
+        }
+    }
+
+    for (Player& player : players) {
+        if (player.isIn) {
+            cout << "\n";
+            cout << "Player " << player.name << "'s best hand is a " <<
+            CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
+            for (Card card: player.bestHand) {
+                cout << card << "\n";
+            }
+        }
+    }
+
+    cout << "\n";
+
+    if (leadingPlayers.size() == 1) {
+        cout << "We have one winner" << "\n";
+        leadingPlayers[0]->win(pot);
+    } else {
+        cout << "The pot must be split" << "\n";
+        for (Player* winner : leadingPlayers) {
+            winner->win(pot/(leadingPlayers.size()));
+        }
+    }
+
+    for (int i=0; i<players.size(); i++) {
+        if (players[i].money == 0) {
+            cout << "\nPlayer " << players[i].name << " has gone bankrupt.\n";
+            players.erase(players.begin()+i);
+            i--;
+        }
+    }
+}
 
 /*
  * Prepare for a hand
  */
-//void Game::reset() {
-//    if (players.size() == 1) {
-//        cout << "\nPlayer " << players[0].name << " wins the game!\n";
-//        isFinished = true;
-//    } else {
-//        pot = 0;
-//        isHeadsUp = false;
-//        // Reset players
-//        for (Player& player : players) {
-//            player.isIn = true;
-//            player.isAllIn = false;
-//            player.totalBet = 0;
-//        }
-//        round += 1;
-//        communityCards.clear();
-//
-//        cout << "\nSetup complete\n";
-//
-//        shuffleDeck();
-//        setupBlinds();
-//        distributeHoleCards();
-//    }
-//}
+void Game::reset() {
+    if (players.size() == 1) {
+        cout << "\nPlayer " << players[0].name << " wins the game!\n";
+        isFinished = true;
+    } else {
+        pot = 0;
+        isHeadsUp = false;
+        // Reset players
+        for (Player& player : players) {
+            player.isIn = true;
+            player.isAllIn = false;
+            player.totalBet = 0;
+        }
+        round += 1;
+        communityCards.clear();
+
+        cout << "\nSetup complete\n";
+
+        shuffleDeck();
+        setupBlinds();
+        distributeHoleCards();
+    }
+}
