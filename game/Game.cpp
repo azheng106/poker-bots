@@ -7,7 +7,6 @@ Game::Game() {
     initRender();
     initBasicUI();
     initSetupPlayersUI();
-    initDeckTest();
     initTableTest();
 }
 
@@ -118,20 +117,6 @@ void Game::initSetupPlayersUI() {
                               sf::Color::Transparent, sf::Color::White);
 }
 
-void Game::initDeckTest() {
-    float posX = 120;
-    float posY = 180;
-
-    for (Card& card : deck) {
-        card.generateSprite(boldFont, sf::Vector2f(posX, posY), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
-        posX += 80;
-        if (posX >= window->getSize().x - 120) {
-            posY += 95;
-            posX = 120;
-        }
-    }
-}
-
 void Game::initTableTest() {
     // Players currently unused; will eventually help draw player seats
     table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players, pot);
@@ -160,13 +145,9 @@ void Game::processEvents() {
                 setupPlayers(event);
                 break;
             case GameState::SETUP_HAND:
-                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-                    currentState = GameState::PLAY_HAND;
-                    distributeHoleCards();
-                }
+                setupHand(event);
                 break;
             case GameState::PLAY_HAND:
-
                 playHand(event);
                 break;
             case GameState::SHOWDOWN:
@@ -200,7 +181,7 @@ void Game::updateStatusText() {
             status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
-            status = "showing deck";
+            // Ignore status; loading takes awhile, so there is a loading screen
             break;
         case GameState::PLAY_HAND:
             status = "playing hand";
@@ -238,9 +219,7 @@ void Game::render() {
             nameTextBox->draw(*window);
             break;
         case GameState::SETUP_HAND: {
-            for (Card& card : deck) {
-                card.sprite->draw(*window);
-            }
+            setupHandLoadingLabel->draw(*window);
             break;
         }
         case GameState::PLAY_HAND:
@@ -379,9 +358,156 @@ void Game::setupPlayers(sf::Event& event) {
 }
 
 /**
+ * Set up the hand, i.e. setting up blinds, etc.
+ */
+void Game::setupHand(sf::Event& event) {
+    static bool setupComplete = false;
+
+    if (!setupComplete) {
+        window->clear(sf::Color(0, 0, 30));
+        setupHandLoadingLabel = new Text("Preparing game", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
+        setupHandLoadingLabel->draw(*window);
+        window->display();
+
+        pot = 0;
+        isHeadsUp = false;
+
+        // Reset players
+        for (Player& player : players) {
+            player.isIn = true;
+            player.isAllIn = false;
+            player.hasMadeAction = false;
+            player.hasChecked = false;
+            player.currentBet = 0;
+            player.totalBet = 0;
+        }
+
+        // Reset deck
+        shuffleDeck();
+
+        // Generate sprites for each card
+        for (Card& card : deck) {
+            card.generateSprite(boldFont, sf::Vector2f(0, 0), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
+        }
+
+        distributeHoleCards();
+        setupBlinds();
+
+        round += 1;
+
+        cout << "\nSetup complete\n";
+
+        setupComplete = true;
+    } else {
+        setupHandLoadingLabel = new Text("Press Enter to Start", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
+    }
+
+    if (setupComplete && event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+        currentState = GameState::PLAY_HAND;
+    }
+}
+
+/**
  * Initiliaze the actual fucking hand! Finally!
  */
 void Game::playHand(sf::Event& event) {
+    static bool handFinished = false;
+    static bool turnFinished = false;
+    static bool roundResetFinished = false;
+    static int playersTurnIndex;
+    static int turn = 1;
+
+    // Check if the hand is finished
+    if (!handFinished) {
+        // Check if the turn is finished
+        if (!turnFinished) {
+            // Check if the round reset is finished
+            if (!roundResetFinished) {
+                // Reset round variables
+                currentMinBet = bigBlindBet;
+                hasOpened = false;
+
+                // Reset player states
+                for (Player& player : players) {
+                    player.currentBet = 0;
+                    player.hasMadeAction = false;
+                    player.hasRaised = false;
+                    player.hasChecked = false;
+                }
+
+                // Set the initial player turn index
+                playersTurnIndex = smallBlind->index % players.size();
+
+                // Handle different rounds
+                switch (turn) {
+                    case 1:
+                        cout << "\nPre-flop\n\n";
+                        doBlindBets();
+                        playersTurnIndex = (bigBlind->index + 1) % players.size();
+                        break;
+                    case 2:
+                        cout << "\nNext round\n";
+                        break;
+                    case 3:
+                        cout << "\nFinal round\n";
+                        break;
+                }
+                roundResetFinished = true;
+            } else {
+                // Get the current player
+                Player& player = players[playersTurnIndex];
+
+                // Skip players who are out or all-in
+                while (!player.isIn || player.isAllIn) {
+                    playersTurnIndex = (playersTurnIndex + 1) % players.size();
+                    player = players[playersTurnIndex];  // Update the player reference
+                }
+
+                // Count players who are still betting or have folded
+                playersFolded = 0;
+                playersBetting = 0;
+
+                for (Player& p : players) {
+                    if (p.isIn && !p.isAllIn) {
+                        playersBetting += 1;
+                    }
+                    if (!p.isIn) {
+                        playersFolded += 1;
+                    }
+                }
+
+                // Get action from the current player
+                getAction(player);
+
+                // Move to the next player's turn
+                playersTurnIndex = (playersTurnIndex + 1) % players.size();
+
+                // Check if the turn is over
+                if (isTurnOver()) turnFinished = true;
+            }
+        } else {
+            // Calculate pots and distribute community cards
+            calculateRoundPot();
+            calculatePot();
+            distributeCommunityCards();
+
+            // Move to the next turn or finish the hand
+            if (turn < 3) {
+                turn += 1;
+                turnFinished = false;
+                roundResetFinished = false;  // Reset the round reset flag for the next turn
+            } else {
+                handFinished = true;
+            }
+        }
+    } else {
+        // Handle the end of the hand
+        cout << "Hand finished; work in progress\n";
+        currentState = GameState::SHOWDOWN;
+    }
+}
+
+
 //    reset();
 //    if (isFinished) return;
 //
@@ -437,7 +563,6 @@ void Game::playHand(sf::Event& event) {
 //        distributeCommunityCards();
 //    }
 //    showdown();
-}
 
 /**
  * Create a new deck of cards

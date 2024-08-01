@@ -35,7 +35,6 @@ private:
 
     void initBasicUI();
     void initSetupPlayersUI();
-    void initDeckTest();
     void initTableTest();
 
     // Event Loop
@@ -48,6 +47,7 @@ private:
     static int randomInt(int a, int b);
     void basicSetup(sf::Event& event);
     void setupPlayers(sf::Event& event);
+    void setupHand(sf::Event& event);
     void playHand(sf::Event& event);
 
     void shuffleDeck();
@@ -72,7 +72,6 @@ private:
     int bigBlindBet;
 
     int round;
-    int turn;
     int pot;
     int roundPot;
     bool hasOpened;
@@ -121,6 +120,9 @@ private:
     int currentPlayerIndex;
     Text* nameTextLabel;
     TextBox* nameTextBox;
+
+    // Setup Hand UI
+    Text* setupHandLoadingLabel;
 
     // Play Hand UI
     Table* table;
