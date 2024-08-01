@@ -162,14 +162,12 @@ void Game::processEvents() {
             case GameState::SETUP_HAND:
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
                     currentState = GameState::PLAY_HAND;
-                    // Pre-game setup
-                    playHand();
+                    distributeHoleCards();
                 }
                 break;
             case GameState::PLAY_HAND:
-                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-                    distributeCommunityCards();
-                }
+
+                playHand(event);
                 break;
             case GameState::SHOWDOWN:
                 break;
@@ -378,6 +376,67 @@ void Game::setupPlayers(sf::Event& event) {
         initialDealerIndex = Game::randomInt(1, players.size());
         cout << "\tInitial Dealer Index: " << initialDealerIndex << "\n";
     }
+}
+
+/**
+ * Initiliaze the actual fucking hand! Finally!
+ */
+void Game::playHand(sf::Event& event) {
+//    reset();
+//    if (isFinished) return;
+//
+//    // 3 betting rounds: pre-flop, turn, river
+//    for (turn=1; turn<=3; turn++) {
+//        currentMinBet = bigBlindBet;
+//        hasOpened = false;
+//
+//        // Reset players
+//        for (Player& player : players) {
+//            player.currentBet = 0;
+//            player.hasMadeAction = false;
+//            player.hasRaised = false;
+//            player.hasChecked = false;
+//        }
+//
+//        switch (turn) {
+//            case 1:
+//                cout << "\nPre-flop\n\n";
+//                doBlindBets();
+//                break;
+//            case 2:
+//                cout << "\nNext round\n";
+//                break;
+//            case 3:
+//                cout << "\nFinal round\n";
+//                break;
+//        }
+//
+//        int startingIndex;
+//        if (turn == 1) startingIndex = (bigBlind->index + 1) % players.size();
+//        else startingIndex = smallBlind->index % players.size();
+//
+//        for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
+//            Player& player = players[i];
+//            if (!player.isIn || player.isAllIn) continue;
+//
+//            playersFolded = 0;
+//            playersBetting = 0;
+//
+//            for (Player& player : players) {
+//                if (player.isIn && !player.isAllIn) {
+//                    playersBetting += 1;
+//                }
+//                if (!player.isIn) {
+//                    playersFolded += 1;
+//                }
+//            }
+//            getAction(player);
+//        }
+//        calculateRoundPot();
+//        calculatePot();
+//        distributeCommunityCards();
+//    }
+//    showdown();
 }
 
 /**
@@ -600,67 +659,6 @@ bool Game::isTurnOver() {
     return isTurnOver;
 }
 
-/*
- * Rewrite; plays a holeCards
- */
-void Game::playHand() {
-    reset();
-    if (isFinished) return;
-
-    // 3 betting rounds: pre-flop, turn, river
-    for (turn=1; turn<=3; turn++) {
-        currentMinBet = bigBlindBet;
-        hasOpened = false;
-
-        // Reset players
-        for (Player& player : players) {
-            player.currentBet = 0;
-            player.hasMadeAction = false;
-            player.hasRaised = false;
-            player.hasChecked = false;
-        }
-
-        switch (turn) {
-            case 1:
-                cout << "\nPre-flop\n\n";
-                doBlindBets();
-                break;
-            case 2:
-                cout << "\nNext round\n";
-                break;
-            case 3:
-                cout << "\nFinal round\n";
-                break;
-        }
-
-        int startingIndex;
-        if (turn == 1) startingIndex = (bigBlind->index + 1) % players.size();
-        else startingIndex = smallBlind->index % players.size();
-
-        for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
-            Player& player = players[i];
-            if (!player.isIn || player.isAllIn) continue;
-
-            playersFolded = 0;
-            playersBetting = 0;
-
-            for (Player& player : players) {
-                if (player.isIn && !player.isAllIn) {
-                    playersBetting += 1;
-                }
-                if (!player.isIn) {
-                    playersFolded += 1;
-                }
-            }
-            getAction(player);
-        }
-        calculateRoundPot();
-        calculatePot();
-        distributeCommunityCards();
-    }
-    showdown();
-}
-
 void Game::showdown() {
     cout << "\nShowdown\n\n";
     cout << "The pot is worth a beefy $" << pot << "\n\n";
@@ -746,8 +744,6 @@ void Game::reset() {
 
         cout << "\nSetup complete\n";
 
-        shuffleDeck();
         setupBlinds();
-        distributeHoleCards();
     }
 }

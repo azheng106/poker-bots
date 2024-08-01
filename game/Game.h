@@ -48,6 +48,8 @@ private:
     static int randomInt(int a, int b);
     void basicSetup(sf::Event& event);
     void setupPlayers(sf::Event& event);
+    void playHand(sf::Event& event);
+
     void shuffleDeck();
     void setupBlinds();
     void distributeHoleCards();
@@ -57,7 +59,6 @@ private:
     void doBlindBets();
     void getAction(Player& player);
     bool isTurnOver();
-    void playHand();
     void showdown();
     void reset();
 
