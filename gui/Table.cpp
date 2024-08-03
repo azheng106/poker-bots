@@ -1,6 +1,6 @@
 #include "Table.h"
 
-Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players, int& pot) : size(size), position(position), communityCards(communityCards), players(players), roundPot(pot) {
+Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players, int& roundPot, int& pot) : size(size), position(position), communityCards(communityCards), players(players), roundPot(roundPot), pot(pot) {
     if (!regularFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
         cout << "Font loading error\n";
     }
@@ -30,14 +30,23 @@ Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCa
     rightSemiCircle.setPosition(position.x + size.x/2, position.y);
     rightSemiCircle.setRotation(270);
 
+    // Display total pot
+    totalPotDisplay = new Text("$" + to_string(pot), regularFont, 20, sf::Vector2f(position.x, position.y - (size.y / 4)), sf::Color::White);
+
     // Display roundPot
-    potDisplay = new Text(to_string(pot), boldFont, 24, sf::Vector2f(position.x, position.y - (size.y / 8)), sf::Color::White);
+    roundPotDisplay = new Text("$" + to_string(roundPot), boldFont, 24, sf::Vector2f(position.x, position.y - (size.y / 8)), sf::Color::White);
+
+    // Highlight around total pot display
+    totalPotBorder.setSize(sf::Vector2f(size.x / 3.0, size.y / 8));
+    totalPotBorder.setFillColor(sf::Color(0, 60, 0));
+    totalPotBorder.setOrigin(totalPotBorder.getSize().x / 2, totalPotBorder.getSize().y / 2);
+    totalPotBorder.setPosition(position.x, position.y - (size.y / 4));
 
     // Highlight around roundPot display
-    potBorder.setSize(sf::Vector2f(size.x / 2.0, size.y / 6));
-    potBorder.setFillColor(sf::Color(0, 80, 0));
-    potBorder.setOrigin(potBorder.getSize().x / 2, potBorder.getSize().y / 2);
-    potBorder.setPosition(position.x, position.y - (size.y / 8));
+    roundPotBorder.setSize(sf::Vector2f(size.x / 2.0, size.y / 6));
+    roundPotBorder.setFillColor(sf::Color(0, 80, 0));
+    roundPotBorder.setOrigin(roundPotBorder.getSize().x / 2, roundPotBorder.getSize().y / 2);
+    roundPotBorder.setPosition(position.x, position.y - (size.y / 8));
 
     // Border around community cards area
     ccBorder.setSize(sf::Vector2f(size.x/1.5, size.y/4));
@@ -65,17 +74,27 @@ void Table::addCommunityCards() {
     }
 }
 
+void Table::updatePots() {
+    totalPotDisplay->text.setString("$" + to_string(pot));
+    totalPotDisplay->updateOrigin();
+
+    roundPotDisplay->text.setString("$" + to_string(roundPot));
+    roundPotDisplay->updateOrigin();
+}
+
 void Table::draw(sf::RenderWindow& window) {
     addCommunityCards();
 
     window.draw(tableCenter);
     window.draw(leftSemiCircle);
     window.draw(rightSemiCircle);
-    window.draw(potBorder);
-    potDisplay->text.setString("$" + to_string(roundPot));
-    potDisplay->updateOrigin();
-    potDisplay->draw(window);
+    window.draw(roundPotBorder);
+    window.draw(totalPotBorder);
     window.draw(ccBorder);
+
+    updatePots();
+    roundPotDisplay->draw(window);
+    totalPotDisplay->draw(window);
 
     for (Card& card : communityCards) {
         card.sprite->draw(window);
@@ -155,17 +174,17 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
 
     // Allow for it to also display status, such as Check or All In
     if (player.hasChecked) {
-        currentBetLabel.text.setString("CHECK");
+        currentBetLabel.text.setString("check");
         currentBetLabel.updateOrigin();
     } else if (player.isAllIn) {
-        currentBetLabel.text.setString("ALL IN, $" + to_string(player.currentBet));
+        currentBetLabel.text.setString("all in, $" + to_string(player.currentBet));
         currentBetLabel.updateOrigin();
     }
 
     if (dirrBet == "up") {
         currentBetLabel.text.setPosition(sf::Vector2f(posX, posY - (size.y / 5.4)));
     } else if (dirrBet == "down") {
-        currentBetLabel.text.setPosition(sf::Vector2f(posX, posY + (size.y / 2.8)));
+        currentBetLabel.text.setPosition(sf::Vector2f(posX, posY + (size.y / 2.6)));
     } else if (dirrBet == "left") {
         currentBetLabel.text.setPosition(sf::Vector2f(posX - (size.x / 4), posY));
     } else if (dirrBet == "right") {

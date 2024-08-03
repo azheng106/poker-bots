@@ -120,7 +120,7 @@ void Game::initSetupPlayersUI() {
 
 void Game::initTable() {
     // Players currently unused; will eventually help draw player seats
-    table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players, roundPot);
+    table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players, roundPot, pot);
 }
 
 void Game::initActionMenu() {
