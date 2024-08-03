@@ -1,6 +1,6 @@
 #include "Table.h"
 
-Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players, int& pot) : size(size), position(position), communityCards(communityCards), players(players), pot(pot) {
+Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCards, vector<Player>& players, int& pot) : size(size), position(position), communityCards(communityCards), players(players), roundPot(pot) {
     if (!regularFont.loadFromFile(string(BASE_PATH) + "fonts/Kanit-Regular.ttf")) {
         cout << "Font loading error\n";
     }
@@ -30,10 +30,10 @@ Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCa
     rightSemiCircle.setPosition(position.x + size.x/2, position.y);
     rightSemiCircle.setRotation(270);
 
-    // Display pot
+    // Display roundPot
     potDisplay = new Text(to_string(pot), boldFont, 24, sf::Vector2f(position.x, position.y - (size.y / 8)), sf::Color::White);
 
-    // Highlight around pot display
+    // Highlight around roundPot display
     potBorder.setSize(sf::Vector2f(size.x / 2.0, size.y / 6));
     potBorder.setFillColor(sf::Color(0, 80, 0));
     potBorder.setOrigin(potBorder.getSize().x / 2, potBorder.getSize().y / 2);
@@ -72,6 +72,8 @@ void Table::draw(sf::RenderWindow& window) {
     window.draw(leftSemiCircle);
     window.draw(rightSemiCircle);
     window.draw(potBorder);
+    potDisplay->text.setString("$" + to_string(roundPot));
+    potDisplay->updateOrigin();
     potDisplay->draw(window);
     window.draw(ccBorder);
 

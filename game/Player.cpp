@@ -14,7 +14,7 @@ bool Player::operator==(Player &other) const {
     return this->name == other.name && this->index == other.index;
 }
 
-bool Player::bet(int *currentMinBet, int betAmount) {
+bool Player::bet(int *currentMinBet, int betAmount, Text& report) {
     bool validAction = true;
     while (true) {
         // Go all in if the player can't make the minimum bet
@@ -43,15 +43,18 @@ bool Player::bet(int *currentMinBet, int betAmount) {
     currentBet += betAmount;
     money -= betAmount;
 
+    if (!isAllIn) report.text.setString(name + " bets $" + to_string(currentBet));
+    if (isAllIn) report.text.setString(name + " goes all in with $" + to_string(currentBet));
     return validAction;
 }
 
-bool Player::check() {
+bool Player::check(Text& report) {
     hasChecked = true;
+    report.text.setString(name + " checks.");
     return true;
 }
 
-bool Player::raise(int *currentMinBet, int desiredBet) {
+bool Player::raise(int *currentMinBet, int desiredBet, Text& report) {
     bool validAction = true;
     int raiseAmount;
 
@@ -88,12 +91,14 @@ bool Player::raise(int *currentMinBet, int desiredBet) {
 
     if (!isAllIn) {
         hasRaised = true;
+        report.text.setString(name + " raises to $" + to_string(currentBet));
     }
+    if (isAllIn) report.text.setString(name + " goes all in with $" + to_string(currentBet));
 
     return validAction;
 }
 
-bool Player::call(int *currentMinBet) {
+bool Player::call(int *currentMinBet, Text& report) {
     int callAmount = *currentMinBet - currentBet;
     if (callAmount >= money) isAllIn = true;
 
@@ -103,15 +108,19 @@ bool Player::call(int *currentMinBet) {
 
     currentBet += callAmount;
     money -= callAmount;
+
+    if (!isAllIn) report.text.setString(name + " calls $" + to_string(currentBet));
+    if (isAllIn) report.text.setString(name + " goes all in with $" + to_string(currentBet));
     return true;
 }
 
-bool Player::fold() {
+bool Player::fold(Text& report) {
     isIn = false;
+    report.text.setString(name + " folds.");
     return true;
 }
 
-void Player::win(int potAmount) {
+void Player::win(int potAmount, Text& report) {
     money += potAmount;
-    cout << "Player " << name << " wins $" << potAmount << "!\n";
+    report.text.setString(name + " wins $" + to_string(potAmount));
 }

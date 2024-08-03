@@ -5,6 +5,9 @@
 #include <random>
 #include <algorithm>
 #include <variant>
+#include <thread>
+#include <mutex>
+#include <atomic>
 
 #include "Player.h"
 #include "CardUtil.h"
@@ -44,6 +47,14 @@ private:
     void updateStatusText();
     void render();
 
+    // Threading For Play Hand
+    thread playHandThread;
+    mutex mtx;
+    atomic<bool> handInProgress;
+
+    void startPlayHand(sf::Event& event);
+    void stopPlayHand();
+
     // Game Logic
     static int randomInt(int a, int b);
     void basicSetup(sf::Event& event);
@@ -71,6 +82,7 @@ private:
     int numPlayers;
     int stash;
     int bigBlindBet;
+    int turn;
 
     int round;
     int pot;
@@ -126,6 +138,7 @@ private:
     Text* setupHandLoadingLabel;
 
     // Play Hand UI
+    Text* report;
     Table* table;
     sf::Text* label1;
     sf::Text* label2;

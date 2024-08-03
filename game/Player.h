@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 
+#include "../gui/Text.h"
 #include "Card.h"
 
 using namespace std;
@@ -25,12 +26,12 @@ public:
     vector<int> bestScore;
     vector<Card> bestHand;
 
-    bool bet(int* currentMinBet, int betAmount);
-    bool check();
-    bool raise(int* currentMinBet, int desiredBet);
-    bool call(int* currentMinBet);
-    bool fold();
-    void win(int potAmount);
+    bool bet(int* currentMinBet, int betAmount, Text& report);
+    bool check(Text& report);
+    bool raise(int* currentMinBet, int desiredBet, Text& report);
+    bool call(int* currentMinBet, Text& report);
+    bool fold(Text& report);
+    void win(int potAmount, Text& report);
 
     bool operator==(Player& other) const;
 

@@ -21,7 +21,7 @@ Text::Text(string string, sf::Font& font, int characterSize, sf::Vector2f positi
 void Text::updateOrigin() {
     // Center the origin of the text
     sf::FloatRect textBounds = text.getLocalBounds();
-    text.setOrigin(textBounds.width / 2.f, textBounds.height / 2.f);
+    text.setOrigin(textBounds.left + textBounds.width / 2.0f, text.getCharacterSize()*0.636);
 }
 
 void Text::draw(sf::RenderWindow& window) {

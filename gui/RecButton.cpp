@@ -35,6 +35,15 @@ RecButton::RecButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, 
         buttonText.setPosition(position.x, position.y - baselineAdjustment / 3.5f);
 }
 
+void RecButton::updateTextPosition() {
+    sf::FloatRect textBounds = buttonText.getLocalBounds();
+    sf::FloatRect buttonBounds = button.getGlobalBounds();
+
+    // Only change the x value of the origin for horizontal centering, 0.636 is finetuned for constant, centered y
+    buttonText.setOrigin(textBounds.left + textBounds.width / 2.0f, buttonText.getCharacterSize()*0.636);
+    buttonText.setPosition(buttonBounds.left + buttonBounds.width / 2.0f, buttonBounds.top + buttonBounds.height / 2.0f);
+}
+
 /**
  * Checks if the mouse is over a button
  * @param button

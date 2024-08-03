@@ -17,6 +17,7 @@ public:
     sf::RectangleShape button;
     sf::Text buttonText;
 
+    void updateTextPosition();
     bool isMouseOver(sf::RenderWindow& window);
     bool isClicked(sf::RenderWindow& window, sf::Event& event);
     void draw(sf::RenderWindow& window);

@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game() : handInProgress(false) {
     initVariables();
     initWindow();
     initFont();
@@ -120,10 +120,12 @@ void Game::initSetupPlayersUI() {
 
 void Game::initTable() {
     // Players currently unused; will eventually help draw player seats
-    table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players, pot);
+    table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players, roundPot);
 }
 
 void Game::initActionMenu() {
+    report = new Text("Welcome to the table", regularFont, 24, Misc::percentageToPixels(sf::Vector2f(50, 85), *window), sf::Color::Blue);
+
     label1 = new sf::Text;
     label1->setFillColor(sf::Color::White);
     label1->setFont(regularFont);
@@ -161,9 +163,10 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event{};
     while (window->pollEvent(event)) {
-        if (event.type == sf::Event::Closed)
+        if (event.type == sf::Event::Closed) {
             window->close();
-
+            stopPlayHand();
+        }
         switch (currentState) {
             case GameState::BASIC_SETUP:
                 basicSetup(event);
@@ -175,9 +178,12 @@ void Game::processEvents() {
                 setupHand(event);
                 break;
             case GameState::PLAY_HAND:
-                playHand(event);
+                if (!handInProgress) {
+                    startPlayHand(event);
+                }
                 break;
             case GameState::SHOWDOWN:
+                stopPlayHand();
                 break;
         }
     }
@@ -253,8 +259,16 @@ void Game::render() {
             table->draw(*window);
             table->drawPlayers(*window);
 
+            report->updateOrigin();
+            report->draw(*window);
+
+            opt1->updateTextPosition();
             opt1->draw(*window);
+
+            opt2->updateTextPosition();
             opt2->draw(*window);
+
+            opt3->updateTextPosition();
             opt3->draw(*window);
 
             betBox->draw(*window);
@@ -440,23 +454,37 @@ void Game::setupHand(sf::Event& event) {
     }
 }
 
+void Game::startPlayHand(sf::Event &event) {
+    handInProgress = true;
+    playHandThread = thread(&Game::playHand, this, ref(event));
+}
+
+void Game::stopPlayHand() {
+    handInProgress = false;
+}
+
 /**
  * Initiliaze the actual fucking hand! Finally!
  */
 void Game::playHand(sf::Event& event) {
     static bool handFinished = false;
-    static bool turnFinished = false;
-    static bool roundResetFinished = false;
     static int playersTurnIndex;
-    static int turn = 1;
 
-    // Check if the hand is finished
-    if (!handFinished) {
-        // Check if the turn is finished
-        if (!turnFinished) {
-            // Check if the round reset is finished
-            if (!roundResetFinished) {
-                // Reset round variables
+    while (handInProgress) {
+        {
+            lock_guard<mutex> lock(mtx);
+
+            // Check if the hand is finished
+            if (handFinished) {
+                std::cout << "Hand finished\n";
+                currentState = GameState::SHOWDOWN;
+                handInProgress = false;
+                continue;
+            }
+
+            // Reset round variables at the start of each turn
+            for (turn=1; turn<=4; turn++) {
+                calculateRoundPot();
                 currentMinBet = bigBlindBet;
                 hasOpened = false;
 
@@ -474,76 +502,53 @@ void Game::playHand(sf::Event& event) {
                 // Handle different rounds
                 switch (turn) {
                     case 1:
-                        cout << "\nPre-flop\n\n";
+                        std::cout << "\nPre-flop\n\n";
                         doBlindBets();
+                        calculateRoundPot();
                         playersTurnIndex = (bigBlind->index + 1) % players.size();
                         break;
                     case 2:
-                        cout << "\nNext round\n";
+                        std::cout << "\nNext round\n";
                         break;
                     case 3:
-                        cout << "\nFinal round\n";
+                        std::cout << "\nFinal round\n";
                         break;
                 }
-                roundResetFinished = true;
-            } else {
-                // Get the current player
-                Player& player = players[playersTurnIndex];
 
-                // Skip players who are out or all-in
-                while (!player.isIn || player.isAllIn) {
-                    playersTurnIndex = (playersTurnIndex + 1) % players.size();
-                    player = players[playersTurnIndex];  // Update the player reference
-                }
+                int startingIndex;
+                if (turn == 1) startingIndex = bigBlind->index % players.size();
+                else startingIndex = smallBlind->index % players.size();
+                cout << startingIndex << endl;
 
-                // Count players who are still betting or have folded
-                playersFolded = 0;
-                playersBetting = 0;
+                for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
+                    Player& player = players[i];
+                    if (!player.isIn || player.isAllIn) continue;
 
-                for (Player& p : players) {
-                    if (p.isIn && !p.isAllIn) {
-                        playersBetting += 1;
+                    playersFolded = 0;
+                    playersBetting = 0;
+
+                    for (Player& player : players) {
+                        if (player.isIn && !player.isAllIn) {
+                            playersBetting += 1;
+                        }
+                        if (!player.isIn) {
+                            playersFolded += 1;
+                        }
                     }
-                    if (!p.isIn) {
-                        playersFolded += 1;
-                    }
+                    getAction(player, event);
+                    calculateRoundPot();
                 }
-
-                // Get action from the current player
-                getAction(player, event);
-
-                // Move to the next player's turn
-                playersTurnIndex = (playersTurnIndex + 1) % players.size();
-
-                // Check if the turn is over
-                if (isTurnOver()) turnFinished = true;
+                calculatePot();
+                if (turn != 4) distributeCommunityCards();
             }
-        } else {
-            // Calculate pots and distribute community cards
-            calculateRoundPot();
-            calculatePot();
-            distributeCommunityCards();
-
-            // Move to the next turn or finish the hand
-            if (turn < 3) {
-                turn += 1;
-                turnFinished = false;
-                roundResetFinished = false;  // Reset the round reset flag for the next turn
-            } else {
-                handFinished = true;
-            }
+            handFinished = true;
         }
-    } else {
-        // Handle the end of the hand
-        cout << "Hand finished; work in progress\n";
-        currentState = GameState::SHOWDOWN;
     }
 }
 
 
-//    reset();
-//    if (isFinished) return;
-//
+
+
 //    // 3 betting rounds: pre-flop, turn, river
 //    for (turn=1; turn<=3; turn++) {
 //        currentMinBet = bigBlindBet;
@@ -570,31 +575,7 @@ void Game::playHand(sf::Event& event) {
 //                break;
 //        }
 //
-//        int startingIndex;
-//        if (turn == 1) startingIndex = (bigBlind->index + 1) % players.size();
-//        else startingIndex = smallBlind->index % players.size();
 //
-//        for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
-//            Player& player = players[i];
-//            if (!player.isIn || player.isAllIn) continue;
-//
-//            playersFolded = 0;
-//            playersBetting = 0;
-//
-//            for (Player& player : players) {
-//                if (player.isIn && !player.isAllIn) {
-//                    playersBetting += 1;
-//                }
-//                if (!player.isIn) {
-//                    playersFolded += 1;
-//                }
-//            }
-//            getAction(player);
-//        }
-//        calculateRoundPot();
-//        calculatePot();
-//        distributeCommunityCards();
-//    }
 //    showdown();
 
 /**
@@ -679,7 +660,7 @@ void Game::distributeCommunityCards() {
 }
 
 /*
- * Calculate the current rounds' pot
+ * Calculate the current rounds' roundPot
  */
 void Game::calculateRoundPot() {
     roundPot = 0;
@@ -689,7 +670,7 @@ void Game::calculateRoundPot() {
 }
 
 /*
- * Updates pot value at the end of the round, and sets all player current bets to 0
+ * Updates roundPot value at the end of the round, and sets all player current bets to 0
  */
 void Game::calculatePot() {
     for (Player& player : players) {
@@ -760,29 +741,29 @@ void Game::getAction(Player& player, sf::Event& event) {
                 betBox->handleEvent(*window, event);
                 int betAmount = betBox->retrieveTextAsInt();
 
-                validAction = player.bet(&currentMinBet, betAmount);
+                validAction = player.bet(&currentMinBet, betAmount, *report);
                 hasOpened = true;
             } else if (opt2->isClicked(*window, event)) { // Check
-                validAction = player.check();
+                validAction = player.check(*report);
             }
         } else {
             if (!player.hasRaised || isHeadsUp) {
                 if (opt1->isClicked(*window, event)) { // Raise
                     betBox->handleEvent(*window, event);
                     int desiredBet = betBox->retrieveTextAsInt();
-                    validAction = player.raise(&currentMinBet, desiredBet);
+                    validAction = player.raise(&currentMinBet, desiredBet, *report);
                 } else if (opt2->isClicked(*window, event)) { // Call
-                    validAction = player.call(&currentMinBet);
+                    validAction = player.call(&currentMinBet, *report);
                 }
             } else {
                 if (opt2->isClicked(*window, event)) { // Call
-                    validAction = player.call(&currentMinBet);
+                    validAction = player.call(&currentMinBet, *report);
                 }
             }
         }
 
         if (opt3->isClicked(*window, event)) { // Fold
-            validAction = player.fold();
+            validAction = player.fold(*report);
         }
     }
     player.hasMadeAction = true;
@@ -797,7 +778,10 @@ bool Game::isTurnOver() {
 
     for (Player& player : players) {
         if (player.isIn && !player.isAllIn) {
-            if (playersBetting == 1 && player.currentBet == currentMinBet) {
+            if (playersBetting == 1 && player.currentBet == currentMinBet && playersFolded != players.size() - 1){
+                skipToEnd = true;
+            }
+            if (playersBetting == 1 && playersFolded == players.size() - 1) {
                 skipToEnd = true;
             }
             if (player.currentBet != currentMinBet) {
@@ -821,7 +805,7 @@ bool Game::isTurnOver() {
 
 void Game::showdown() {
     cout << "\nShowdown\n\n";
-    cout << "The pot is worth a beefy $" << pot << "\n\n";
+    cout << "The roundPot is worth a beefy $" << pot << "\n\n";
 
     vector<int> bestScore = {0};
     vector<Card> bestHand;
@@ -866,11 +850,11 @@ void Game::showdown() {
 
     if (leadingPlayers.size() == 1) {
         cout << "We have one winner" << "\n";
-        leadingPlayers[0]->win(pot);
+        leadingPlayers[0]->win(pot, *report);
     } else {
-        cout << "The pot must be split" << "\n";
+        cout << "The roundPot must be split" << "\n";
         for (Player* winner : leadingPlayers) {
-            winner->win(pot/(leadingPlayers.size()));
+            winner->win(pot/(leadingPlayers.size()), *report);
         }
     }
 

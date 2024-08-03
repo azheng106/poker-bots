@@ -148,7 +148,7 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_vector.h \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_bvector.h \
  C:/Program\ Files/JetBrains/CLion\ 2024.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/vector.tcc \
- C:\CS\ Projects\poker-bots\game\Card.h \
+ C:/CS\ Projects/poker-bots/gui/Text.h \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Window.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/System.hpp \
@@ -252,6 +252,7 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.obj: \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Sprite.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/Text.hpp \
  C:/CSPROJ~1/POKER-~1/misc/CMAKE-~1/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp \
+ C:\CS\ Projects\poker-bots\game\Card.h \
  C:/CS\ Projects/poker-bots/gui/CardSprite.h \
  C:/CS\ Projects/poker-bots/gui/Misc.h \
  C:/CS\ Projects/poker-bots/gui/TextBox.h

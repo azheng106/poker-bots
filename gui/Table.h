@@ -28,7 +28,7 @@ public:
     // Game Objects
     vector<Player>& players;
     vector<Card>& communityCards;
-    int& pot;
+    int& roundPot;
 
     void addCommunityCards();
     void draw(sf::RenderWindow& window);
