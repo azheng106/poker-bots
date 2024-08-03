@@ -7,7 +7,8 @@ Game::Game() {
     initRender();
     initBasicUI();
     initSetupPlayersUI();
-    initTableTest();
+    initTable();
+    initActionMenu();
 }
 
 Game::~Game() {
@@ -58,7 +59,7 @@ void Game::initFont() {
 
 void Game::initBasicUI() {
     // Status Text label at the bottom, which is updated by updateStatusText() as the game progresses
-    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 96), *window));
+    statusText = new Text("status text", regularFont, 16, Misc::percentageToPixels(sf::Vector2f(50, 4), *window));
 
     // # of Players
     numPlayers = 6;
@@ -117,9 +118,35 @@ void Game::initSetupPlayersUI() {
                               sf::Color::Transparent, sf::Color::White);
 }
 
-void Game::initTableTest() {
+void Game::initTable() {
     // Players currently unused; will eventually help draw player seats
     table = new Table(sf::Vector2f(500, 350), Misc::percentageToPixels(sf::Vector2f(50, 45), *window), communityCards, players, pot);
+}
+
+void Game::initActionMenu() {
+    label1 = new sf::Text;
+    label1->setFillColor(sf::Color::White);
+    label1->setFont(regularFont);
+    label1->setCharacterSize(20);
+    label1->setString("Opt 1");
+
+    label2 = new sf::Text;
+    label2->setFillColor(sf::Color::White);
+    label2->setFont(regularFont);
+    label2->setCharacterSize(20);
+    label2->setString("Opt 2");
+
+    label3 = new sf::Text;
+    label3->setFillColor(sf::Color::White);
+    label3->setFont(regularFont);
+    label3->setCharacterSize(20);
+    label3->setString("Opt 3");
+
+    opt1 = new RecButton(Misc::percentageToPixels(sf::Vector2f(7, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label1);
+    opt2 = new RecButton(Misc::percentageToPixels(sf::Vector2f(17, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label2);
+    opt3 = new RecButton(Misc::percentageToPixels(sf::Vector2f(27, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label3);
+
+    betBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(45, 95), *window), Misc::percentageToPixels(sf::Vector2f(20, 6), *window), regularFont, 20, sf::Color::Transparent, sf::Color::White, true);
 }
 
 void Game::run() {
@@ -225,6 +252,12 @@ void Game::render() {
         case GameState::PLAY_HAND:
             table->draw(*window);
             table->drawPlayers(*window);
+
+            opt1->draw(*window);
+            opt2->draw(*window);
+            opt3->draw(*window);
+
+            betBox->draw(*window);
             break;
         case GameState::SHOWDOWN:
             break;
@@ -477,7 +510,7 @@ void Game::playHand(sf::Event& event) {
                 }
 
                 // Get action from the current player
-                getAction(player);
+                getAction(player, event);
 
                 // Move to the next player's turn
                 playersTurnIndex = (playersTurnIndex + 1) % players.size();
@@ -696,58 +729,60 @@ void Game::doBlindBets() {
 /*
  * Asks the player for what they will do
  */
-void Game::getAction(Player& player) {
+void Game::getAction(Player& player, sf::Event& event) {
     // Heads up implementation
     if (playersBetting == 2) {
         isHeadsUp = true;
-        cout << "Heads up" << "\n";
     }
 
-    string action;
     bool validAction = false;
 
     while (!validAction) {
-        cout << "\nPlayer " + player.name + "'s turn. You have $" << player.money << ". Your current bet is $"
-        << player.currentBet << ". Type one option: ";
+        opt1->button.setOutlineColor(sf::Color::White);
+        opt3->button.setOutlineColor(sf::Color::Red);
+        opt3->buttonText.setString("Fold");
 
         // No bet has been made yet
         if (!hasOpened) {
-            cout << "[Bet] [Check] [Fold]\n";
+            opt1->buttonText.setString("Bet");
+            opt2->buttonText.setString("Check");
         } else if (!player.hasRaised || isHeadsUp) {
-            cout << "[Raise] [Call ($" << currentMinBet << ")] [Fold]\n";
+            opt1->buttonText.setString("Raise");
+            opt2->buttonText.setString("Call");
         } else {
-            cout << "[Call ($" << currentMinBet << ")] [Fold]\n";
+            opt1->button.setOutlineColor(sf::Color::Red);
+            opt1->buttonText.setString("N/A");
+            opt2->buttonText.setString("Call");
         }
 
-        cin >> action;
-
         if (!hasOpened) {
-            if (action == "bet") {
-                validAction = player.bet(&currentMinBet);
+            if (opt1->isClicked(*window, event)) { // Bet
+                betBox->handleEvent(*window, event);
+                int betAmount = betBox->retrieveTextAsInt();
+
+                validAction = player.bet(&currentMinBet, betAmount);
                 hasOpened = true;
-            } else if (action == "check") {
+            } else if (opt2->isClicked(*window, event)) { // Check
                 validAction = player.check();
             }
         } else {
             if (!player.hasRaised || isHeadsUp) {
-                if (action == "raise") {
-                    validAction = player.raise(&currentMinBet);
-                } else if (action == "call") {
+                if (opt1->isClicked(*window, event)) { // Raise
+                    betBox->handleEvent(*window, event);
+                    int desiredBet = betBox->retrieveTextAsInt();
+                    validAction = player.raise(&currentMinBet, desiredBet);
+                } else if (opt2->isClicked(*window, event)) { // Call
                     validAction = player.call(&currentMinBet);
                 }
             } else {
-                if (action == "call") {
+                if (opt2->isClicked(*window, event)) { // Call
                     validAction = player.call(&currentMinBet);
                 }
             }
         }
 
-        if (action == "fold") {
+        if (opt3->isClicked(*window, event)) { // Fold
             validAction = player.fold();
-        }
-
-        if (!validAction) {
-            cout << "Invalid option.\n";
         }
     }
     player.hasMadeAction = true;

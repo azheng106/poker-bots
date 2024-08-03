@@ -35,7 +35,8 @@ private:
 
     void initBasicUI();
     void initSetupPlayersUI();
-    void initTableTest();
+    void initTable();
+    void initActionMenu();
 
     // Event Loop
     void processEvents();
@@ -57,7 +58,7 @@ private:
     void calculateRoundPot();
     void calculatePot();
     void doBlindBets();
-    void getAction(Player& player);
+    void getAction(Player& player, sf::Event& event);
     bool isTurnOver();
     void showdown();
     void reset();
@@ -126,6 +127,13 @@ private:
 
     // Play Hand UI
     Table* table;
+    sf::Text* label1;
+    sf::Text* label2;
+    sf::Text* label3;
+    RecButton* opt1;
+    RecButton* opt2;
+    RecButton* opt3;
+    TextBox* betBox;
 
     // Showdown UI
 

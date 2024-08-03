@@ -25,9 +25,9 @@ public:
     vector<int> bestScore;
     vector<Card> bestHand;
 
-    bool bet(int* currentMinBet);
+    bool bet(int* currentMinBet, int betAmount);
     bool check();
-    bool raise(int* currentMinBet);
+    bool raise(int* currentMinBet, int desiredBet);
     bool call(int* currentMinBet);
     bool fold();
     void win(int potAmount);

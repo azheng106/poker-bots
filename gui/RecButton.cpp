@@ -9,6 +9,7 @@
  */
 RecButton::RecButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color outlineColor, sf::Text text) {
         // Set up the button shape
+        button.setOrigin(size.x/2, size.y/2);
         button.setSize(size);
         button.setPosition(position);
 
@@ -28,12 +29,10 @@ RecButton::RecButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, 
         buttonText.setOrigin(textBounds.width / 2.f, textBounds.height / 2.f);
 
         // Calculate position
-        float centerX = position.x + size.x / 2.f;
-        float centerY = position.y + size.y / 2.f;
 
         // Adjust for baseline
         float baselineAdjustment = textBounds.top + textBounds.height;
-        buttonText.setPosition(centerX, centerY - baselineAdjustment / 3.5f);
+        buttonText.setPosition(position.x, position.y - baselineAdjustment / 3.5f);
 }
 
 /**
