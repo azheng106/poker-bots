@@ -31,7 +31,7 @@ Table::Table(sf::Vector2f size, sf::Vector2f position, vector<Card>& communityCa
     rightSemiCircle.setRotation(270);
 
     // Display total pot
-    totalPotDisplay = new Text("$" + to_string(pot), regularFont, 20, sf::Vector2f(position.x, position.y - (size.y / 4)), sf::Color::White);
+    totalPotDisplay = new Text("$" + to_string(pot), boldFont, 20, sf::Vector2f(position.x, position.y - (size.y / 4)), sf::Color::White);
 
     // Display roundPot
     roundPotDisplay = new Text("$" + to_string(roundPot), boldFont, 24, sf::Vector2f(position.x, position.y - (size.y / 8)), sf::Color::White);

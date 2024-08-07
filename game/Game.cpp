@@ -124,7 +124,7 @@ void Game::initTable() {
 }
 
 void Game::initActionMenu() {
-    report = new Text("Welcome to the table", regularFont, 24, Misc::percentageToPixels(sf::Vector2f(50, 85), *window), sf::Color::Blue);
+    report = new Text("Texas Hold'Em Poker", boldFont, 24, Misc::percentageToPixels(sf::Vector2f(50, 85), *window), sf::Color::Blue);
 
     label1 = new sf::Text;
     label1->setFillColor(sf::Color::White);
@@ -214,7 +214,7 @@ void Game::updateStatusText() {
             status = "setting up players (press enter to continue)";
             break;
         case GameState::SETUP_HAND:
-            // Ignore status; loading takes awhile, so there is a loading screen
+            // There is a loading screen
             break;
         case GameState::PLAY_HAND:
             status = "playing hand";
@@ -274,6 +274,8 @@ void Game::render() {
             betBox->draw(*window);
             break;
         case GameState::SHOWDOWN:
+            table->draw(*window);
+            table->drawPlayers(*window);
             break;
     }
     statusText->draw(*window);
@@ -314,6 +316,7 @@ void Game::basicSetup(sf::Event& event) {
         numPlayersBox->setString(to_string(numPlayers));
         numPlayersBox->textIsValid = true;
     }
+
     // Stash Selection
     stashTextBox->handleEvent(*window, event);
     if (stashTextBox->retrieveTextAsInt() >= 1 && stashTextBox->retrieveTextAsInt() <= 1000000) {
@@ -546,38 +549,6 @@ void Game::playHand(sf::Event& event) {
     }
 }
 
-
-
-
-//    // 3 betting rounds: pre-flop, turn, river
-//    for (turn=1; turn<=3; turn++) {
-//        currentMinBet = bigBlindBet;
-//        hasOpened = false;
-//
-//        // Reset players
-//        for (Player& player : players) {
-//            player.currentBet = 0;
-//            player.hasMadeAction = false;
-//            player.hasRaised = false;
-//            player.hasChecked = false;
-//        }
-//
-//        switch (turn) {
-//            case 1:
-//                cout << "\nPre-flop\n\n";
-//                doBlindBets();
-//                break;
-//            case 2:
-//                cout << "\nNext round\n";
-//                break;
-//            case 3:
-//                cout << "\nFinal round\n";
-//                break;
-//        }
-//
-//
-//    showdown();
-
 /**
  * Create a new deck of cards
  */
@@ -710,7 +681,7 @@ void Game::doBlindBets() {
 /*
  * Asks the player for what they will do
  */
-void Game::getAction(Player& player, sf::Event& event) {
+bool Game::getAction(Player& player, sf::Event& event) {
     // Heads up implementation
     if (playersBetting == 2) {
         isHeadsUp = true;
@@ -737,36 +708,40 @@ void Game::getAction(Player& player, sf::Event& event) {
         }
 
         if (!hasOpened) {
-            if (opt1->isClicked(*window, event)) { // Bet
+            // Bet
+            if (opt1->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)) {
                 betBox->handleEvent(*window, event);
                 int betAmount = betBox->retrieveTextAsInt();
 
                 validAction = player.bet(&currentMinBet, betAmount, *report);
                 hasOpened = true;
-            } else if (opt2->isClicked(*window, event)) { // Check
+
+            // Check
+            } else if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)) {
                 validAction = player.check(*report);
             }
         } else {
             if (!player.hasRaised || isHeadsUp) {
-                if (opt1->isClicked(*window, event)) { // Raise
+                if (opt1->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)) { // Raise
                     betBox->handleEvent(*window, event);
                     int desiredBet = betBox->retrieveTextAsInt();
                     validAction = player.raise(&currentMinBet, desiredBet, *report);
-                } else if (opt2->isClicked(*window, event)) { // Call
+                } else if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)) { // Call
                     validAction = player.call(&currentMinBet, *report);
                 }
             } else {
-                if (opt2->isClicked(*window, event)) { // Call
+                if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)) { // Call
                     validAction = player.call(&currentMinBet, *report);
                 }
             }
         }
 
-        if (opt3->isClicked(*window, event)) { // Fold
+        if (opt3->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num3)) { // Fold
             validAction = player.fold(*report);
         }
     }
     player.hasMadeAction = true;
+    return true;
 }
 
 /*

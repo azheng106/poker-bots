@@ -69,7 +69,7 @@ private:
     void calculateRoundPot();
     void calculatePot();
     void doBlindBets();
-    void getAction(Player& player, sf::Event& event);
+    bool getAction(Player& player, sf::Event& event);
     bool isTurnOver();
     void showdown();
     void reset();
