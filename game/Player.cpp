@@ -4,6 +4,7 @@ Player::Player(int index, int stash, string name) {
     this->index = index;
     this->name = name;
 
+    isMyTurn = false;
     isIn = true;
     money = stash;
     currentBet = 0;
@@ -24,7 +25,7 @@ bool Player::bet(int *currentMinBet, int betAmount, Text& report) {
         }
 
         // Ask to go all in if the player tries to bet more than their stash
-        if (betAmount > money) {
+        if (betAmount >= money) {
             isAllIn = true;
             break;
         }
@@ -36,6 +37,7 @@ bool Player::bet(int *currentMinBet, int betAmount, Text& report) {
     }
     if (isAllIn) {
         betAmount = money;
+        allInAmount = money;
     }
     if (!validAction) return validAction;
 
@@ -82,6 +84,7 @@ bool Player::raise(int *currentMinBet, int desiredBet, Text& report) {
     if (isAllIn) {
         raiseAmount = money;
         desiredBet = money + currentBet;
+        allInAmount = money;
     }
 
     if (desiredBet > *currentMinBet) *currentMinBet = desiredBet;
@@ -104,6 +107,7 @@ bool Player::call(int *currentMinBet, Text& report) {
 
     if (isAllIn) {
         callAmount = money;
+        allInAmount = money;
     }
 
     currentBet += callAmount;

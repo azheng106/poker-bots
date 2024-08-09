@@ -150,6 +150,12 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
     Text nameLabel(name, regularFont, 18, sf::Vector2f(posX, posY + (size.y / 5)));
     Text moneyLabel("\n$" + money, boldFont, 18, sf::Vector2f(posX, posY + (size.y / 12)));
 
+    // If it's the player's turn, make their name and money yellow
+    if (player.isMyTurn) {
+        nameLabel.text.setFillColor(sf::Color::Yellow);
+        moneyLabel.text.setFillColor(sf::Color::Yellow);
+    }
+
     // Draw player's hole cards
     Card& card1 = player.holeCards[0];
     Card& card2 = player.holeCards[1];
@@ -173,11 +179,12 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
     currentBetLabel.updateOrigin();
 
     // Allow for it to also display status, such as Check or All In
-    if (player.hasChecked) {
+    if (player.hasChecked && player.currentBet == 0) {
         currentBetLabel.text.setString("check");
         currentBetLabel.updateOrigin();
-    } else if (player.isAllIn) {
-        currentBetLabel.text.setString("all in, $" + to_string(player.currentBet));
+    }
+    if (player.isAllIn) {
+        currentBetLabel.text.setString("all in, $" + to_string(player.allInAmount));
         currentBetLabel.updateOrigin();
     }
 

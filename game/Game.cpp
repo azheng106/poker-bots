@@ -22,6 +22,8 @@ void Game::initVariables() {
     round = 0;
     option = 0;
     shuffleDeck();
+
+    showBetBox = false;
 }
 
 void Game::initWindow() {
@@ -130,19 +132,19 @@ void Game::initActionMenu() {
     label1 = new sf::Text;
     label1->setFillColor(sf::Color::White);
     label1->setFont(regularFont);
-    label1->setCharacterSize(20);
+    label1->setCharacterSize(16);
     label1->setString("Opt 1");
 
     label2 = new sf::Text;
     label2->setFillColor(sf::Color::White);
     label2->setFont(regularFont);
-    label2->setCharacterSize(20);
+    label2->setCharacterSize(16);
     label2->setString("Opt 2");
 
     label3 = new sf::Text;
     label3->setFillColor(sf::Color::White);
     label3->setFont(regularFont);
-    label3->setCharacterSize(20);
+    label3->setCharacterSize(16);
     label3->setString("Opt 3");
 
     opt1 = new RecButton(Misc::percentageToPixels(sf::Vector2f(7, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label1);
@@ -180,22 +182,9 @@ void Game::processEvents() {
                 break;
             case GameState::PLAY_HAND:
                 if (!handInProgress) {
-                    startPlayHand(event);
+                    startPlayHand();
                 }
-                betBox->handleEvent(*window, event);
-                betAmount = betBox->retrieveTextAsInt();
-
-                if (!betBox->isActive) {
-                    if (opt1->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)) {
-                        option = 1;
-                    }
-                    if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)) {
-                        option = 2;
-                    }
-                    if (opt3->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num3)) {
-                        option = 3;
-                    }
-                }
+                listenForOptionSelect(event);
                 break;
             case GameState::SHOWDOWN:
                 stopPlayHand();
@@ -286,7 +275,7 @@ void Game::render() {
             opt3->updateTextPosition();
             opt3->draw(*window);
 
-            betBox->draw(*window);
+            if (showBetBox) betBox->draw(*window);
             break;
         case GameState::SHOWDOWN:
             table->draw(*window);
@@ -469,9 +458,9 @@ void Game::setupHand(sf::Event& event) {
     }
 }
 
-void Game::startPlayHand(sf::Event &event) {
+void Game::startPlayHand() {
     handInProgress = true;
-    playHandThread = thread(&Game::playHand, this, ref(event));
+    playHandThread = thread(&Game::playHand, this);
 }
 
 void Game::stopPlayHand() {
@@ -479,9 +468,45 @@ void Game::stopPlayHand() {
 }
 
 /**
+ * Listen to option select event
+ */
+void Game::listenForOptionSelect(sf::Event& event) {
+    betBox->handleEvent(*window, event);
+
+    if (!betBox->isActive) {
+        if (opt1->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q)) {
+            if (opt1->buttonText.getString() == "Bet [Q]") {
+                showBetBox = true;
+                betBox->isActive = true;
+                betBox->setString(to_string(currentMinBet));
+            }
+            if (opt1->buttonText.getString() == "Raise [Q]") {
+                showBetBox = true;
+                betBox->isActive = true;
+                betBox->setString(to_string(2*currentMinBet));
+            }
+        }
+        if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)) {
+            option = 2;
+            showBetBox = false;
+        }
+        if (opt3->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::E)) {
+            option = 3;
+            showBetBox = false;
+        }
+    }
+
+    if (betBox->isActive && (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)) {
+        betBoxInput = betBox->retrieveTextAsInt();
+        betBox->isActive = false;
+        option = 1;
+    }
+}
+
+/**
  * Initiliaze the actual fucking hand! Finally!
  */
-void Game::playHand(sf::Event& event) {
+void Game::playHand() {
     static bool handFinished = false;
     static int playersTurnIndex;
 
@@ -536,6 +561,7 @@ void Game::playHand(sf::Event& event) {
 
                 for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
                     Player& player = players[i];
+
                     if (!player.isIn || player.isAllIn) continue;
 
                     playersFolded = 0;
@@ -549,7 +575,9 @@ void Game::playHand(sf::Event& event) {
                             playersFolded += 1;
                         }
                     }
+                    player.isMyTurn = true;
                     getAction(player);
+                    player.isMyTurn = false;
                     calculateRoundPot();
                 }
                 calculatePot();
@@ -702,27 +730,31 @@ bool Game::getAction(Player& player) {
 
     opt1->button.setOutlineColor(sf::Color::White);
     opt3->button.setOutlineColor(sf::Color::Red);
-    opt3->buttonText.setString("Fold");
+    opt3->buttonText.setString("Fold [E]");
 
     // No bet has been made yet
     if (!hasOpened) {
-        opt1->buttonText.setString("Bet");
-        opt2->buttonText.setString("Check");
+        opt1->buttonText.setString("Bet [Q]");
+        opt2->buttonText.setString("Check [W]");
     } else if (!player.hasRaised || isHeadsUp) {
-        opt1->buttonText.setString("Raise");
-        opt2->buttonText.setString("Call");
+        opt1->buttonText.setString("Raise [Q]");
+        opt2->buttonText.setString("Call [W]");
     } else {
         opt1->button.setOutlineColor(sf::Color::Red);
-        opt1->buttonText.setString("N/A");
-        opt2->buttonText.setString("Call");
+        opt1->buttonText.setString("Can't Raise");
+        opt2->buttonText.setString("Call [W]");
     }
 
     while (!validAction) {
         if (!hasOpened) {
             // Bet
             if (option == 1) {
-                validAction = player.bet(&currentMinBet, betAmount, *report);
-                if (validAction) hasOpened = true;
+                validAction = player.bet(&currentMinBet, betBoxInput, *report);
+                if (validAction) {
+                    hasOpened = true;
+                    betBox->setString("");
+                    showBetBox = false;
+                }
             // Check
             } else if (option == 2) {
                 validAction = player.check(*report);
@@ -730,7 +762,11 @@ bool Game::getAction(Player& player) {
         } else {
             if (!player.hasRaised || isHeadsUp) {
                 if (option == 1) { // Raise
-                    validAction = player.raise(&currentMinBet, betAmount, *report);
+                    validAction = player.raise(&currentMinBet, betBoxInput, *report);
+                    if (validAction) {
+                        betBox->setString("");
+                        showBetBox = false;
+                    }
                 } else if (option == 2) { // Call
                     validAction = player.call(&currentMinBet, *report);
                 }

@@ -12,11 +12,14 @@ class Player {
 public:
     Player(int index, int stash, string name);
 
+    bool isMyTurn;
+
     int index;
     string name;
     int money;
     bool isIn;
     bool isAllIn;
+    int allInAmount;
     bool hasMadeAction;
     bool hasRaised;
     bool hasChecked;
@@ -34,5 +37,4 @@ public:
     void win(int potAmount, Text& report);
 
     bool operator==(Player& other) const;
-
 };

@@ -52,7 +52,7 @@ private:
     mutex mtx;
     atomic<bool> handInProgress;
 
-    void startPlayHand(sf::Event& event);
+    void startPlayHand();
     void stopPlayHand();
 
     // Game Logic
@@ -60,7 +60,9 @@ private:
     void basicSetup(sf::Event& event);
     void setupPlayers(sf::Event& event);
     void setupHand(sf::Event& event);
-    void playHand(sf::Event& event);
+    void listenForOptionSelect(sf::Event& event);
+
+    void playHand();
 
     void shuffleDeck();
     void setupBlinds();
@@ -105,7 +107,7 @@ private:
     // Used to store player option choice from event listener
     int option;
     // Used to store bet amount from the text box
-    int betAmount;
+    int betBoxInput;
 
     // Cards
     vector<Card> deck;
@@ -151,6 +153,8 @@ private:
     RecButton* opt1;
     RecButton* opt2;
     RecButton* opt3;
+
+    bool showBetBox;
     TextBox* betBox;
 
     // Showdown UI
