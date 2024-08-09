@@ -4,7 +4,7 @@ Player::Player(int index, int stash, string name) {
     this->index = index;
     this->name = name;
 
-    isMyTurn = false;
+    highlight = false;
     isIn = true;
     money = stash;
     currentBet = 0;

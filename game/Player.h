@@ -12,7 +12,7 @@ class Player {
 public:
     Player(int index, int stash, string name);
 
-    bool isMyTurn;
+    bool highlight;
 
     int index;
     string name;

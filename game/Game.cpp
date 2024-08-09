@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() : handInProgress(false) {
+Game::Game() : handInProgress(false), showdownInProgress(false) {
     initVariables();
     initWindow();
     initFont();
@@ -21,7 +21,7 @@ void Game::initVariables() {
     pot = 0;
     round = 0;
     option = 0;
-    shuffleDeck();
+    initDeck();
 
     showBetBox = false;
 }
@@ -157,7 +157,6 @@ void Game::initActionMenu() {
 void Game::run() {
     while (window->isOpen()) {
         processEvents();
-        update();
         updateStatusText();
         render();
     }
@@ -168,7 +167,7 @@ void Game::processEvents() {
     while (window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window->close();
-            stopPlayHand();
+            if (handInProgress) stopPlayHand();
         }
         switch (currentState) {
             case GameState::BASIC_SETUP:
@@ -177,34 +176,20 @@ void Game::processEvents() {
             case GameState::SETUP_PLAYERS:
                 setupPlayers(event);
                 break;
+            case GameState::SETUP_CARD_SPRITES:
+                setupCardSprites();
+                break;
             case GameState::SETUP_HAND:
-                setupHand(event);
+                setupHand();
                 break;
             case GameState::PLAY_HAND:
-                if (!handInProgress) {
-                    startPlayHand();
-                }
+                if (!handInProgress) startPlayHand();
                 listenForOptionSelect(event);
                 break;
             case GameState::SHOWDOWN:
-                stopPlayHand();
+                if (!showdownInProgress) startShowdown();
                 break;
         }
-    }
-}
-
-void Game::update() {
-    switch (currentState) {
-        case GameState::BASIC_SETUP:
-            break;
-        case GameState::SETUP_PLAYERS:
-            break;
-        case GameState::SETUP_HAND:
-            break;
-        case GameState::PLAY_HAND:
-            break;
-        case GameState::SHOWDOWN:
-            break;
     }
 }
 
@@ -216,6 +201,9 @@ void Game::updateStatusText() {
             break;
         case GameState::SETUP_PLAYERS:
             status = "setting up players (press enter to continue)";
+            break;
+        case GameState::SETUP_CARD_SPRITES:
+            // There is a loading screen
             break;
         case GameState::SETUP_HAND:
             // There is a loading screen
@@ -255,10 +243,10 @@ void Game::render() {
             nameTextLabel->draw(*window);
             nameTextBox->draw(*window);
             break;
-        case GameState::SETUP_HAND: {
-            setupHandLoadingLabel->draw(*window);
+        case GameState::SETUP_CARD_SPRITES:
             break;
-        }
+        case GameState::SETUP_HAND:
+            break;
         case GameState::PLAY_HAND:
             table->draw(*window);
             table->drawPlayers(*window);
@@ -280,6 +268,9 @@ void Game::render() {
         case GameState::SHOWDOWN:
             table->draw(*window);
             table->drawPlayers(*window);
+
+            report->updateOrigin();
+            report->draw(*window);
             break;
     }
     statusText->draw(*window);
@@ -401,7 +392,7 @@ void Game::setupPlayers(sf::Event& event) {
 
     // Check if all players are processed
     if (currentPlayerIndex > numPlayers) {
-        currentState = GameState::SETUP_HAND;
+        currentState = GameState::SETUP_CARD_SPRITES;
         cout << "Players Setup Complete" << endl;
         for (Player& player : players) {
             cout << "\t" << player.index << ". " << player.name << "\n";
@@ -412,16 +403,46 @@ void Game::setupPlayers(sf::Event& event) {
 }
 
 /**
+ * Setup card sprites
+ */
+void Game::setupCardSprites() {
+    static bool setupComplete =false;
+
+    if (!setupComplete) {
+        window->clear(sf::Color(0, 0, 30));
+        loadingLabel = new Text("Generating sprites", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
+        loadingLabel->draw(*window);
+        window->display();
+
+        // Generate sprites for each card
+        for (Card& card : deck) {
+            card.generateSprite(boldFont, sf::Vector2f(0, 0), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
+        }
+        setupComplete = true;
+    }
+    if (setupComplete) {
+        currentState = GameState::SETUP_HAND;
+    }
+}
+
+/**
  * Set up the hand, i.e. setting up blinds, etc.
  */
-void Game::setupHand(sf::Event& event) {
+void Game::setupHand() {
+    resetDeck();
+
     static bool setupComplete = false;
 
     if (!setupComplete) {
         window->clear(sf::Color(0, 0, 30));
-        setupHandLoadingLabel = new Text("Preparing game", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
-        setupHandLoadingLabel->draw(*window);
+        loadingLabel = new Text("Preparing game", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
+        loadingLabel->draw(*window);
         window->display();
+
+        if (players.size() == 1) {
+            cout << "\nPlayer " << players[0].name << " wins the game!\n";
+            isFinished = true;
+        }
 
         pot = 0;
         isHeadsUp = false;
@@ -436,14 +457,7 @@ void Game::setupHand(sf::Event& event) {
             player.totalBet = 0;
         }
 
-        // Reset deck
-        shuffleDeck();
-
-        // Generate sprites for each card
-        for (Card& card : deck) {
-            card.generateSprite(boldFont, sf::Vector2f(0, 0), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
-        }
-
+        communityCards.clear();
         distributeHoleCards();
         setupBlinds();
 
@@ -507,8 +521,8 @@ void Game::listenForOptionSelect(sf::Event& event) {
  * Initiliaze the actual fucking hand! Finally!
  */
 void Game::playHand() {
-    static bool handFinished = false;
-    static int playersTurnIndex;
+    bool handFinished = false;
+    int playersTurnIndex;
 
     while (handInProgress) {
         {
@@ -518,7 +532,7 @@ void Game::playHand() {
             if (handFinished) {
                 std::cout << "Hand finished\n";
                 currentState = GameState::SHOWDOWN;
-                handInProgress = false;
+                stopPlayHand();
                 continue;
             }
 
@@ -575,9 +589,9 @@ void Game::playHand() {
                             playersFolded += 1;
                         }
                     }
-                    player.isMyTurn = true;
+                    player.highlight = true;
                     getAction(player);
-                    player.isMyTurn = false;
+                    player.highlight = false;
                     calculateRoundPot();
                 }
                 calculatePot();
@@ -591,7 +605,7 @@ void Game::playHand() {
 /**
  * Create a new deck of cards
  */
-void Game::shuffleDeck() {
+void Game::initDeck() {
     deck.clear();
     char suits[4] = {'c', 'd', 'h', 's'};
     // 11=J, 12=Q, 13=K, 14=A
@@ -601,6 +615,16 @@ void Game::shuffleDeck() {
             deck.push_back(card);
         }
     }
+}
+
+/**
+ * Reset deck for next hand
+ */
+void Game::resetDeck() {
+    deck.insert(deck.end(), usedCards.begin(), usedCards.end());
+    usedCards.clear();
+
+    cout << "Deck reset. Size still " << deck.size() << "\n";
 }
 
 /**
@@ -624,15 +648,12 @@ void Game::setupBlinds() {
  * Distributes 2 cards to each player
  */
 void Game::distributeHoleCards() {
-    if (deck.empty()) {
-        shuffleDeck();
-    }
-
     for (Player& player : players) {
         player.holeCards.clear();
         for (int i = 0; i < 2; i++) {
             int drawnCardIndex = randomInt(0, deck.size() - 1);
             Card drawnCard = deck[drawnCardIndex];
+            usedCards.push_back(drawnCard);
             deck.erase(deck.begin() + drawnCardIndex);
             player.holeCards.push_back(drawnCard);
         }
@@ -648,18 +669,21 @@ void Game::distributeHoleCards() {
  * Distributes community cards to the flop
  */
 void Game::distributeCommunityCards() {
-    int burnCard = Game::randomInt(0, deck.size()-1);
-    deck.erase(deck.begin() + burnCard);
+    int burnCardIndex = Game::randomInt(0, deck.size() - 1);
+    usedCards.push_back(deck[burnCardIndex]);
+    deck.erase(deck.begin() + burnCardIndex);
     cout << "\nBurn card discarded\n";
     if (communityCards.empty()) {
         for (int i=0; i<3; i++) {
             int drawnCardIndex = Game::randomInt(0, deck.size()-1);
             communityCards.push_back(deck[drawnCardIndex]);
+            usedCards.push_back(deck[drawnCardIndex]);
             deck.erase(deck.begin() + drawnCardIndex);
         }
     } else if (communityCards.size() < 5)  {
         int drawnCardIndex = Game::randomInt(0, deck.size()-1);
         communityCards.push_back(deck[drawnCardIndex]);
+        usedCards.push_back(deck[drawnCardIndex]);
         deck.erase(deck.begin() + drawnCardIndex);
     }
 
@@ -820,91 +844,104 @@ bool Game::isTurnOver() {
     return isTurnOver;
 }
 
-void Game::showdown() {
-    cout << "\nShowdown\n\n";
-    cout << "The roundPot is worth a beefy $" << pot << "\n\n";
-
-    vector<int> bestScore = {0};
-    vector<Card> bestHand;
-    vector<Player*> leadingPlayers;
-
-    for (Player& player : players) {
-        if (player.isIn) {
-            cout << "Player " << player.name << " has bet $" << player.totalBet << "\n";
-
-            player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
-            player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
-
-            // Debug usage
-            cout << "Score: {";
-            for (int i: player.bestScore) {
-                cout << i << ",";
-            }
-            cout << "}\n";
-
-            if (CardUtil::compareScores(player.bestScore, bestScore)) {
-                bestScore = player.bestScore;
-                leadingPlayers.clear();
-                leadingPlayers.push_back(&player);
-            } else if (player.bestScore == bestScore) {
-                leadingPlayers.push_back(&player);
-            }
-        }
-    }
-
-    for (Player& player : players) {
-        if (player.isIn) {
-            cout << "\n";
-            cout << "Player " << player.name << "'s best hand is a " <<
-            CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
-            for (Card card: player.bestHand) {
-                cout << card << "\n";
-            }
-        }
-    }
-
-    cout << "\n";
-
-    if (leadingPlayers.size() == 1) {
-        cout << "We have one winner" << "\n";
-        leadingPlayers[0]->win(pot, *report);
-    } else {
-        cout << "The roundPot must be split" << "\n";
-        for (Player* winner : leadingPlayers) {
-            winner->win(pot/(leadingPlayers.size()), *report);
-        }
-    }
-
-    for (int i=0; i<players.size(); i++) {
-        if (players[i].money == 0) {
-            cout << "\nPlayer " << players[i].name << " has gone bankrupt.\n";
-            players.erase(players.begin()+i);
-            i--;
-        }
-    }
+void Game::startShowdown() {
+    showdownInProgress = true;
+    showdownThread = thread(&Game::showdown, this);
 }
 
-/*
- * Prepare for a hand
- */
-void Game::reset() {
-    if (players.size() == 1) {
-        cout << "\nPlayer " << players[0].name << " wins the game!\n";
-        isFinished = true;
-    } else {
-        pot = 0;
-        isHeadsUp = false;
-        // Reset players
-        for (Player& player : players) {
-            player.isIn = true;
-            player.isAllIn = false;
-            player.totalBet = 0;
+void Game::stopShowdown() {
+    showdownInProgress = false;
+}
+
+void Game::showdown() {
+    bool showdownFinished = false;
+
+    while (showdownInProgress) {
+        lock_guard<mutex> lock(mtx);
+
+        if (showdownFinished) {
+            continue;
         }
-        round += 1;
-        communityCards.clear();
 
-        cout << "\nSetup complete\n";
+        report->text.setFillColor(sf::Color::Yellow);
 
-        setupBlinds();
+        report->text.setString("Showdown");
+        this_thread::sleep_for(chrono::seconds(2));
+
+        report->text.setString("The pot is worth a beefy $" + to_string(pot));
+        this_thread::sleep_for(chrono::seconds(2));
+
+        vector<int> bestScore = {0};
+        vector<Card> bestHand;
+        vector<Player*> leadingPlayers;
+
+        for (Player& player : players) {
+            if (player.isIn) {
+                report->text.setString("Player " + player.name + " has bet $" + to_string(player.totalBet));
+                this_thread::sleep_for(chrono::seconds(1));
+
+                player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
+                player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
+
+                // Debug usage
+                cout << "Score: {";
+                for (int i: player.bestScore) {
+                    cout << i << ",";
+                }
+                cout << "}\n";
+
+                if (CardUtil::compareScores(player.bestScore, bestScore)) {
+                    bestScore = player.bestScore;
+                    leadingPlayers.clear();
+                    leadingPlayers.push_back(&player);
+                } else if (player.bestScore == bestScore) {
+                    leadingPlayers.push_back(&player);
+                }
+            }
+        }
+
+        for (Player& player : players) {
+            if (player.isIn) {
+                cout << "\n";
+                cout << "Player " << player.name << "'s best hand is a " <<
+                     CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
+
+                report->text.setString("Player " + player.name + "'s best hand is a " + CardUtil::deduceHandType(player.bestScore));
+                this_thread::sleep_for(chrono::seconds(1));
+
+                for (Card card: player.bestHand) {
+                    // Skip
+                }
+            }
+        }
+
+        if (leadingPlayers.size() == 1) {
+            leadingPlayers[0]->highlight = true;
+            report->text.setString("We have one winner, " + leadingPlayers[0]->name);
+            this_thread::sleep_for(chrono::seconds(2));
+
+            leadingPlayers[0]->win(pot, *report);
+        } else {
+            for (Player* player : leadingPlayers) {
+                player->highlight = true;
+            }
+            report->text.setString("We have multiple winners");
+            this_thread::sleep_for(chrono::seconds(2));
+
+            for (Player* winner : leadingPlayers) {
+                winner->win(pot/(leadingPlayers.size()), *report);
+                this_thread::sleep_for(chrono::seconds(1));
+            }
+        }
+
+        for (int i=0; i<players.size(); i++) {
+            if (players[i].money == 0) {
+                report->text.setString("Player " + players[i].name + " has gone backrupt");
+                this_thread::sleep_for(chrono::seconds(2));
+                players.erase(players.begin()+i);
+                i--;
+            }
+        }
+        showdownFinished = true;
     }
 }

@@ -151,7 +151,7 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
     Text moneyLabel("\n$" + money, boldFont, 18, sf::Vector2f(posX, posY + (size.y / 12)));
 
     // If it's the player's turn, make their name and money yellow
-    if (player.isMyTurn) {
+    if (player.highlight) {
         nameLabel.text.setFillColor(sf::Color::Yellow);
         moneyLabel.text.setFillColor(sf::Color::Yellow);
     }

@@ -43,7 +43,6 @@ private:
 
     // Event Loop
     void processEvents();
-    void update();
     void updateStatusText();
     void render();
 
@@ -55,16 +54,24 @@ private:
     void startPlayHand();
     void stopPlayHand();
 
+    // Threading For Showdown
+    thread showdownThread;
+    atomic<bool> showdownInProgress;
+
+    void startShowdown();
+    void stopShowdown();
+
     // Game Logic
     static int randomInt(int a, int b);
     void basicSetup(sf::Event& event);
     void setupPlayers(sf::Event& event);
-    void setupHand(sf::Event& event);
+    void setupCardSprites();
+    void setupHand();
     void listenForOptionSelect(sf::Event& event);
-
     void playHand();
 
-    void shuffleDeck();
+    void initDeck();
+    void resetDeck();
     void setupBlinds();
     void distributeHoleCards();
     void distributeCommunityCards();
@@ -77,7 +84,7 @@ private:
     void reset();
 
     // Game Variables
-    enum GameState { BASIC_SETUP, SETUP_PLAYERS, SETUP_HAND, PLAY_HAND, SHOWDOWN };
+    enum GameState { BASIC_SETUP, SETUP_PLAYERS, SETUP_CARD_SPRITES, SETUP_HAND, PLAY_HAND, SHOWDOWN };
     GameState currentState;
 
     // Basic Setup
@@ -111,6 +118,7 @@ private:
 
     // Cards
     vector<Card> deck;
+    vector<Card> usedCards;
     vector<Card> communityCards;
 
     // Global UI Elements
@@ -142,7 +150,7 @@ private:
     TextBox* nameTextBox;
 
     // Setup Hand UI
-    Text* setupHandLoadingLabel;
+    Text* loadingLabel;
 
     // Play Hand UI
     Text* report;
