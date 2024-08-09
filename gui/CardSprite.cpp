@@ -1,11 +1,21 @@
 #include "CardSprite.h"
 
-CardSprite::CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size) : size(size), fancyFont(textFont) {
+CardSprite::CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size, bool useTwoColor) : size(size), fancyFont(textFont) {
     cardValue = to_string(value);
     cardSuit = suit;
 
     // Load card background texture
-    string cardBackgroundFile = string(BASE_PATH) + "img/" + cardSuit + ".png";
+    string cardBackgroundFile;
+
+    if (useTwoColor) {
+        if (cardSuit == 'c' || cardSuit == 'd') cardBackgroundFile = string(BASE_PATH) + "img/2" + cardSuit + ".png";
+        else cardBackgroundFile = string(BASE_PATH) + "img/" + cardSuit + ".png";
+    } else {
+        cardBackgroundFile = string(BASE_PATH) + "img/" + cardSuit + ".png";
+    }
+    backgroundTexture.loadFromFile(cardBackgroundFile);
+    backgroundSprite.setTexture(backgroundTexture);
+
     if (!backgroundTexture.loadFromFile(cardBackgroundFile)) {
         std::cout << "Failed to load card background texture\n";
     }

@@ -69,7 +69,7 @@ private:
     void calculateRoundPot();
     void calculatePot();
     void doBlindBets();
-    bool getAction(Player& player, sf::Event& event);
+    bool getAction(Player& player);
     bool isTurnOver();
     void showdown();
     void reset();
@@ -101,6 +101,11 @@ private:
     Player* smallBlind;
     Player* bigBlind;
     vector<Player> players;
+
+    // Used to store player option choice from event listener
+    int option;
+    // Used to store bet amount from the text box
+    int betAmount;
 
     // Cards
     vector<Card> deck;

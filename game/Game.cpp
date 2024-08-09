@@ -20,6 +20,7 @@ void Game::initVariables() {
     isFinished = false;
     pot = 0;
     round = 0;
+    option = 0;
     shuffleDeck();
 }
 
@@ -180,6 +181,20 @@ void Game::processEvents() {
             case GameState::PLAY_HAND:
                 if (!handInProgress) {
                     startPlayHand(event);
+                }
+                betBox->handleEvent(*window, event);
+                betAmount = betBox->retrieveTextAsInt();
+
+                if (!betBox->isActive) {
+                    if (opt1->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)) {
+                        option = 1;
+                    }
+                    if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)) {
+                        option = 2;
+                    }
+                    if (opt3->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num3)) {
+                        option = 3;
+                    }
                 }
                 break;
             case GameState::SHOWDOWN:
@@ -448,11 +463,8 @@ void Game::setupHand(sf::Event& event) {
         cout << "\nSetup complete\n";
 
         setupComplete = true;
-    } else {
-        setupHandLoadingLabel = new Text("Press Enter to Start", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
     }
-
-    if (setupComplete && event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+    if (setupComplete) {
         currentState = GameState::PLAY_HAND;
     }
 }
@@ -521,7 +533,6 @@ void Game::playHand(sf::Event& event) {
                 int startingIndex;
                 if (turn == 1) startingIndex = bigBlind->index % players.size();
                 else startingIndex = smallBlind->index % players.size();
-                cout << startingIndex << endl;
 
                 for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
                     Player& player = players[i];
@@ -538,7 +549,7 @@ void Game::playHand(sf::Event& event) {
                             playersFolded += 1;
                         }
                     }
-                    getAction(player, event);
+                    getAction(player);
                     calculateRoundPot();
                 }
                 calculatePot();
@@ -681,7 +692,7 @@ void Game::doBlindBets() {
 /*
  * Asks the player for what they will do
  */
-bool Game::getAction(Player& player, sf::Event& event) {
+bool Game::getAction(Player& player) {
     // Heads up implementation
     if (playersBetting == 2) {
         isHeadsUp = true;
@@ -689,58 +700,53 @@ bool Game::getAction(Player& player, sf::Event& event) {
 
     bool validAction = false;
 
+    opt1->button.setOutlineColor(sf::Color::White);
+    opt3->button.setOutlineColor(sf::Color::Red);
+    opt3->buttonText.setString("Fold");
+
+    // No bet has been made yet
+    if (!hasOpened) {
+        opt1->buttonText.setString("Bet");
+        opt2->buttonText.setString("Check");
+    } else if (!player.hasRaised || isHeadsUp) {
+        opt1->buttonText.setString("Raise");
+        opt2->buttonText.setString("Call");
+    } else {
+        opt1->button.setOutlineColor(sf::Color::Red);
+        opt1->buttonText.setString("N/A");
+        opt2->buttonText.setString("Call");
+    }
+
     while (!validAction) {
-        opt1->button.setOutlineColor(sf::Color::White);
-        opt3->button.setOutlineColor(sf::Color::Red);
-        opt3->buttonText.setString("Fold");
-
-        // No bet has been made yet
-        if (!hasOpened) {
-            opt1->buttonText.setString("Bet");
-            opt2->buttonText.setString("Check");
-        } else if (!player.hasRaised || isHeadsUp) {
-            opt1->buttonText.setString("Raise");
-            opt2->buttonText.setString("Call");
-        } else {
-            opt1->button.setOutlineColor(sf::Color::Red);
-            opt1->buttonText.setString("N/A");
-            opt2->buttonText.setString("Call");
-        }
-
         if (!hasOpened) {
             // Bet
-            if (opt1->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)) {
-                betBox->handleEvent(*window, event);
-                int betAmount = betBox->retrieveTextAsInt();
-
+            if (option == 1) {
                 validAction = player.bet(&currentMinBet, betAmount, *report);
-                hasOpened = true;
-
+                if (validAction) hasOpened = true;
             // Check
-            } else if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)) {
+            } else if (option == 2) {
                 validAction = player.check(*report);
             }
         } else {
             if (!player.hasRaised || isHeadsUp) {
-                if (opt1->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)) { // Raise
-                    betBox->handleEvent(*window, event);
-                    int desiredBet = betBox->retrieveTextAsInt();
-                    validAction = player.raise(&currentMinBet, desiredBet, *report);
-                } else if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)) { // Call
+                if (option == 1) { // Raise
+                    validAction = player.raise(&currentMinBet, betAmount, *report);
+                } else if (option == 2) { // Call
                     validAction = player.call(&currentMinBet, *report);
                 }
             } else {
-                if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)) { // Call
+                if (option == 2) { // Call
                     validAction = player.call(&currentMinBet, *report);
                 }
             }
         }
 
-        if (opt3->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num3)) { // Fold
+        if (option == 3) { // Fold
             validAction = player.fold(*report);
         }
     }
     player.hasMadeAction = true;
+    option = 0;
     return true;
 }
 
