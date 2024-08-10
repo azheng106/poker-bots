@@ -7,13 +7,13 @@ using namespace std;
 
 class CardSprite {
 public:
-    CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size, bool useTwoColor=false);
+    CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size, bool useTwoColor=false, bool highlight=false);
     void setPosition(sf::Vector2f position);
     void setSize(sf::Vector2f size);
     void draw(sf::RenderWindow& window);
     void updateCard();
 
-    bool useTwoColor;
+    bool highlight;
 
     sf::Vector2f size;
     sf::Texture backgroundTexture;

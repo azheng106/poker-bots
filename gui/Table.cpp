@@ -150,12 +150,6 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
     Text nameLabel(name, regularFont, 18, sf::Vector2f(posX, posY + (size.y / 5)));
     Text moneyLabel("\n$" + money, boldFont, 18, sf::Vector2f(posX, posY + (size.y / 12)));
 
-    // Highlight if it's the player's turn
-    if (player.highlight) {
-        nameLabel.text.setFillColor(player.highlightColor);
-        moneyLabel.text.setFillColor(player.highlightColor);
-    }
-
     // Draw player's hole cards
     Card& card1 = player.holeCards[0];
     Card& card2 = player.holeCards[1];
@@ -178,6 +172,8 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
     Text currentBetLabel("$" + to_string(player.currentBet), boldFont, 18, sf::Vector2f(posX, posY), sf::Color::White);
     currentBetLabel.updateOrigin();
 
+    if (!player.currentBet) currentBetLabel.text.setString("");
+
     // Allow for it to also display status, such as Check or All In
     if (player.hasChecked && player.currentBet == 0) {
         currentBetLabel.text.setString("check");
@@ -198,14 +194,26 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
         currentBetLabel.text.setPosition(sf::Vector2f(posX + (size.x / 4), posY));
     }
 
+    // Highlight elements if it's the player's turn
+    if (player.highlight) {
+        card1.sprite->highlight = true;
+        card2.sprite->highlight = true;
+
+        nameLabel.text.setFillColor(player.highlightColor);
+        moneyLabel.text.setFillColor(player.highlightColor);
+    }
+
     // Only draw the cards if the player hasn't folded
     if (player.isIn) {
+        currentBetLabel.draw(window);
+
         card1.sprite->draw(window);
         card2.sprite->draw(window);
+    } else {
+        nameLabel.text.setFillColor(sf::Color(100, 100, 100));
+        moneyLabel.text.setFillColor(sf::Color(100, 100, 100));
     }
 
     nameLabel.draw(window);
     moneyLabel.draw(window);
-
-    currentBetLabel.draw(window);
 }

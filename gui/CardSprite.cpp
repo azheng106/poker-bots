@@ -1,6 +1,6 @@
 #include "CardSprite.h"
 
-CardSprite::CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size, bool useTwoColor) : size(size), fancyFont(textFont) {
+CardSprite::CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f position, sf::Vector2f size, bool useTwoColor, bool highlight) : size(size), fancyFont(textFont), highlight(highlight) {
     cardValue = to_string(value);
     cardSuit = suit;
 
@@ -28,7 +28,6 @@ CardSprite::CardSprite(int value, char suit, sf::Font& textFont, sf::Vector2f po
     backgroundSprite.setOrigin(backgroundTexture.getSize().x / 2, backgroundTexture.getSize().y / 2);
 
     cardText.setFont(fancyFont);
-    cardText.setCharacterSize(size.x / 2.5);
     cardText.setFillColor(sf::Color::White);
 
     updateCard();

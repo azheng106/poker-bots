@@ -155,7 +155,7 @@ private:
     Text* loadingLabel;
 
     // Setup Hand UI
-    // Nothing required
+    bool setupHandComplete;
 
     // Play Hand UI
     Text* report;

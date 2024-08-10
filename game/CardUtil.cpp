@@ -335,24 +335,50 @@ vector<Card> CardUtil::findBestHand(vector<Card> communityCards, vector<Card> ho
  * Translates numerical value of hand (1-9) to the actual name of the hand
  */
 string CardUtil::deduceHandType(vector<int> score) {
+    vector<string> scoreString;
+
+    for (int i : score) {
+        if (i < 11) {
+            scoreString.push_back(to_string(i));
+        } else {
+            switch (i) {
+                case 11:
+                    scoreString.emplace_back("J");
+                    break;
+                case 12:
+                    scoreString.emplace_back("Q");
+                    break;
+                case 13:
+                    scoreString.emplace_back("K");
+                    break;
+                case 14:
+                    scoreString.emplace_back("A");
+                    break;
+                default:
+                    cout << "What the sigma? Not possible!\n";
+                    break;
+            }
+        }
+    }
+
     switch (score[0]) {
         case 1:
-            return "high card";
+            return "high card (" + scoreString[1] + ")";
         case 2:
-            return "one pair";
+            return "one pair (" + scoreString[1] + ")";
         case 3:
-            return "two pair";
+            return "two pair (" + scoreString[1] + ", " + scoreString[2] + ")";
         case 4:
-            return "three of a kind";
+            return "three of a kind (" + scoreString[1] + ")";
         case 5:
-            return "straight";
+            return "straight (" + to_string(score[1] - 4) + "->" + scoreString[1] + ")";
         case 6:
-            return "flush";
+            return "flush (" + scoreString[1] + ")";
         case 7:
-            return "full house";
+            return "full house (" + scoreString[1] + scoreString[2] + ")";
         case 8:
-            return "four of a kind";
+            return "four of a kind (" + scoreString[1] + ")";
         case 9:
-            return "straight flush";
+            return "straight flush (" + to_string(score[1] - 4) + "->" + scoreString[1] + ")";
     }
 }
