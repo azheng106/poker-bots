@@ -5,8 +5,8 @@ Card::Card(int value, char suit){
     this->suit = suit;
 }
 
-void Card::generateSprite(sf::Font& font, sf::Vector2f position, sf::Vector2f size) {
-    sprite = new CardSprite(value, suit, font, position, size);
+void Card::generateSprite(sf::Font& font, sf::Vector2f position, sf::Vector2f size, bool useTwoColor) {
+    sprite = new CardSprite(value, suit, font, position, size, useTwoColor);
 }
 
 ostream& operator<<(ostream& os, Card& card) {

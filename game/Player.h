@@ -13,6 +13,7 @@ public:
     Player(int index, int stash, string name);
 
     bool highlight;
+    sf::Color highlightColor;
 
     int index;
     string name;

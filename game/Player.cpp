@@ -5,6 +5,7 @@ Player::Player(int index, int stash, string name) {
     this->name = name;
 
     highlight = false;
+    highlightColor = sf::Color::Yellow;
     isIn = true;
     money = stash;
     currentBet = 0;

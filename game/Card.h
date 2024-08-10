@@ -15,11 +15,9 @@ public:
     int value;
     char suit;
 
-    bool isUsed;
-
     CardSprite* sprite;
 
-    void generateSprite(sf::Font& font, sf::Vector2f position, sf::Vector2f size);
+    void generateSprite(sf::Font& font, sf::Vector2f position, sf::Vector2f size, bool useTwoColor=false);
 
     friend ostream& operator<<(ostream& os, Card& card);
 };

@@ -81,11 +81,13 @@ private:
     bool getAction(Player& player);
     bool isTurnOver();
     void showdown();
-    void reset();
 
     // Game Variables
     enum GameState { BASIC_SETUP, SETUP_PLAYERS, SETUP_CARD_SPRITES, SETUP_HAND, PLAY_HAND, SHOWDOWN };
     GameState currentState;
+
+    // Black and Red Cards Only
+    bool useTwoColor;
 
     // Basic Setup
     int numPlayers;
@@ -149,8 +151,11 @@ private:
     Text* nameTextLabel;
     TextBox* nameTextBox;
 
-    // Setup Hand UI
+    // Setup Sprite UI
     Text* loadingLabel;
+
+    // Setup Hand UI
+    // Nothing required
 
     // Play Hand UI
     Text* report;

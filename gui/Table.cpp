@@ -150,10 +150,10 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
     Text nameLabel(name, regularFont, 18, sf::Vector2f(posX, posY + (size.y / 5)));
     Text moneyLabel("\n$" + money, boldFont, 18, sf::Vector2f(posX, posY + (size.y / 12)));
 
-    // If it's the player's turn, make their name and money yellow
+    // Highlight if it's the player's turn
     if (player.highlight) {
-        nameLabel.text.setFillColor(sf::Color::Yellow);
-        moneyLabel.text.setFillColor(sf::Color::Yellow);
+        nameLabel.text.setFillColor(player.highlightColor);
+        moneyLabel.text.setFillColor(player.highlightColor);
     }
 
     // Draw player's hole cards
@@ -175,7 +175,7 @@ void Table::drawPlayer(sf::RenderWindow& window, Player& player, float posX, flo
     }
 
     // Draw player bet based on direction it should be displayed, assumes down direction is already inverted
-    Text currentBetLabel("$" + to_string(player.currentBet), boldFont, 18, sf::Vector2f(posX, posY));
+    Text currentBetLabel("$" + to_string(player.currentBet), boldFont, 18, sf::Vector2f(posX, posY), sf::Color::White);
     currentBetLabel.updateOrigin();
 
     // Allow for it to also display status, such as Check or All In

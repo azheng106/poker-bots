@@ -5,6 +5,7 @@ Game::Game() : handInProgress(false), showdownInProgress(false) {
     initWindow();
     initFont();
     initRender();
+    initDeck();
     initBasicUI();
     initSetupPlayersUI();
     initTable();
@@ -21,9 +22,10 @@ void Game::initVariables() {
     pot = 0;
     round = 0;
     option = 0;
-    initDeck();
-
     showBetBox = false;
+
+    // Use Black and Red Cards Only
+    useTwoColor = false;
 }
 
 void Game::initWindow() {
@@ -133,23 +135,23 @@ void Game::initActionMenu() {
     label1->setFillColor(sf::Color::White);
     label1->setFont(regularFont);
     label1->setCharacterSize(16);
-    label1->setString("Opt 1");
+    label1->setString("Raise [Q]");
 
     label2 = new sf::Text;
     label2->setFillColor(sf::Color::White);
     label2->setFont(regularFont);
     label2->setCharacterSize(16);
-    label2->setString("Opt 2");
+    label2->setString("Call [W]");
 
     label3 = new sf::Text;
     label3->setFillColor(sf::Color::White);
     label3->setFont(regularFont);
     label3->setCharacterSize(16);
-    label3->setString("Opt 3");
+    label3->setString("Fold [E]");
 
     opt1 = new RecButton(Misc::percentageToPixels(sf::Vector2f(7, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label1);
     opt2 = new RecButton(Misc::percentageToPixels(sf::Vector2f(17, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label2);
-    opt3 = new RecButton(Misc::percentageToPixels(sf::Vector2f(27, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label3);
+    opt3 = new RecButton(Misc::percentageToPixels(sf::Vector2f(27, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::Red, *label3);
 
     betBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(45, 95), *window), Misc::percentageToPixels(sf::Vector2f(20, 6), *window), regularFont, 20, sf::Color::Transparent, sf::Color::White, true);
 }
@@ -416,7 +418,7 @@ void Game::setupCardSprites() {
 
         // Generate sprites for each card
         for (Card& card : deck) {
-            card.generateSprite(boldFont, sf::Vector2f(0, 0), sf::Vector2f(75, 90)); // Keep x : y ratio to 5 : 6
+            card.generateSprite(boldFont, sf::Vector2f(0, 0), sf::Vector2f(75, 90), useTwoColor); // Keep x : y ratio to 5 : 6
         }
         setupComplete = true;
     }
@@ -429,11 +431,11 @@ void Game::setupCardSprites() {
  * Set up the hand, i.e. setting up blinds, etc.
  */
 void Game::setupHand() {
-    resetDeck();
-
     static bool setupComplete = false;
 
     if (!setupComplete) {
+        resetDeck();
+
         window->clear(sf::Color(0, 0, 30));
         loadingLabel = new Text("Preparing game", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
         loadingLabel->draw(*window);
@@ -444,6 +446,7 @@ void Game::setupHand() {
             isFinished = true;
         }
 
+        roundPot = 0;
         pot = 0;
         isHeadsUp = false;
 
@@ -463,9 +466,8 @@ void Game::setupHand() {
 
         round += 1;
 
-        cout << "\nSetup complete\n";
-
         setupComplete = true;
+        cout << "Setup complete\n";
     }
     if (setupComplete) {
         currentState = GameState::PLAY_HAND;
@@ -521,84 +523,76 @@ void Game::listenForOptionSelect(sf::Event& event) {
  * Initiliaze the actual fucking hand! Finally!
  */
 void Game::playHand() {
-    bool handFinished = false;
     int playersTurnIndex;
 
     while (handInProgress) {
-        {
-            lock_guard<mutex> lock(mtx);
+        lock_guard<mutex> lock(mtx);
 
-            // Check if the hand is finished
-            if (handFinished) {
-                std::cout << "Hand finished\n";
-                currentState = GameState::SHOWDOWN;
-                stopPlayHand();
-                continue;
+        // Reset round variables at the start of each turn
+        for (turn=1; turn<=4; turn++) {
+            calculateRoundPot();
+            currentMinBet = bigBlindBet;
+            hasOpened = false;
+
+            // Reset player states
+            for (Player& player : players) {
+                player.currentBet = 0;
+                player.hasMadeAction = false;
+                player.hasRaised = false;
+                player.hasChecked = false;
             }
 
-            // Reset round variables at the start of each turn
-            for (turn=1; turn<=4; turn++) {
-                calculateRoundPot();
-                currentMinBet = bigBlindBet;
-                hasOpened = false;
+            // Set the initial player turn index
+            playersTurnIndex = smallBlind->index % players.size();
 
-                // Reset player states
-                for (Player& player : players) {
-                    player.currentBet = 0;
-                    player.hasMadeAction = false;
-                    player.hasRaised = false;
-                    player.hasChecked = false;
-                }
-
-                // Set the initial player turn index
-                playersTurnIndex = smallBlind->index % players.size();
-
-                // Handle different rounds
-                switch (turn) {
-                    case 1:
-                        std::cout << "\nPre-flop\n\n";
-                        doBlindBets();
-                        calculateRoundPot();
-                        playersTurnIndex = (bigBlind->index + 1) % players.size();
-                        break;
-                    case 2:
-                        std::cout << "\nNext round\n";
-                        break;
-                    case 3:
-                        std::cout << "\nFinal round\n";
-                        break;
-                }
-
-                int startingIndex;
-                if (turn == 1) startingIndex = bigBlind->index % players.size();
-                else startingIndex = smallBlind->index % players.size();
-
-                for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
-                    Player& player = players[i];
-
-                    if (!player.isIn || player.isAllIn) continue;
-
-                    playersFolded = 0;
-                    playersBetting = 0;
-
-                    for (Player& player : players) {
-                        if (player.isIn && !player.isAllIn) {
-                            playersBetting += 1;
-                        }
-                        if (!player.isIn) {
-                            playersFolded += 1;
-                        }
-                    }
-                    player.highlight = true;
-                    getAction(player);
-                    player.highlight = false;
+            // Handle different rounds
+            switch (turn) {
+                case 1:
+                    std::cout << "\nPre-flop\n\n";
+                    doBlindBets();
                     calculateRoundPot();
-                }
-                calculatePot();
-                if (turn != 4) distributeCommunityCards();
+                    playersTurnIndex = (bigBlind->index + 1) % players.size();
+                    break;
+                case 2:
+                    std::cout << "\nNext round\n";
+                    break;
+                case 3:
+                    std::cout << "\nFinal round\n";
+                    break;
             }
-            handFinished = true;
+
+            int startingIndex;
+            if (turn == 1) startingIndex = bigBlind->index % players.size();
+            else startingIndex = smallBlind->index % players.size();
+
+            for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
+                Player& player = players[i];
+
+                if (!player.isIn || player.isAllIn) continue;
+
+                playersFolded = 0;
+                playersBetting = 0;
+
+                for (Player& player : players) {
+                    if (player.isIn && !player.isAllIn) {
+                        playersBetting += 1;
+                    }
+                    if (!player.isIn) {
+                        playersFolded += 1;
+                    }
+                }
+                player.highlight = true;
+                getAction(player);
+                player.highlight = false;
+                calculateRoundPot();
+            }
+            calculatePot();
+            if (turn!=4) distributeCommunityCards();
         }
+        std::cout << "Hand finished\n\n";
+        currentState = GameState::SHOWDOWN;
+        stopPlayHand();
+        continue;
     }
 }
 
@@ -753,8 +747,6 @@ bool Game::getAction(Player& player) {
     bool validAction = false;
 
     opt1->button.setOutlineColor(sf::Color::White);
-    opt3->button.setOutlineColor(sf::Color::Red);
-    opt3->buttonText.setString("Fold [E]");
 
     // No bet has been made yet
     if (!hasOpened) {
@@ -819,9 +811,11 @@ bool Game::isTurnOver() {
 
     for (Player& player : players) {
         if (player.isIn && !player.isAllIn) {
+            // All but one player is all in, so ensure minimum bet is met and skip to end
             if (playersBetting == 1 && player.currentBet == currentMinBet && playersFolded != players.size() - 1){
                 skipToEnd = true;
             }
+            // All but one player has folded, so they just win
             if (playersBetting == 1 && playersFolded == players.size() - 1) {
                 skipToEnd = true;
             }
@@ -878,13 +872,15 @@ void Game::showdown() {
         for (Player& player : players) {
             if (player.isIn) {
                 report->text.setString("Player " + player.name + " has bet $" + to_string(player.totalBet));
+                player.highlight = true;
                 this_thread::sleep_for(chrono::seconds(1));
+                player.highlight = false;
 
                 player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
                 player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
 
                 // Debug usage
-                cout << "Score: {";
+                cout << player.name + "'s Score: {";
                 for (int i: player.bestScore) {
                     cout << i << ",";
                 }
@@ -907,7 +903,14 @@ void Game::showdown() {
                      CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
 
                 report->text.setString("Player " + player.name + "'s best hand is a " + CardUtil::deduceHandType(player.bestScore));
+
+                for (Card& card : CardUtil::findBestHand(communityCards, player.holeCards)) {
+                    cout << card << "\n";
+                }
+
+                player.highlight = true;
                 this_thread::sleep_for(chrono::seconds(1));
+                player.highlight = false;
 
                 for (Card card: player.bestHand) {
                     // Skip
@@ -916,11 +919,17 @@ void Game::showdown() {
         }
 
         if (leadingPlayers.size() == 1) {
-            leadingPlayers[0]->highlight = true;
             report->text.setString("We have one winner, " + leadingPlayers[0]->name);
-            this_thread::sleep_for(chrono::seconds(2));
 
             leadingPlayers[0]->win(pot, *report);
+
+            leadingPlayers[0]->highlightColor = sf::Color::Green;
+            leadingPlayers[0]->highlight = true;
+
+            this_thread::sleep_for(chrono::seconds(2));
+
+            leadingPlayers[0]->highlight = false;
+            leadingPlayers[0]->highlightColor = sf::Color::Yellow;
         } else {
             for (Player* player : leadingPlayers) {
                 player->highlight = true;
@@ -930,7 +939,14 @@ void Game::showdown() {
 
             for (Player* winner : leadingPlayers) {
                 winner->win(pot/(leadingPlayers.size()), *report);
+
+                winner->highlightColor = sf::Color::Green;
+                winner->highlight = true;
+
                 this_thread::sleep_for(chrono::seconds(1));
+
+                winner->highlight = false;
+                winner->highlightColor = sf::Color::Yellow;
             }
         }
 
