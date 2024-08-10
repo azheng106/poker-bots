@@ -205,12 +205,6 @@ void Game::updateStatusText() {
         case GameState::SETUP_PLAYERS:
             status = "setting up players (press enter to continue)";
             break;
-        case GameState::SETUP_CARD_SPRITES:
-            // There is a loading screen
-            break;
-        case GameState::SETUP_HAND:
-            // There is a loading screen
-            break;
         case GameState::PLAY_HAND:
             status = "playing hand";
             break;
@@ -245,10 +239,6 @@ void Game::render() {
         case GameState::SETUP_PLAYERS:
             nameTextLabel->draw(*window);
             nameTextBox->draw(*window);
-            break;
-        case GameState::SETUP_CARD_SPRITES:
-            break;
-        case GameState::SETUP_HAND:
             break;
         case GameState::PLAY_HAND:
             table->draw(*window);
@@ -578,7 +568,7 @@ void Game::playHand() {
 
                     if (!player.isIn || player.isAllIn) continue;
 
-                    this_thread::sleep_for(chrono::seconds(1));
+                    if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
                     report->text.setString("It's " + player.name + "'s turn.");
 
                     player.highlight = true;
@@ -876,13 +866,13 @@ void Game::showdown() {
                 continue;
             }
 
-            this_thread::sleep_for(chrono::seconds(1));
+            if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
             report->text.setFillColor(sf::Color::Yellow);
             report->text.setString("Showdown");
-            this_thread::sleep_for(chrono::seconds(2));
+            if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
 
             report->text.setString("The pot is worth a beefy $" + to_string(pot));
-            this_thread::sleep_for(chrono::seconds(2));
+            if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
 
             vector<int> bestScore = {0};
             vector<Card> bestHand;
@@ -894,7 +884,7 @@ void Game::showdown() {
                     report->text.setString("Player " + player.name + " has bet $" + to_string(player.totalBet));
 
                     player.highlight = true;
-                    this_thread::sleep_for(chrono::seconds(2));
+                    if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
                     player.highlight = false;
 
                     player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
@@ -930,7 +920,7 @@ void Game::showdown() {
                     }
 
                     player.highlight = true;
-                    this_thread::sleep_for(chrono::seconds(2));
+                    if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
                     player.highlight = false;
 
                     for (Card card: player.bestHand) {
@@ -951,7 +941,7 @@ void Game::showdown() {
                     player->highlight = true;
                 }
                 report->text.setString("We have multiple winners");
-                this_thread::sleep_for(chrono::seconds(2));
+                if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
 
                 for (Player* winner : leadingPlayers) {
                     winner->win(pot/(leadingPlayers.size()), *report);
@@ -959,11 +949,11 @@ void Game::showdown() {
                     winner->highlightColor = sf::Color::Green;
                     winner->highlight = true;
 
-                    this_thread::sleep_for(chrono::seconds(2));
+                    if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
                 }
             }
 
-            this_thread::sleep_for(chrono::seconds(5));
+            if (delay) this_thread::sleep_for(chrono::seconds(delayTime * 3));
 
             for (int i=0; i<players.size(); i++) {
                 players[i].highlight = false;

@@ -30,6 +30,10 @@ public:
     // Main Game Loop
     void run();
 private:
+    // Debug; puts a delay between most status messages
+    bool delay = true;
+    int delayTime = 2;
+
     // Initialization
     void initVariables();
     void initWindow();
