@@ -435,6 +435,8 @@ void Game::setupHand() {
     if (!setupHandComplete) {
         resetDeck();
 
+        report->text.setString("Texas Hold'Em Poker");
+
         window->clear(sf::Color(0, 0, 30));
         loadingLabel = new Text("Preparing game", regularFont, 36, Misc::percentageToPixels(sf::Vector2f(50, 50), *window));
         loadingLabel->draw(*window);
@@ -523,85 +525,87 @@ void Game::listenForOptionSelect(sf::Event& event) {
  * Initiliaze the actual fucking hand! Finally!
  */
 void Game::playHand() {
-    while (handInProgress) {
-        lock_guard<mutex> lock(mtx);
+    while (true) {
+        while (handInProgress) {
+            lock_guard<mutex> lock(mtx);
 
-        // Reset round variables at the start of each turn
-        for (turn=1; turn<=4; turn++) {
-            calculateRoundPot();
-            currentMinBet = bigBlindBet;
-            hasOpened = false;
+            // Reset round variables at the start of each turn
+            for (turn=1; turn<=4; turn++) {
+                calculateRoundPot();
+                currentMinBet = bigBlindBet;
+                hasOpened = false;
 
-            // Reset player states
-            for (Player& player : players) {
-                player.currentBet = 0;
-                player.hasMadeAction = false;
-                player.hasRaised = false;
-                player.hasChecked = false;
-            }
-
-            // Handle different rounds
-            switch (turn) {
-                case 1:
-                    report->text.setString("Pre-Flop");
-
-                    std::cout << "\nPre-flop\n\n";
-                    doBlindBets();
-                    calculateRoundPot();
-                    break;
-                case 2:
-                    report->text.setString("The Flop");
-
-                    std::cout << "\nFlop\n";
-                    break;
-                case 3:
-                    report->text.setString("The Turn");
-
-                    std::cout << "\nTurn\n";
-                    break;
-                case 4:
-                    report->text.setString("The River");
-
-                    std::cout << "\nRiver\n";
-                    break;
-            }
-
-            int startingIndex;
-            if (turn == 1) startingIndex = bigBlind->index % players.size();
-            else startingIndex = smallBlind->index % players.size();
-
-            for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
-                Player& player = players[i];
-
-                if (!player.isIn || player.isAllIn) continue;
-
-                this_thread::sleep_for(chrono::seconds(1));
-                report->text.setString("It's " + player.name + "'s turn.");
-
-                player.highlight = true;
-                getAction(player);
-                player.highlight = false;
-
-                playersFolded = 0;
-                playersBetting = 0;
-
+                // Reset player states
                 for (Player& player : players) {
-                    if (player.isIn && !player.isAllIn) {
-                        playersBetting += 1;
-                    }
-                    if (!player.isIn) {
-                        playersFolded += 1;
-                    }
+                    player.currentBet = 0;
+                    player.hasMadeAction = false;
+                    player.hasRaised = false;
+                    player.hasChecked = false;
                 }
 
-                calculateRoundPot();
+                // Handle different rounds
+                switch (turn) {
+                    case 1:
+                        report->text.setString("Pre-Flop");
+
+                        std::cout << "\nPre-flop\n\n";
+                        doBlindBets();
+                        calculateRoundPot();
+                        break;
+                    case 2:
+                        report->text.setString("The Flop");
+
+                        std::cout << "\nFlop\n";
+                        break;
+                    case 3:
+                        report->text.setString("The Turn");
+
+                        std::cout << "\nTurn\n";
+                        break;
+                    case 4:
+                        report->text.setString("The River");
+
+                        std::cout << "\nRiver\n";
+                        break;
+                }
+
+                int startingIndex;
+                if (turn == 1) startingIndex = bigBlind->index % players.size();
+                else startingIndex = smallBlind->index % players.size();
+
+                for (int i=startingIndex; !isTurnOver(); i=(i+1) % players.size()) {
+                    Player& player = players[i];
+
+                    if (!player.isIn || player.isAllIn) continue;
+
+                    this_thread::sleep_for(chrono::seconds(1));
+                    report->text.setString("It's " + player.name + "'s turn.");
+
+                    player.highlight = true;
+                    getAction(player);
+                    player.highlight = false;
+
+                    playersFolded = 0;
+                    playersBetting = 0;
+
+                    for (Player& player : players) {
+                        if (player.isIn && !player.isAllIn) {
+                            playersBetting += 1;
+                        }
+                        if (!player.isIn) {
+                            playersFolded += 1;
+                        }
+                    }
+
+                    calculateRoundPot();
+                }
+                calculatePot();
+                if (turn!=4) distributeCommunityCards();
             }
-            calculatePot();
-            if (turn!=4) distributeCommunityCards();
+            std::cout << "Hand finished\n\n";
+            currentState = GameState::SHOWDOWN;
+            stopPlayHand();
         }
-        std::cout << "Hand finished\n\n";
-        currentState = GameState::SHOWDOWN;
-        stopPlayHand();
     }
 }
 
@@ -836,6 +840,9 @@ bool Game::isTurnOver() {
                 checkedAround = false;
             }
         }
+        if (player.isAllIn) {
+            checkedAround = false;
+        }
     }
 
     if (checkedAround || skipToEnd) {
@@ -855,117 +862,119 @@ void Game::stopShowdown() {
 }
 
 void Game::showdown() {
-    bool showdownFinished = false;
+    while (true) {
+        bool showdownFinished = false;
 
-    while (showdownInProgress) {
-        lock_guard<mutex> lock(mtx);
+        while (showdownInProgress) {
+            lock_guard<mutex> lock(mtx);
 
-        if (showdownFinished) {
-            // Loop back to hand setup; doesn't work yet
-            stopShowdown();
-            setupHandComplete = false;
-            currentState = GameState::SETUP_HAND;
-            continue;
-        }
-
-        report->text.setFillColor(sf::Color::Yellow);
-
-        this_thread::sleep_for(chrono::seconds(1));
-        report->text.setString("Showdown");
-        this_thread::sleep_for(chrono::seconds(2));
-
-        report->text.setString("The pot is worth a beefy $" + to_string(pot));
-        this_thread::sleep_for(chrono::seconds(2));
-
-        vector<int> bestScore = {0};
-        vector<Card> bestHand;
-        vector<Player*> leadingPlayers;
-
-        for (Player& player : players) {
-            player.highlightColor = sf::Color::Yellow;
-            if (player.isIn) {
-                report->text.setString("Player " + player.name + " has bet $" + to_string(player.totalBet));
-
-                player.highlight = true;
-                this_thread::sleep_for(chrono::seconds(2));
-                player.highlight = false;
-
-                player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
-                player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
-
-                // Debug usage
-                cout << player.name + "'s Score: {";
-                for (int i: player.bestScore) {
-                    cout << i << ",";
-                }
-                cout << "}\n";
-
-                if (CardUtil::compareScores(player.bestScore, bestScore)) {
-                    bestScore = player.bestScore;
-                    leadingPlayers.clear();
-                    leadingPlayers.push_back(&player);
-                } else if (player.bestScore == bestScore) {
-                    leadingPlayers.push_back(&player);
-                }
+            if (showdownFinished) {
+                // Loop back to hand setup; doesn't work yet
+                stopShowdown();
+                setupHandComplete = false;
+                currentState = GameState::SETUP_HAND;
+                continue;
             }
-        }
 
-        for (Player& player : players) {
-            if (player.isIn) {
-                cout << "\n";
-                cout << "Player " << player.name << "'s best hand is a " <<
-                     CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
-
-                report->text.setString("Player " + player.name + "'s best hand is a " + CardUtil::deduceHandType(player.bestScore));
-
-                for (Card& card : CardUtil::findBestHand(communityCards, player.holeCards)) {
-                    cout << card << "\n";
-                }
-
-                player.highlight = true;
-                this_thread::sleep_for(chrono::seconds(2));
-                player.highlight = false;
-
-                for (Card card: player.bestHand) {
-                    // Skip for now
-                }
-            }
-        }
-
-        if (leadingPlayers.size() == 1) {
-            report->text.setString("We have one winner, " + leadingPlayers[0]->name);
-
-            leadingPlayers[0]->win(pot, *report);
-
-            leadingPlayers[0]->highlightColor = sf::Color::Green;
-            leadingPlayers[0]->highlight = true;
-
-            this_thread::sleep_for(chrono::seconds(10));
-        } else {
-            for (Player* player : leadingPlayers) {
-                player->highlight = true;
-            }
-            report->text.setString("We have multiple winners");
+            this_thread::sleep_for(chrono::seconds(1));
+            report->text.setFillColor(sf::Color::Yellow);
+            report->text.setString("Showdown");
             this_thread::sleep_for(chrono::seconds(2));
 
-            for (Player* winner : leadingPlayers) {
-                winner->win(pot/(leadingPlayers.size()), *report);
+            report->text.setString("The pot is worth a beefy $" + to_string(pot));
+            this_thread::sleep_for(chrono::seconds(2));
 
-                winner->highlightColor = sf::Color::Green;
-                winner->highlight = true;
+            vector<int> bestScore = {0};
+            vector<Card> bestHand;
+            vector<Player*> leadingPlayers;
 
+            for (Player& player : players) {
+                player.highlightColor = sf::Color::Yellow;
+                if (player.isIn) {
+                    report->text.setString("Player " + player.name + " has bet $" + to_string(player.totalBet));
+
+                    player.highlight = true;
+                    this_thread::sleep_for(chrono::seconds(2));
+                    player.highlight = false;
+
+                    player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
+                    player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
+
+                    // Debug usage
+                    cout << player.name + "'s Score: {";
+                    for (int i: player.bestScore) {
+                        cout << i << ",";
+                    }
+                    cout << "}\n";
+
+                    if (CardUtil::compareScores(player.bestScore, bestScore)) {
+                        bestScore = player.bestScore;
+                        leadingPlayers.clear();
+                        leadingPlayers.push_back(&player);
+                    } else if (player.bestScore == bestScore) {
+                        leadingPlayers.push_back(&player);
+                    }
+                }
+            }
+
+            for (Player& player : players) {
+                if (player.isIn) {
+                    cout << "\n";
+                    cout << "Player " << player.name << "'s best hand is a " <<
+                         CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
+
+                    report->text.setString("Player " + player.name + "'s best hand is a " + CardUtil::deduceHandType(player.bestScore));
+
+                    for (Card& card : CardUtil::findBestHand(communityCards, player.holeCards)) {
+                        cout << card << "\n";
+                    }
+
+                    player.highlight = true;
+                    this_thread::sleep_for(chrono::seconds(2));
+                    player.highlight = false;
+
+                    for (Card card: player.bestHand) {
+                        // Skip for now
+                    }
+                }
+            }
+
+            if (leadingPlayers.size() == 1) {
+                report->text.setString("We have one winner, " + leadingPlayers[0]->name);
+
+                leadingPlayers[0]->win(pot, *report);
+
+                leadingPlayers[0]->highlightColor = sf::Color::Green;
+                leadingPlayers[0]->highlight = true;
+            } else {
+                for (Player* player : leadingPlayers) {
+                    player->highlight = true;
+                }
+                report->text.setString("We have multiple winners");
                 this_thread::sleep_for(chrono::seconds(2));
-            }
-        }
 
-        for (int i=0; i<players.size(); i++) {
-            players[i].highlight = false;
-            players[i].highlightColor = sf::Color::Cyan;
-            if (players[i].money == 0) {
-                players.erase(players.begin()+i);
-                i--;
+                for (Player* winner : leadingPlayers) {
+                    winner->win(pot/(leadingPlayers.size()), *report);
+
+                    winner->highlightColor = sf::Color::Green;
+                    winner->highlight = true;
+
+                    this_thread::sleep_for(chrono::seconds(2));
+                }
             }
+
+            this_thread::sleep_for(chrono::seconds(5));
+
+            for (int i=0; i<players.size(); i++) {
+                players[i].highlight = false;
+                players[i].highlightColor = sf::Color::Cyan;
+                if (players[i].money == 0) {
+                    players.erase(players.begin()+i);
+                    i--;
+                }
+            }
+            report->text.setFillColor(sf::Color::Cyan);
+            showdownFinished = true;
         }
-        showdownFinished = true;
     }
 }

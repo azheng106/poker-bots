@@ -371,14 +371,14 @@ string CardUtil::deduceHandType(vector<int> score) {
         case 4:
             return "three of a kind (" + scoreString[1] + ")";
         case 5:
-            return "straight (" + to_string(score[1] - 4) + "->" + scoreString[1] + ")";
+            return "straight (" + to_string(score[1] - 4) + "-" + scoreString[1] + ")";
         case 6:
             return "flush (" + scoreString[1] + ")";
         case 7:
-            return "full house (" + scoreString[1] + scoreString[2] + ")";
+            return "full house (" + scoreString[1] + ", " + scoreString[2] + ")";
         case 8:
             return "four of a kind (" + scoreString[1] + ")";
         case 9:
-            return "straight flush (" + to_string(score[1] - 4) + "->" + scoreString[1] + ")";
+            return "straight flush (" + to_string(score[1] - 4) + "-" + scoreString[1] + ")";
     }
 }
