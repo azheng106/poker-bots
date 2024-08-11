@@ -30,9 +30,13 @@ public:
     // Main Game Loop
     void run();
 private:
-    // Debug; puts a delay between most status messages
-    bool delay = true;
-    int delayTime = 2;
+    // Delay
+    bool enableDelay = true;
+    int shortDelayTime = 2;
+    int longDelayTime = 5;
+
+    // Yielding status to stop event listeners
+    bool yielding;
 
     // Initialization
     void initVariables();
@@ -49,6 +53,7 @@ private:
     void processEvents();
     void updateStatusText();
     void render();
+    void delay(int delayTime);
 
     // Threading For Play Hand
     thread playHandThread;

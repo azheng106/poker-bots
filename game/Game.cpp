@@ -172,27 +172,31 @@ void Game::processEvents() {
             window->close();
             if (handInProgress) stopPlayHand();
         }
-        switch (currentState) {
-            case GameState::BASIC_SETUP:
-                basicSetup(event);
-                break;
-            case GameState::SETUP_PLAYERS:
-                setupPlayers(event);
-                break;
-            case GameState::SETUP_CARD_SPRITES:
-                setupCardSprites();
-                break;
-            case GameState::SETUP_HAND:
-                setupHand();
-                break;
-            case GameState::PLAY_HAND:
-                if (!handInProgress) startPlayHand();
-                listenForOptionSelect(event);
-                break;
-            case GameState::SHOWDOWN:
-                if (!showdownInProgress) startShowdown();
-                break;
+
+        if (!yielding) {
+            switch (currentState) {
+                case GameState::BASIC_SETUP:
+                    basicSetup(event);
+                    break;
+                case GameState::SETUP_PLAYERS:
+                    setupPlayers(event);
+                    break;
+                case GameState::SETUP_CARD_SPRITES:
+                    setupCardSprites();
+                    break;
+                case GameState::SETUP_HAND:
+                    setupHand();
+                    break;
+                case GameState::PLAY_HAND:
+                    if (!handInProgress) startPlayHand();
+                    listenForOptionSelect(event);
+                    break;
+                case GameState::SHOWDOWN:
+                    if (!showdownInProgress) startShowdown();
+                    break;
+            }
         }
+
     }
 }
 
@@ -268,6 +272,18 @@ void Game::render() {
     }
     statusText->draw(*window);
     window->display();
+}
+
+/**
+ * Delay status updates for readability. Event listeners paused through boolean yielding.
+ * @param delayTime delay time, in seconds
+ */
+void Game::delay(int delayTime) {
+    if (enableDelay) {
+        yielding = true;
+        this_thread::sleep_for(chrono::seconds(delayTime));
+        yielding = false;
+    }
 }
 
 /**
@@ -537,6 +553,7 @@ void Game::playHand() {
                 switch (turn) {
                     case 1:
                         report->text.setString("Pre-Flop");
+                        delay(shortDelayTime);
 
                         std::cout << "\nPre-flop\n\n";
                         doBlindBets();
@@ -544,16 +561,19 @@ void Game::playHand() {
                         break;
                     case 2:
                         report->text.setString("The Flop");
+                        delay(shortDelayTime);
 
                         std::cout << "\nFlop\n";
                         break;
                     case 3:
                         report->text.setString("The Turn");
+                        delay(shortDelayTime);
 
                         std::cout << "\nTurn\n";
                         break;
                     case 4:
                         report->text.setString("The River");
+                        delay(shortDelayTime);
 
                         std::cout << "\nRiver\n";
                         break;
@@ -568,12 +588,14 @@ void Game::playHand() {
 
                     if (!player.isIn || player.isAllIn) continue;
 
-                    if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
                     report->text.setString("It's " + player.name + "'s turn.");
 
                     player.highlight = true;
                     getAction(player);
+                    option = 0;
                     player.highlight = false;
+
+                    delay(shortDelayTime);
 
                     playersFolded = 0;
                     playersBetting = 0;
@@ -866,13 +888,13 @@ void Game::showdown() {
                 continue;
             }
 
-            if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
+            delay(shortDelayTime);
             report->text.setFillColor(sf::Color::Yellow);
             report->text.setString("Showdown");
-            if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
+            delay(shortDelayTime);
 
             report->text.setString("The pot is worth a beefy $" + to_string(pot));
-            if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
+            delay(shortDelayTime);
 
             vector<int> bestScore = {0};
             vector<Card> bestHand;
@@ -884,7 +906,8 @@ void Game::showdown() {
                     report->text.setString("Player " + player.name + " has bet $" + to_string(player.totalBet));
 
                     player.highlight = true;
-                    if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
+
+                    delay(shortDelayTime);
                     player.highlight = false;
 
                     player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
@@ -920,7 +943,7 @@ void Game::showdown() {
                     }
 
                     player.highlight = true;
-                    if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
+                    delay(shortDelayTime);
                     player.highlight = false;
 
                     for (Card card: player.bestHand) {
@@ -941,7 +964,7 @@ void Game::showdown() {
                     player->highlight = true;
                 }
                 report->text.setString("We have multiple winners");
-                if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
+                delay(shortDelayTime);
 
                 for (Player* winner : leadingPlayers) {
                     winner->win(pot/(leadingPlayers.size()), *report);
@@ -949,11 +972,11 @@ void Game::showdown() {
                     winner->highlightColor = sf::Color::Green;
                     winner->highlight = true;
 
-                    if (delay) this_thread::sleep_for(chrono::seconds(delayTime));
+                    delay(shortDelayTime);
                 }
             }
 
-            if (delay) this_thread::sleep_for(chrono::seconds(delayTime * 3));
+            delay(longDelayTime);
 
             for (int i=0; i<players.size(); i++) {
                 players[i].highlight = false;
