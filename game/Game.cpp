@@ -462,6 +462,7 @@ void Game::setupHand() {
         for (Player& player : players) {
             player.isIn = true;
             player.isAllIn = false;
+            player.allInAmount = 0;
             player.hasMadeAction = false;
             player.hasChecked = false;
             player.currentBet = 0;
@@ -748,6 +749,8 @@ void Game::doBlindBets() {
     smallBlind->currentBet += min(smallBlindBet, smallBlind->money);
     smallBlind->money -= min(smallBlindBet, smallBlind->money);
 
+    if (smallBlind->isAllIn) smallBlind->allInAmount = smallBlind->currentBet;
+
     if (bigBlind->money <= bigBlindBet) {
         bigBlind->isAllIn = true;
         cout << bigBlind->name << " is going all in to bet the big blind.\n";
@@ -756,6 +759,8 @@ void Game::doBlindBets() {
     cout << "Big blind " << bigBlind->name << " bets $" << bigBlindBet << "\n";
     bigBlind->currentBet += min(bigBlindBet, bigBlind->money);
     bigBlind->money -= min(bigBlindBet, bigBlind->money);
+
+    if (bigBlind->isAllIn) bigBlind->allInAmount = bigBlind->currentBet;
 
     hasOpened = true;
 }
@@ -981,6 +986,7 @@ void Game::showdown() {
                 players[i].highlight = false;
                 players[i].highlightColor = sf::Color::Cyan;
                 if (players[i].money == 0) {
+                    cout << players[i].name << " goes bankrupt\n";
                     players.erase(players.begin()+i);
                     i--;
                 }

@@ -4,5 +4,12 @@ TODO
     - If everyone folds and one player remains, the game currently will keep looping until all community cards are
       passed out, and then move to the showdown. There, it will find the best hand and display unnecessary info.
       Instead, just make the player win the pot, and then set currentState to GameState::SETUP_HAND for the next hand.
+    - At the very end, CLEANUP!
 
-BUGS
+LOGIC BUGS
+    - No known logic bugs
+
+VISUAL BUGS
+    - When currentState changes from GameState::SETUP_HAND -> GameState::PLAY_HAND and no mouse movement or
+      key presses occur, the screen freezes on the last render. However, as soon as the mouse is moved or a key is
+      pressed, the game resumes function as per usual. Find a way to make it automatically "load in".
