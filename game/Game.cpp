@@ -907,15 +907,20 @@ void Game::showdown() {
             for (Player& player : players) {
                 player.highlightColor = sf::Color::Yellow;
                 if (player.isIn) {
-                    report->text.setString("Player " + player.name + " has bet $" + to_string(player.totalBet));
-
                     player.highlight = true;
 
+                    report->text.setString("Player " + player.name + " has bet $" + to_string(player.totalBet));
+
                     delay(medDelayTime);
-                    player.highlight = false;
 
                     player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
                     player.bestHand = CardUtil::findBestHand(communityCards, player.holeCards);
+
+                    report->text.setString("Player " + player.name + "'s best hand is a " + CardUtil::deduceHandType(player.bestScore));
+
+                    delay(medDelayTime);
+
+                    player.highlight = false;
 
                     // Debug usage
                     cout << player.name + "'s Score: {";
@@ -930,28 +935,6 @@ void Game::showdown() {
                         leadingPlayers.push_back(&player);
                     } else if (player.bestScore == bestScore) {
                         leadingPlayers.push_back(&player);
-                    }
-                }
-            }
-
-            for (Player& player : players) {
-                if (player.isIn) {
-                    cout << "\n";
-                    cout << "Player " << player.name << "'s best hand is a " <<
-                         CardUtil::deduceHandType(player.bestScore) << ":" << "\n";
-
-                    report->text.setString("Player " + player.name + "'s best hand is a " + CardUtil::deduceHandType(player.bestScore));
-
-                    for (Card& card : CardUtil::findBestHand(communityCards, player.holeCards)) {
-                        cout << card << "\n";
-                    }
-
-                    player.highlight = true;
-                    delay(medDelayTime);
-                    player.highlight = false;
-
-                    for (Card card: player.bestHand) {
-                        // Skip for now
                     }
                 }
             }

@@ -215,8 +215,8 @@ _deps/sfml-build/src/SFML/Window/clean: _deps/sfml-build/src/SFML/Window/CMakeFi
 
 # All Build rule for target.
 CMakeFiles/poker_bots.dir/all: _deps/sfml-build/src/SFML/System/CMakeFiles/sfml-system.dir/all
-CMakeFiles/poker_bots.dir/all: _deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/all
 CMakeFiles/poker_bots.dir/all: _deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/all
+CMakeFiles/poker_bots.dir/all: _deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="C:\CS Projects\poker-bots\misc\cmake-build-debug\CMakeFiles" --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target poker_bots"

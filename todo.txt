@@ -7,7 +7,7 @@ TODO
     - At the very end, CLEANUP!
 
 LOGIC BUGS
-    - No known logic bugs
+    - When one player wins due to the rest of the players folding, ALL future hands immediately skip to the end.
 
 VISUAL BUGS
     - When currentState changes from GameState::SETUP_HAND -> GameState::PLAY_HAND and no mouse movement or
