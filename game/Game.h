@@ -31,9 +31,10 @@ public:
     void run();
 private:
     // Delay
-    bool enableDelay = true;
-    int shortDelayTime = 2;
-    int longDelayTime = 5;
+    bool enableDelay = true; // Setting this to false will make the showdown unreadable. Use for debugging getAction
+    float shortDelayTime = 0.5; // Used for getAction control
+    float medDelayTime = 1.0; // Used for showdown highlights
+    float longDelayTime = 3.0; // Used for winner highlight duration
 
     // Yielding status to stop event listeners
     bool yielding;
@@ -53,7 +54,7 @@ private:
     void processEvents();
     void updateStatusText();
     void render();
-    void delay(int delayTime);
+    void delay(float delayTime);
 
     // Threading For Play Hand
     thread playHandThread;

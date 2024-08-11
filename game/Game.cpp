@@ -278,10 +278,10 @@ void Game::render() {
  * Delay status updates for readability. Event listeners paused through boolean yielding.
  * @param delayTime delay time, in seconds
  */
-void Game::delay(int delayTime) {
+void Game::delay(float delayTime) {
     if (enableDelay) {
         yielding = true;
-        this_thread::sleep_for(chrono::seconds(delayTime));
+        this_thread::sleep_for(chrono::duration<float>(delayTime));
         yielding = false;
     }
 }
@@ -881,20 +881,19 @@ void Game::showdown() {
             lock_guard<mutex> lock(mtx);
 
             if (showdownFinished) {
-                // Loop back to hand setup; doesn't work yet
+                // Loop back to hand setup
                 stopShowdown();
                 setupHandComplete = false;
                 currentState = GameState::SETUP_HAND;
                 continue;
             }
 
-            delay(shortDelayTime);
             report->text.setFillColor(sf::Color::Yellow);
             report->text.setString("Showdown");
-            delay(shortDelayTime);
+            delay(medDelayTime);
 
             report->text.setString("The pot is worth a beefy $" + to_string(pot));
-            delay(shortDelayTime);
+            delay(medDelayTime);
 
             vector<int> bestScore = {0};
             vector<Card> bestHand;
@@ -907,7 +906,7 @@ void Game::showdown() {
 
                     player.highlight = true;
 
-                    delay(shortDelayTime);
+                    delay(medDelayTime);
                     player.highlight = false;
 
                     player.bestScore = CardUtil::findBestScore(communityCards, player.holeCards);
@@ -943,7 +942,7 @@ void Game::showdown() {
                     }
 
                     player.highlight = true;
-                    delay(shortDelayTime);
+                    delay(medDelayTime);
                     player.highlight = false;
 
                     for (Card card: player.bestHand) {
@@ -964,7 +963,7 @@ void Game::showdown() {
                     player->highlight = true;
                 }
                 report->text.setString("We have multiple winners");
-                delay(shortDelayTime);
+                delay(medDelayTime);
 
                 for (Player* winner : leadingPlayers) {
                     winner->win(pot/(leadingPlayers.size()), *report);
@@ -972,7 +971,7 @@ void Game::showdown() {
                     winner->highlightColor = sf::Color::Green;
                     winner->highlight = true;
 
-                    delay(shortDelayTime);
+                    delay(medDelayTime);
                 }
             }
 
