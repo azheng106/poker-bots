@@ -11,6 +11,7 @@ public:
     TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int characterSize, sf::Color color, sf::Color textColor, bool useNumbers = false);
 
     void handleEvent(sf::RenderWindow& window, sf::Event& event);
+    void setOutlineColor(sf::Color color);
     void draw(sf::RenderWindow& window);
     void setString(string text);
     string getString();

@@ -11,7 +11,7 @@ TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int c
     box.setSize(size);
     box.setFillColor(color);
 
-    outlineColor = sf::Color::Green;
+    outlineColor = sf::Color::White;
     originalOutlineColor = outlineColor;
     box.setOutlineColor(outlineColor);
 
@@ -68,6 +68,10 @@ void TextBox::handleEvent(sf::RenderWindow& window, sf::Event& event) {
             }
         }
     }
+}
+
+void TextBox::setOutlineColor(sf::Color color) {
+    box.setOutlineColor(color);
 }
 
 void TextBox::draw(sf::RenderWindow& window) {

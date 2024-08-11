@@ -1,36 +1,38 @@
 #include "BetBox.h"
 
 BetBox::BetBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font) : position(position), size(size), confirmed(false) {
-    mainBox = new TextBox(position, size, font, 20, sf::Color::Transparent, sf::Color::White, true);
+    int largeFontSize = 24;
+    int smallFontSize = 18;
+    mainBox = new TextBox(position, size, font, largeFontSize, sf::Color::Transparent, sf::Color::White, true);
 
     confirmationLabel = new sf::Text;
     confirmationLabel->setFillColor(sf::Color::White);
     confirmationLabel->setFont(font);
-    confirmationLabel->setCharacterSize(14);
+    confirmationLabel->setCharacterSize(smallFontSize);
     confirmationLabel->setString("Confirm");
 
     label_d4 = new sf::Text;
     label_d4->setFillColor(sf::Color::White);
     label_d4->setFont(font);
-    label_d4->setCharacterSize(14);
+    label_d4->setCharacterSize(smallFontSize);
     label_d4->setString("D4");
 
     label_d2 = new sf::Text;
     label_d2->setFillColor(sf::Color::White);
     label_d2->setFont(font);
-    label_d2->setCharacterSize(14);
+    label_d2->setCharacterSize(smallFontSize);
     label_d2->setString("D2");
 
     label_x2 = new sf::Text;
     label_x2->setFillColor(sf::Color::White);
     label_x2->setFont(font);
-    label_x2->setCharacterSize(14);
+    label_x2->setCharacterSize(smallFontSize);
     label_x2->setString("M2");
 
     label_x4 = new sf::Text;
     label_x4->setFillColor(sf::Color::White);
     label_x4->setFont(font);
-    label_x4->setCharacterSize(14);
+    label_x4->setCharacterSize(smallFontSize);
     label_x4->setString("M4");
 
     float margin = size.x / 24;

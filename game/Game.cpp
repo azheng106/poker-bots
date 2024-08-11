@@ -154,7 +154,7 @@ void Game::initActionMenu() {
     opt2 = new RecButton(Misc::percentageToPixels(sf::Vector2f(18, 95), *window), Misc::percentageToPixels(sf::Vector2f(10, 6), *window), sf::Color::Transparent, sf::Color::White, *label2);
     opt3 = new RecButton(Misc::percentageToPixels(sf::Vector2f(29, 95), *window), Misc::percentageToPixels(sf::Vector2f(10, 6), *window), sf::Color::Transparent, sf::Color::Red, *label3);
 
-    betBox = new BetBox(Misc::percentageToPixels(sf::Vector2f(85, 95), *window), Misc::percentageToPixels(sf::Vector2f(20, 6), *window), regularFont);
+    betBox = new BetBox(Misc::percentageToPixels(sf::Vector2f(85, 92), *window), Misc::percentageToPixels(sf::Vector2f(24, 8), *window), regularFont);
 }
 
 void Game::run() {
