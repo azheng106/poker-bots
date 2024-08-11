@@ -18,6 +18,7 @@
 #include "../gui/Text.h"
 #include "../gui/CardSprite.h"
 #include "../gui/Table.h"
+#include "../gui/BetBox.h"
 
 using namespace std;
 
@@ -32,8 +33,8 @@ public:
 private:
     // Delay
     bool enableDelay = true; // Setting this to false will make the showdown unreadable. Use for debugging getAction
-    float shortDelayTime = 0.5; // Used for getAction control
-    float medDelayTime = 1.0; // Used for showdown highlights
+    float shortDelayTime = 1.0; // Used for getAction control
+    float medDelayTime = 1.5; // Used for showdown highlights
     float longDelayTime = 3.0; // Used for winner highlight duration
 
     // Yielding status to stop event listeners
@@ -125,8 +126,8 @@ private:
 
     // Used to store player option choice from event listener
     int option;
-    // Used to store bet amount from the text box
-    int betBoxInput;
+    // Stores bet amount from betBox
+    int betInput;
 
     // Cards
     vector<Card> deck;
@@ -178,7 +179,7 @@ private:
     RecButton* opt3;
 
     bool showBetBox;
-    TextBox* betBox;
+    BetBox* betBox;
 
     // Showdown UI
 

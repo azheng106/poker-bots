@@ -5,7 +5,7 @@ TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int c
     textIsValid = true;
     numbersOnly = useNumbers;
 
-    highlightColor = sf::Color::Blue;
+    highlightColor = sf::Color::Cyan;
     originalHighlightColor = highlightColor;
 
     box.setSize(size);

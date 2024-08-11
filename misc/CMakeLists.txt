@@ -33,6 +33,8 @@ add_executable(poker_bots
         ../gui/CardSprite.cpp
         ../gui/Table.cpp
         ../gui/Table.h
+        ../gui/BetBox.cpp
+        ../gui/BetBox.h
 )
 target_link_libraries(poker_bots PRIVATE sfml-graphics)
 target_compile_features(poker_bots PRIVATE cxx_std_17)

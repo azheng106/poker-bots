@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj.d"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.obj"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.obj.d"
+  "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/BetBox.cpp.obj"
+  "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/BetBox.cpp.obj.d"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj.d"
   "CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/Misc.cpp.obj"

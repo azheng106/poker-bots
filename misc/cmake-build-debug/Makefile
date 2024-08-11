@@ -367,6 +367,30 @@ C_/CS_Projects/poker-bots/game/Player.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Player.cpp.s
 .PHONY : C_/CS_Projects/poker-bots/game/Player.cpp.s
 
+C_/CS_Projects/poker-bots/gui/BetBox.obj: C_/CS_Projects/poker-bots/gui/BetBox.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/BetBox.obj
+
+# target to build an object file
+C_/CS_Projects/poker-bots/gui/BetBox.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/BetBox.cpp.obj
+.PHONY : C_/CS_Projects/poker-bots/gui/BetBox.cpp.obj
+
+C_/CS_Projects/poker-bots/gui/BetBox.i: C_/CS_Projects/poker-bots/gui/BetBox.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/BetBox.i
+
+# target to preprocess a source file
+C_/CS_Projects/poker-bots/gui/BetBox.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/BetBox.cpp.i
+.PHONY : C_/CS_Projects/poker-bots/gui/BetBox.cpp.i
+
+C_/CS_Projects/poker-bots/gui/BetBox.s: C_/CS_Projects/poker-bots/gui/BetBox.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/BetBox.s
+
+# target to generate assembly for a file
+C_/CS_Projects/poker-bots/gui/BetBox.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\poker_bots.dir\build.make CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/gui/BetBox.cpp.s
+.PHONY : C_/CS_Projects/poker-bots/gui/BetBox.cpp.s
+
 C_/CS_Projects/poker-bots/gui/CardSprite.obj: C_/CS_Projects/poker-bots/gui/CardSprite.cpp.obj
 .PHONY : C_/CS_Projects/poker-bots/gui/CardSprite.obj
 
@@ -592,6 +616,9 @@ help:
 	@echo ... C_/CS_Projects/poker-bots/game/Player.obj
 	@echo ... C_/CS_Projects/poker-bots/game/Player.i
 	@echo ... C_/CS_Projects/poker-bots/game/Player.s
+	@echo ... C_/CS_Projects/poker-bots/gui/BetBox.obj
+	@echo ... C_/CS_Projects/poker-bots/gui/BetBox.i
+	@echo ... C_/CS_Projects/poker-bots/gui/BetBox.s
 	@echo ... C_/CS_Projects/poker-bots/gui/CardSprite.obj
 	@echo ... C_/CS_Projects/poker-bots/gui/CardSprite.i
 	@echo ... C_/CS_Projects/poker-bots/gui/CardSprite.s

@@ -19,7 +19,7 @@ RecButton::RecButton(sf::Vector2f position, sf::Vector2f size, sf::Color color, 
         button.setOutlineThickness(2.f);
 
         // Store the original color for resetting
-        originalButtonColor = color;
+        originalOutlineColor = outlineColor;
 
         // Center the content in the button
         buttonText = text;
@@ -63,12 +63,12 @@ bool RecButton::isMouseOver(sf::RenderWindow& window) {
  * @param event
  */
 bool RecButton::isClicked(sf::RenderWindow& window, sf::Event& event) {
-    sf::Color clickedColor = Misc::adjustColorBrightness(originalButtonColor, -100);
+    sf::Color clickedColor = sf::Color::Cyan;
 
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
         if (isMouseOver(window)) {
             // Change button color to a slightly darker shade
-            button.setFillColor(clickedColor);
+            button.setOutlineColor(clickedColor);
             isButtonPressed = true;
         }
     }
@@ -76,7 +76,7 @@ bool RecButton::isClicked(sf::RenderWindow& window, sf::Event& event) {
     if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
         if (isButtonPressed) {
             isButtonPressed = false;
-            button.setFillColor(originalButtonColor);
+            button.setOutlineColor(originalOutlineColor);
 
             if (isMouseOver(window)) {
                 return true;

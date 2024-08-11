@@ -130,7 +130,7 @@ void Game::initTable() {
 }
 
 void Game::initActionMenu() {
-    report = new Text("Texas Hold'Em Poker", boldFont, 24, Misc::percentageToPixels(sf::Vector2f(50, 85), *window), sf::Color::Cyan);
+    report = new Text("Texas Hold'Em Poker", boldFont, 24, Misc::percentageToPixels(sf::Vector2f(50, 85), *window), sf::Color::Yellow);
 
     label1 = new sf::Text;
     label1->setFillColor(sf::Color::White);
@@ -150,11 +150,11 @@ void Game::initActionMenu() {
     label3->setCharacterSize(16);
     label3->setString("Fold [E]");
 
-    opt1 = new RecButton(Misc::percentageToPixels(sf::Vector2f(7, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label1);
-    opt2 = new RecButton(Misc::percentageToPixels(sf::Vector2f(17, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::White, *label2);
-    opt3 = new RecButton(Misc::percentageToPixels(sf::Vector2f(27, 95), *window), Misc::percentageToPixels(sf::Vector2f(8, 6), *window), sf::Color::Transparent, sf::Color::Red, *label3);
+    opt1 = new RecButton(Misc::percentageToPixels(sf::Vector2f(7, 95), *window), Misc::percentageToPixels(sf::Vector2f(10, 6), *window), sf::Color::Transparent, sf::Color::White, *label1);
+    opt2 = new RecButton(Misc::percentageToPixels(sf::Vector2f(18, 95), *window), Misc::percentageToPixels(sf::Vector2f(10, 6), *window), sf::Color::Transparent, sf::Color::White, *label2);
+    opt3 = new RecButton(Misc::percentageToPixels(sf::Vector2f(29, 95), *window), Misc::percentageToPixels(sf::Vector2f(10, 6), *window), sf::Color::Transparent, sf::Color::Red, *label3);
 
-    betBox = new TextBox(Misc::percentageToPixels(sf::Vector2f(45, 95), *window), Misc::percentageToPixels(sf::Vector2f(20, 6), *window), regularFont, 20, sf::Color::Transparent, sf::Color::White, true);
+    betBox = new BetBox(Misc::percentageToPixels(sf::Vector2f(85, 95), *window), Misc::percentageToPixels(sf::Vector2f(20, 6), *window), regularFont);
 }
 
 void Game::run() {
@@ -498,17 +498,19 @@ void Game::stopPlayHand() {
 void Game::listenForOptionSelect(sf::Event& event) {
     betBox->handleEvent(*window, event);
 
-    if (!betBox->isActive) {
+    if (!betBox->mainBox->isActive) {
         if (opt1->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q)) {
             if (opt1->buttonText.getString() == "Bet [Q]") {
                 showBetBox = true;
-                betBox->isActive = true;
-                betBox->setString(to_string(currentMinBet));
+                betBox->mainBox->isActive = true;
+                betBox->mainBox->setString(to_string(currentMinBet));
+                betInput = betBox->updateBet();
             }
             if (opt1->buttonText.getString() == "Raise [Q]") {
                 showBetBox = true;
-                betBox->isActive = true;
-                betBox->setString(to_string(2*currentMinBet));
+                betBox->mainBox->isActive = true;
+                betBox->mainBox->setString(to_string(2*currentMinBet));
+                betInput = betBox->updateBet();
             }
         }
         if (opt2->isClicked(*window, event) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W)) {
@@ -521,9 +523,10 @@ void Game::listenForOptionSelect(sf::Event& event) {
         }
     }
 
-    if (betBox->isActive && (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)) {
-        betBoxInput = betBox->retrieveTextAsInt();
-        betBox->isActive = false;
+    if ((betBox->mainBox->isActive && (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)) || betBox->confirmed) {
+        betBox->mainBox->isActive = false;
+        betBox->confirmed = false;
+        betInput = betBox->updateBet();
         option = 1;
     }
 }
@@ -593,10 +596,8 @@ void Game::playHand() {
 
                     player.highlight = true;
                     getAction(player);
-                    option = 0;
-                    player.highlight = false;
-
                     delay(shortDelayTime);
+                    player.highlight = false;
 
                     playersFolded = 0;
                     playersBetting = 0;
@@ -781,24 +782,44 @@ bool Game::getAction(Player& player) {
     // No bet has been made yet
     if (!hasOpened) {
         opt1->buttonText.setString("Bet [Q]");
+        opt1->buttonText.setFillColor(sf::Color::White);
         opt2->buttonText.setString("Check [W]");
-    } else if (!player.hasRaised || isHeadsUp) {
-        opt1->buttonText.setString("Raise [Q]");
-        opt2->buttonText.setString("Call [W]");
     } else {
-        opt1->button.setOutlineColor(sf::Color::Red);
-        opt1->buttonText.setString("Can't Raise");
         opt2->buttonText.setString("Call [W]");
+
+        if ((!player.hasRaised || isHeadsUp) && player.money >= 2 * currentMinBet) {
+            opt1->buttonText.setString("Raise [Q]");
+            opt1->buttonText.setFillColor(sf::Color::White);
+        } else {
+            // Already raised
+            if (player.hasRaised && !isHeadsUp) {
+                opt1->button.setOutlineColor(sf::Color(100, 100, 100));
+                opt1->buttonText.setFillColor(sf::Color(100, 100, 100));
+                opt1->buttonText.setString("No Reraises");
+            // Can't afford to raise
+            } else {
+                opt1->button.setOutlineColor(sf::Color::Red);
+                opt1->buttonText.setString("Can't Raise");
+            }
+        }
     }
 
     while (!validAction) {
+        // Control betBox floor and ceiling
+        betBox->ceil = player.money;
+        if (hasOpened) {
+            betBox->floor = 2 * currentMinBet;
+        } else {
+            betBox->floor = currentMinBet;
+        }
+
         if (!hasOpened) {
             // Bet
             if (option == 1) {
-                validAction = player.bet(&currentMinBet, betBoxInput, *report);
+                validAction = player.bet(&currentMinBet, betInput, *report);
                 if (validAction) {
                     hasOpened = true;
-                    betBox->setString("");
+                    betBox->mainBox->setString("");
                     showBetBox = false;
                 }
             // Check
@@ -808,9 +829,9 @@ bool Game::getAction(Player& player) {
         } else {
             if (!player.hasRaised || isHeadsUp) {
                 if (option == 1) { // Raise
-                    validAction = player.raise(&currentMinBet, betBoxInput, *report);
+                    validAction = player.raise(&currentMinBet, betInput, *report);
                     if (validAction) {
-                        betBox->setString("");
+                        betBox->mainBox->setString("");
                         showBetBox = false;
                     }
                 } else if (option == 2) { // Call
@@ -893,7 +914,6 @@ void Game::showdown() {
                 continue;
             }
 
-            report->text.setFillColor(sf::Color::Yellow);
             report->text.setString("Showdown");
             delay(medDelayTime);
 
@@ -905,7 +925,6 @@ void Game::showdown() {
             vector<Player*> leadingPlayers;
 
             for (Player& player : players) {
-                player.highlightColor = sf::Color::Yellow;
                 if (player.isIn) {
                     player.highlight = true;
 
@@ -967,14 +986,13 @@ void Game::showdown() {
 
             for (int i=0; i<players.size(); i++) {
                 players[i].highlight = false;
-                players[i].highlightColor = sf::Color::Cyan;
+                players[i].highlightColor = sf::Color::Yellow;
                 if (players[i].money == 0) {
                     cout << players[i].name << " goes bankrupt\n";
                     players.erase(players.begin()+i);
                     i--;
                 }
             }
-            report->text.setFillColor(sf::Color::Cyan);
             showdownFinished = true;
         }
     }

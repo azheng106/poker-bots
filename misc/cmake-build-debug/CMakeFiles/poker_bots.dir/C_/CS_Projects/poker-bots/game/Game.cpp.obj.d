@@ -304,4 +304,5 @@ CMakeFiles/poker_bots.dir/C_/CS_Projects/poker-bots/game/Game.cpp.obj: \
  C:\CS\ Projects\poker-bots\game\CardUtil.h \
  C:/CS\ Projects/poker-bots/gui/RecButton.h \
  C:/CS\ Projects/poker-bots/gui/TriButton.h \
- C:/CS\ Projects/poker-bots/gui/Table.h
+ C:/CS\ Projects/poker-bots/gui/Table.h \
+ C:/CS\ Projects/poker-bots/gui/BetBox.h
