@@ -154,7 +154,7 @@ void Game::initActionMenu() {
     opt2 = new RecButton(Misc::percentageToPixels(sf::Vector2f(18, 95), *window), Misc::percentageToPixels(sf::Vector2f(10, 6), *window), sf::Color::Transparent, sf::Color::White, *label2);
     opt3 = new RecButton(Misc::percentageToPixels(sf::Vector2f(29, 95), *window), Misc::percentageToPixels(sf::Vector2f(10, 6), *window), sf::Color::Transparent, sf::Color::Red, *label3);
 
-    betBox = new BetBox(Misc::percentageToPixels(sf::Vector2f(85, 92), *window), Misc::percentageToPixels(sf::Vector2f(24, 8), *window), regularFont);
+    betBox = new BetBox(Misc::percentageToPixels(sf::Vector2f(85, 92), *window), Misc::percentageToPixels(sf::Vector2f(24, 8), *window), regularFont, &bigBlindBet);
 }
 
 void Game::run() {
@@ -453,10 +453,13 @@ void Game::setupHand() {
             isFinished = true;
         }
 
+        playersBetting = 0;
+        playersFolded = 0;
         roundPot = 0;
         pot = 0;
         isHeadsUp = false;
         skipToEnd = false;
+        skipToNextHand = false;
 
         // Reset players
         for (Player& player : players) {
@@ -540,7 +543,8 @@ void Game::playHand() {
             lock_guard<mutex> lock(mtx);
 
             // Reset round variables at the start of each turn
-            for (turn=1; turn<=4; turn++) {
+            for (turn = 1; turn <= 4; turn++) {
+                cout << "Turn: " << turn << "\n";
                 calculateRoundPot();
                 currentMinBet = bigBlindBet;
                 hasOpened = false;
@@ -612,10 +616,13 @@ void Game::playHand() {
                     }
 
                     calculateRoundPot();
+                    if (skipToNextHand) break;
                 }
+                if (skipToNextHand) break;
                 calculatePot();
                 if (turn!=4) distributeCommunityCards();
             }
+            if (skipToNextHand) break;
             std::cout << "Hand finished\n\n";
             currentState = GameState::SHOWDOWN;
             stopPlayHand();
@@ -862,10 +869,25 @@ bool Game::isTurnOver() {
 
     for (Player& player : players) {
         if (player.isIn && !player.isAllIn) {
-            if (playersBetting == 1 && player.currentBet == currentMinBet && playersFolded != players.size() - 1) {
+            // Skip to next hand, last unfolded player wins
+            if (playersBetting == 1 && playersFolded == players.size() - 1) {
+                skipToNextHand = true;
+                calculatePot();
+                player.win(pot, *report);
+
+                player.highlightColor = sf::Color::Green;
+                player.highlight = true;
+                delay(longDelayTime);
+                player.highlight = false;
+                player.highlightColor = sf::Color::Yellow;
+
+                stopPlayHand();
+                setupHandComplete = false;
+                currentState = GameState::SETUP_HAND;
                 skipToEnd = true;
             }
-            if (playersBetting == 1 && playersFolded == players.size() - 1) {
+
+            if (playersBetting == 1 && player.currentBet == currentMinBet && playersFolded != players.size() - 1) {
                 skipToEnd = true;
             }
             if (player.currentBet != currentMinBet) {

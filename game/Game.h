@@ -117,6 +117,7 @@ private:
     int playersBetting;
     bool isFinished;
     bool isHeadsUp;
+    bool skipToNextHand;
 
     // Players
     Player* dealer;

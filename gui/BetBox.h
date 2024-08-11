@@ -7,7 +7,7 @@
 
 class BetBox {
 public:
-    BetBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font);
+    BetBox(sf::Vector2f position, sf::Vector2f size, sf::Font& font, int* bigBlindAmt);
 
     // OK button pressed
     bool confirmed;
@@ -25,17 +25,19 @@ public:
     RecButton* confirmation;
     sf::Text* confirmationLabel;
 
-    RecButton* d4;
-    sf::Text* label_d4;
+    RecButton* s2;
+    sf::Text* label_s2;
 
-    RecButton* d2;
-    sf::Text* label_d2;
+    RecButton* s1;
+    sf::Text* label_s1;
 
-    RecButton* x2;
-    sf::Text* label_x2;
+    RecButton* a1;
+    sf::Text* label_a1;
 
-    RecButton* x4;
-    sf::Text* label_x4;
+    RecButton* a2;
+    sf::Text* label_a2;
+
+    int* bigBlindAmt;
 
     int updateBet();
     void handleEvent(sf::RenderWindow& window, sf::Event& event);
